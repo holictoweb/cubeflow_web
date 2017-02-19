@@ -1,0 +1,46 @@
+{% load staticfiles %}
+
+<script src="{% static "js/components/autocomplete.js" %}"></script>
+
+<div id="M_Search uk-panel cf-panel-box cf-panel-box-secondary  uk-margin-small-top  uk-margin-small-bottom ">
+	<div class = "uk-grid"  >
+		<div class="uk-width-3-6 ">
+		      <input type="text" class="" id="search_keyword" value = "" placeholder="Search what the for hashtags...">
+	  	</div>
+	</div>
+</div>
+<!--<div class="row">
+	<div class="col-lg-9">
+		<div class="uk-autocomplete " >
+		    <input type="text" id="auto_test">
+		</div>
+	</div>	
+</div>-->
+
+
+<script>
+	$(document).ready(function(){
+
+		$("#M_Search").on({
+		    mouseenter: function () {
+				$(this).addClass("cf-panel-box-secondary-selected");
+				$(this).removeClass("cf-panel-box-secondary");
+		    },
+		    mouseleave: function () {
+    			$(this).addClass("cf-panel-box-secondary");
+				$(this).removeClass("cf-panel-box-secondary-selected");
+		    }
+		});
+
+		//$("#auto_test").keyup(doAutoTest);
+
+		if( "{{M_search_type}}" == "C" ){
+			$("#search_btn").on("click", function(){
+				doSearch();
+			});
+		}
+		else if ( "{{M_search_type}}" == "U" ){
+			$("#search_btn").on("click", doSearchUser );
+		}
+	});
+</script>

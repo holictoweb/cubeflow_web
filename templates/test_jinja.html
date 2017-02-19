@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <ul>
+  {% for shell in intershell_retrieve %}
+			<li><a href="/intershell/{{shell.shell_id}}"> {{shell.shell}} - {{shell.user_id}} - {{shell.create_dt}} </a>     </li>
+	{% endfor %}
+  </ul>
+{% endblock %}

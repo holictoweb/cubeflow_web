@@ -1,0 +1,156 @@
+
+<div class="M-Profile " id = "M_Profile" >
+	{% if M_profile_type == "U" %}
+		{% if M_Profile_retrieve %}
+			{% for profile in M_Profile_retrieve %}
+				<div class="cf-panel cf-panel-box cf-panel-box-secondary uk-margin-small-top  uk-margin-small-bottom ">
+					<article class="uk-article uk-margin-small-left uk-margin-small-right">
+						<div uk-grid>
+							<div class="uk-width-17-20">
+								<h1 class="cf-article-title">{{profile.username}}</h1>
+							</div>
+							<div class="uk-width-2-20 uk-align-right">
+								{% if profile.auth_check = 1 %}
+								<button class="uk-button uk-button-secondary uk-button-mini profile-update " value="{{profile.user_id}}" >EDIT</button>
+								{% elif profile.auth_check = 0 %}
+								<button class="uk-button uk-button-secondary uk-button-mini connect-user " value="{{cube.cube_id}}" >connect</button>
+								{% endif %}
+							</div>
+
+							<div class="uk-width-1-1">
+								<p class="uk-article-meta">{{profile.last_login}}  / {{profile.email}} /connection :  {{profile.con_count}} / created cube : {{profile.cube_count}}</p>
+							</div>
+							<div class="uk-width-1-1">
+								<p class="uk-text-lead"> {{profile.comment}}</p>
+							</div>
+						</div>
+					</article>
+				</div>
+			{% endfor %}
+		{% endif %}
+	{% elif M_profile_type == "updateR" %}
+		{% if M_Profile_retrieve %}
+			{% for profile in M_Profile_retrieve %}
+			<div class="uk-form-horizontal">
+				<div>
+					<span>{{profile.username}}</span>
+				</div>
+				<div class="uk-margin-small-bottom">
+					<label class="uk-form-label" for="new_nick_name">nick name</label>
+					<div class="uk-form-controls uk-margin-small-top ">
+						<input class="uk-input uk-form-width-expand " id="new_nick_name" type="text"  placeholder="" value="{{ profile.nick_name }}">
+					</div>
+				</div>
+				<div class="uk-margin-small-bottom">
+					<label class="uk-form-label" for="new_comment">comment</label>
+					<div class="uk-form-controls uk-margin-small-top ">
+						<textarea class="uk-textarea uk-form-width-expand" rows="5" id="new_comment" placeholder="" >{{ profile.comment }}</textarea>
+
+					</div>
+				</div>
+				<div class="uk-margin-small-bottom">
+					<label class="uk-form-label" for="empty"></label>
+					<div class="uk-form-controls" id="empty">
+						<button class="uk-button uk-button-mini uk-button-primary uk-width-6-20" id="btnProfileUpdate" value="{{profile.user_id}}">UPDATE</button>&nbsp;
+						<button class="uk-button uk-button-default uk-button-mini uk-width-6-20" id="btnProfileCancel">Cancel</button>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		{% endif %}
+	{% elif M_profile_type == "U_old" %}
+		{% if M_Profile_retrieve %}
+			{% for profile in M_Profile_retrieve %}
+				<div class="cf-panel cf-panel-box cf-panel-box-secondary uk-margin-small-top  uk-margin-small-bottom ">
+					<div class="wrap-flow-target" >
+						<span class="" >@{{profile.username}} - {{profile.last_login}}  / {{profile.email}} /connection :  {{profile.con_count}} / created cube : {{profile.cube_count}}</span>
+					</div>
+				</div>
+			{% endfor %}
+		{% endif %}
+	{% elif M_profile_type == "P" or M_profile_type == "D" %}
+		{% if M_Profile_retrieve %}
+			{% for profile in M_Profile_retrieve %}
+				<div class="cf-panel cf-panel-box cf-panel-box-secondary uk-margin-small-top  uk-margin-small-left uk-margin-small-right">
+					<div class="wrap-flow-target" >
+						<span class="" >@{{profile.username}} - {{profile.last_login}}  / {{profile.email}} /connection :  {{profile.con_count}} / created cube : {{profile.cube_count}}</span>
+					</div>
+				</div>
+			{% endfor %}
+		{% endif %}
+	{% else %}
+	<div class="uk-panel cf-panel-box cf-panel-box-secondary uk-margin-small-top uk-margin-small-bottom ">
+		<ul class="profile-ul">
+		{% if M_profile_type == "L" %}
+			<!-- ### list type profile -->
+			{% if M_Profile_retrieve %}
+				{% for profile in M_Profile_retrieve %}
+				<!-- ##### for Search user -->
+				<li id="profile-li connect_{{profile.user_id}}">
+					<p>
+						<i class="uk-icon-user" value="{{profile.user_id}}"></i> username : {{profile.username}}  / {{profile.email}} /connection :  {{profile.con_count}} / created cube : {{profile.cube_count}}
+					</p>
+				</li>
+
+				{% endfor %}
+			{% endif %}
+		{% else %}
+			<!-- #### type F : full profile -->
+			{% if user and not user.is_anonymous %}
+				<li id="Muser_id" value="{{user.id}}" style="display:none">
+					{{user.id}}
+				</li>
+				<li class="">
+					<a class="hovercard-user user-link"  value="{{user.id}}">{{user.username}} </a>
+
+
+					<button type="uk-button uk-button-small"><a href="{% url 'auth:logout' %}?next=/">log out</a></button>
+				</li>
+
+			{% else %}
+				<!--<li>
+				   <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
+			   </li> -->
+				<li>
+				   <!--<a href="{% url 'intershell:zero_login' %}?next={{ request.path }}&login_type='C'">Login with connshell</a>-->
+					<a href="{% url 'intershell:zero_login' %}">Login cubeflow</a>
+				</li>
+			{% endif %}
+
+			{% if user.is_authenticated %}
+				{% if M_Profile_retrieve %}
+					{% for profile in M_Profile_retrieve %}
+
+					<span class="uk-article-meta">  con :  {{profile.con_count}} / cube : {{profile.cube_count}} / {{profile.last_login}}</span>
+					{% endfor%}
+				{% endif %}
+			{% else %}
+				<p>login or JOIN US</p>
+			{% endif %}
+		{% endif %}<!--finish--->
+
+		</ul>
+	</div>
+	{% endif %}
+</div>
+
+
+<style type="text/css" id="M_Profile_css">
+	<!--
+	.profile-ul {
+		padding-left: 0px;
+	}
+
+
+	//-->
+</style>
+
+<script>
+	//M_Profile.html load script
+	$(document).ready(function(){
+		//alert("M_Profile loaded.....");
+		$(".uk-icon-user").click(doConnectUser);
+		$(".profile-update").on("click", doProfileUpdateForm);
+		$("#btnProfileUpdate").on("click", doProfileUpdate);
+	});
+</script>

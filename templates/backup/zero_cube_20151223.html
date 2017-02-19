@@ -1,0 +1,241 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %} intershell_create.html {% endblock %}
+
+
+{% if error_message %} <p><strong>{{error_message}}</strong></p>{% endif %}
+
+
+
+{% block docreadyscript%}
+	var dragging = 0;
+
+	/*
+    $( "#shell_list" ).selectable({
+		stop: function() {
+			
+			alert('test');
+	    	$( ".ui-selected", this ).each(function() {
+		        var index = $( "#shell_list li" ).index( this );
+		        alert( " #" + ( index + 1 ) );
+	    	});
+	    }
+    });
+	*/
+
+	<!--START of cube-shell sytle-->
+	$(".cube-shell").click(function(event){
+		/*
+		 * 1. meta 정보를 보여 주기 (시간/ connect 숫자 / )  
+		 * 2. 추가 shell 생성 element(li) 생성 
+		 * 3. 현재 clicked인지 아닌지에 대한상태 표시
+		 *
+		 */
+		
+		if( dragging == 0 ){
+			//var child_node = $(this).children('#shell_action').css("display", "block");
+			var child_node = $(this).children('#shell_action, #shell_connect_down, #shell_connect_up').toggle();
+			
+			$('#shell_connect').remove();
+			var con_shell = $("#shell_connect_dup").clone().prop({id:"shell_connect"} );
+			
+			
+			
+		}
+		else if( dragging == 1){ //alert to check connection change
+			
+		}
+		else return false;
+ 	});
+    
+    
+    /* shell create 
+    $("#shell_text").focus(function(event){
+    	
+    	$(this).css("rows","3"); 
+    	alert('con_shell clicked!');
+    });
+    
+    $("#shell_text").blur(function(){
+    	alert('test');
+    });
+    
+    $("con_shell_text").focus(function(){
+    	alert('test');
+    });
+    */
+    
+    $('#ajax_test').click(function() {
+    	alert('ajax_test');
+    	//data = $('#ajax_data').val();
+        $.ajax({
+        	type:'get',
+            url:baseUrl+'intershell/zero_ajax/',
+			dataType:"JSON",
+            success:function(data){
+            	doTest();
+            	$("#ajax_data").css('color', 'red');
+            	$.each(data, function(i,item){   
+		          alert(item.shell);
+		        });   
+            },
+            error:function(){
+            	alert('error');
+            }
+            
+        });
+    });
+    
+    // Drag
+    $( ".sortable" ).sortable({
+	   	//placeholder: "ui-state-highlight",
+    	cursor: "move",
+    	revert: true
+    });
+    
+    $(".sortable").mousedown(function(){
+    	dragging = 0;
+    	$(this).mousemove(function(){
+    		dragging = 1;
+    	});
+
+    	
+    });
+    
+    $( ".draggable" ).draggable({
+      connectToSortable: ".sortable",
+      cursor: "move",
+      helper: "clone",
+      revert: "invalid"
+      
+      
+    });
+    
+    //$( "ul, li" ).disableSelection();
+    
+	//change to edit
+	$('#shell_span').click(function() {
+		var text = $("#shell_span").text();
+		
+		var input = $('<input id="shell_edit" type="text" value="' + text + '" />');
+		$("#shell_span").text('').append(input);
+		
+		var text = $("#shell_edit").val();
+		$("#shell_edit").parent().text(text);
+		$("#shell_edit").remove();
+
+	});
+
+    
+
+
+    
+{% endblock %}
+
+
+{% block scripts %}
+	<script src="{% static "zero/zero.js" %}"></script>	
+{% endblock %}
+
+{% block csslink %}
+	<link rel"stylesheet" href="{% static "zero/zero.css" %}" />
+
+	<style type="text/css">	
+	 <!--
+
+		li {
+		    display: list-item;
+		    list-style:none;
+		    list-style-type: none;
+		    text-align: -webkit-match-parent;
+		}
+		 
+		li.shell, ul.full li.item {
+		    border-top: 1px solid #000;
+		    clear: both;
+		    width: 100%;
+		    background-image: url(//lbstatic.nu/assets/clear-b3f96f160b75b1b49b426754ba188fe8.gif);
+		    position: relative;
+		    zoom: 1;
+		    padding-bottom: 48px;
+		}
+		
+		.form-md-control{
+			width:200px;
+		}
+		
+		.cube-shell {
+		    background: #fff;		    
+		    border-bottom: 1px solid #000000;
+		    background-clip: padding-box;
+		    cursor: pointer;
+		}
+		.cube-shell:hover
+		{
+		   background-color:#e1e8ed
+		}
+		
+		.shell_connect_link
+		{
+			background:#FFF5FF;
+		}
+		
+		.empty_cube{color:#999999;}
+		
+	 //-->
+	 </style>
+{% endblock %}
+
+
+{% block conContent_2 %}
+
+	<!--<div class = "well" >
+		{% for user in zero_user %}
+		<p style="font-family: Arial, Helvetica, sans-serif">username : {{user.username}} / email : {{user.email}} / lastlogin : {{user.last_login}} </p>
+		{% endfor %}
+	</div>
+
+		
+	{% for meta in zero_cube_meta %}
+			<li class ="cube-shell">
+				{{meta.cube}}
+			</li>
+	{% endfor %}-->
+	
+	
+	<div id = "main_content">
+		<ul id = "shell_list" class = 'sortable'>
+			<li style = "border-top: 1px solid #000000">
+			</li>
+
+			<li>test list </li>
+			
+			{% if zero_cube_detail %}
+			{% for cube_detail in zero_cube_detail %}
+			<li class ="cube-shell">
+				<div style="display: block">
+					<span id="Pshell_id">{{cube_detail.shell_id}}</span>
+				</div>
+			
+				<div id = "hashdata" class = "shell_hash" >
+					{{cube_detail.tag}}					
+				</div>
+				<!--################################################################-->
+				<div class = "shell">
+					<span id="shell_span">{{cube_detail.shell}}</span>	
+				</div>
+				
+				<div id="shell_action" style="display:none">
+					<small>{{cube_detail.create_dt}}</small>
+					<a href="#" title="Header" data-toggle="popover" data-trigger="hover" data-content="this will use"><span class="glyphicon glyphicon-plus">connect</a>
+				</div>
+			</li>
+			{% endfor %}
+			{% endif %}	
+			
+			
+		</ul>
+	</div>
+{% endblock %}

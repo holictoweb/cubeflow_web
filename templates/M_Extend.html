@@ -1,0 +1,35 @@
+<!-- extend type
+	R : retrieve (by cube)
+	L : list of hashtag
+-->
+
+
+{% if M_extend_type == "R" %}
+<div id="M_Tag">
+	<div style='display:none'><!--### hidden meta data--></div>
+    <p>hashtag :
+	{% if M_Extend_retrieve %}
+		{% for ex in M_Extend_retrieve %}
+			<a class="extend-list cf-article-meta" value="{{ex.extend}}">#{{ex.extend}}</a>
+		{% endfor %}
+	{% endif %}
+	</p>
+</div>
+{% elif  M_extend_type == "H" %}
+	{% if M_Extend_retrieve %}
+	<div class="M-Extend ex-div" >
+		<!--### for HashTag Cloud-->
+		<ul class="ex-ul uk-sortable uk-grid uk-grid-small uk-grid-width-1-10 uk-grid-width-small-1-4  uk-margin-remove " uk-sortable>
+				{% for ex in M_Extend_retrieve %}
+				<li class="ex-li">
+					<div class="uk-panel cf-panel-box">
+						<a class="hashtag-list cf-article-meta" value="{{ex.extend}}">#{{ex.extend}}</a>
+					</div>
+				</li>
+				{% endfor %}
+		</ul>
+	</div>
+	{% endif %}
+{% endif %}
+
+

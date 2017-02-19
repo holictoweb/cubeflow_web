@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %} CubeFlow {% endblock %}
+
+
+{% if error_message %} <p><strong>{{error_message}}</strong></p>{% endif %}
+
+
+
+{% block docreadyscript%}
+{% endblock %}
+
+
+{% block scripts %}
+	<script src="{% static "zero/zero.js" %}"></script>
+	<script src="{% static "zero/one.js" %}"></script>
+	<script src="{% static "js/jquery.hashtags.js" %}"></script>
+	<script src="{% static "js/autosize.min.js" %}"></script>
+{% endblock %}
+
+{% block csslink %}
+	<link rel"stylesheet" href="{% static "zero/zero.css" %}" />
+
+	<style type="text/css">	
+	 <!--
+
+		li {
+		    display: list-item;
+		    list-style:none;
+		    list-style-type: none;
+		    text-align: -webkit-match-parent;
+		}
+		 
+		li.shell, ul.full li.item {
+		    border-top: 1px solid #000;
+		    clear: both;
+		    width: 100%;
+		    background-image: url(//lbstatic.nu/assets/clear-b3f96f160b75b1b49b426754ba188fe8.gif);
+		    position: relative;
+		    zoom: 1;
+		    padding-bottom: 30px;
+		}
+		
+		.flow-content:hover{
+		   	background-color:#e1e8ed
+		}
+		
+		.selected-flow{
+			background-color:#e1e8ed
+		}
+
+		
+	 //-->
+	 </style>
+{% endblock %}
+
+{% block static%}
+	{% include "M_Cube_static.html" %}
+	{% include "M_Shell_static.html" %}
+	{% include "M_Flow_static.html" %}
+{% endblock %}
+
+
+{% block documentreadyscript %}
+	//nav setting
+	
+	$(".active").removeClass("uk-active");
+	$('.nav-li-flow').addClass("uk-active");
+
+	doCubeMode("T"); //retrieve ShellList
+
+	doRetrieveNavSession();
+	doRetrieveNav( event, 'retrieveH' );
+
+	doInitCubeSticky("F");
+
+{% endblock %}
+	
+{% block topControl %}
+
+	{% include "M_TopControl.html" with M_topcontrol_type="C" %}
+
+{% endblock %}
+
+{% block conContent %}
+	{% include "M_Modal.html" with M_modal_type="F" %}
+	
+	{% if M_flow_type == "O" %}
+		{% include "M_cube.html" %}
+	{% elif M_flow_type == "S" or M_flow_type == "SF" %}
+		{% include "M_shell.html" %}
+	{% endif %}
+
+	{% include "M_Flow.html"  %}
+
+{% endblock %}
+
+{% block rsideControl %}
+	{% include "M_Nav.html" with M_nav_type="retrieveM" %}
+{% endblock %}

@@ -1,0 +1,145 @@
+
+
+<div id="M_Flow"  class="M-Flow uk-grid">
+	<div style='display:block'>
+        <p id="flow_scroll" value="0"></p>
+		<p id="flow_type" value="{{M_flow_type}}"></p>
+	</div>
+	{% if M_flow_type == "U"  %}
+		<div  class="uk-padding-remove">
+			<span>Flower :
+			{% for flow in M_Flow_retrieve %}
+				<a class="flower-list cf-article-meta" value="{{flow.user_id}}">@{{flow.username}}</a>
+			{% endfor %}
+			</span>
+		</div>
+
+
+	{% elif  M_flow_type == "F"  %}
+		<!-- S : single cube flow data F:zero_flow Full data -->
+		<div class="uk-width-1-1">
+			<ul class="flow-ul ">
+				{% for flow in M_Flow_retrieve %}
+
+					{% if flow.con_type == "S" %}
+					<li class ="flow-li" >
+						<div class="uk-panel cf-panel-box cf-panel-box-secondary shell-content" >
+							{{flow.shell}}
+						</div>
+
+						<div class="uk-grid">
+					{% elif flow.con_type == "F" %}
+
+							<div class="uk-width-1-1 uk-margin-small-bottom">
+
+								<article class="uk-article uk-panel cf-panel-box cf-panel-box-secondary">
+									<div calss="uk-grid">
+										<div class="uk-width-3-5">
+											<a class="cube-title cf-article-title uk-link-muted" value="{{flow.cube_id}}" >{{flow.cube}}</a>
+											<a class='uk-icon-hover uk-icon-external-link modal-cube-link uk-margin-left' value="{{flow.cube_id}}" style="visibility:hidden"></a>
+										</div>
+
+										<div class="uk-width-2-5">
+											<span class="cf-article-meta">
+												<a class="hovercard-user user-link" value="{{flow.cube_user_id}}" >@{{flow.cube_user}} </a>
+												{{ flow.update_dt}}/ connected : {{connect_shell_count}}
+											</span>
+										</div>
+										<div class="uk-width-1-1 ">
+											<span class = "shell cf-article-lead uk-text-break"  style="white-space:normal"  value="{{flow.shell_id}}">{{flow.first_shell}}</span>
+										</div>
+									</div>
+								</article>
+
+							</div>
+
+					{% endif %}
+
+					{% if flow.con_type == "S" %}
+						</div>
+					</li>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</div>
+
+	{% elif M_flow_type == "S"  %}
+		<!-- S : single cube flow data F:zero_flow Full data -->
+		<div class="uk-width-1-1">
+			<hr class="sub-hr-1">
+			<ul class="flow-ul">
+				{% for flow in M_Flow_retrieve %}
+				<li class ="flow-li" >
+
+					<div class="uk-grid">
+						<article class="uk-article uk-panel cf-panel-box cf-panel-box-secondary">
+							<div calss="uk-grid">
+								<div class="uk-width-3-5">
+									<a class="cube-title cf-article-title uk-link-muted" value="{{flow.cube_id}}" >{{flow.cube}}</a>
+								</div>
+
+								<div class="uk-width-2-5">
+									<span class="cf-article-meta">
+										<a class="hovercard-user user-link" value="{{cube.user_id}}" >@{{flow.cube_user}} </a>
+										<a class="hovercard-user user-link" value="{{cube.user_id}}" >@{{flow.cube_user}} </a>
+										{{ flow.update_dt}}
+									</span>
+								</div>
+								<div class="uk-width-1-1 ">
+									<span class = "shell cf-article-lead uk-text-break"  style="white-space:pre-wrap"  value="{{flow.shell_id}}">{{flow.first_shell}}</span>
+								</div>
+							</div>
+						</article>a
+
+					</div>
+					<hr class="sub-hr-1 ">
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+	{% elif M_flow_type == "O" %}
+		<div>
+
+			<ul>
+				{% for flow in M_Flow_retrieve %}
+				<li class ="connect-li" value="{{flow.target_id}}">
+					<div class="uk-grid">
+						<div class = "uk-width-1-1 connect-target" ><!--connect target-->
+								{{flow.cube}}
+							{{flow.con_id }} / {{flow.shell}} 
+						</div>
+					</div>
+				</li>
+				{% empty %}
+					## no flow exists.
+				{% endfor%}
+			</ul>
+		</div>
+		<div class="uk-grid-collapse shell-flow" style="display:none">
+			
+		</div>
+	{% elif M_flow_type == "S"  %} <!--old Single Shell-->
+		<hr class="sub-hr-1">
+		<ul class="flow-ul">
+			{% for flow in M_Flow_retrieve %}
+			<li class ="flow-li" >
+				<div class="uk-grid">
+					<div class= "flow-content" value="{{flow.cube_id}}/{{flow.shell_id}}">
+						<a class=" cube-title" value="{{flow.cube_id}}">{{flow.cube}}</a>
+						<span class="cf-article-meta">created by : <a class="hovercard-user user-link"  value="{{flow.user_id}}">@{{flow.cube_user}} </a>
+							&nbsp;&nbsp;updated at: {{flow.update_dt}}
+						</span>
+					</div>
+					<hr class="sub-hr-1 ">
+				</div>
+
+			</li>
+			{% endfor %}
+		</ul>
+
+	{% else %}
+		<p>flow others Cube!!</p>
+	{% endif %}
+</div>
+

@@ -1,0 +1,24 @@
+<div id = "sub_single_cube">
+	<!--cube meta data-->
+	<div>
+		<input type="text" id="target_shell">
+	</div>
+	<div style='display:none'>
+		<p id="shell_selected" value="0"></p>
+	</div>
+	<!--cubed shell list-->
+	<div id="sub_single_cube_2">
+		<ul class ="modal_cube_list">
+			{% if zero_cube %}
+			{% for cube_list in zero_cube %}
+			<li class="modal-cube" id="cube_list_{{cube_list.cube_id}}" value="{{cube_list.cube_id}}">
+				<div id="modal_cube">
+					<p class="modal-cube-list" value = "{{cube_list.cube_id}}">{{cube_list.cube_id}}-{{cube_list.cube}} - {{cube_list.username}}</p>
+				</div>
+			</li>
+			{% endfor %}
+			{% endif %}
+		</ul>
+	</div>
+	
+</div>

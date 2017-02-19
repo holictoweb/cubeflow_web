@@ -1,0 +1,104 @@
+
+
+<div class="M-Join uk-margin" id="M_Join">
+				
+	<!--shell create-->
+	<div class="uk-width-medium-1-1 uk-container-center  uk-panel cf-panel-box-cube">
+		<div class=" uk-margin-left uk-margin-right uk-margin-bottom">
+
+			 <form action="{% url 'intershell:zero_join_control'%}" method="post" id ="form_join">
+				{% csrf_token %} <!--cross site -->
+				<div class="uk-grid">
+					<div class="uk-width-1-1 uk-margin-small-top">
+						<input class="uk-input" type = "text" placeholder="EMAIL..." required="required" name = "username">
+					</div>
+					<div class="uk-width-1-1 uk-margin-small-top">
+						<input class="uk-input" type = "text" placeholder="nickname..."  required="required" name = "nickname">
+					</div>
+					<div class="uk-width-1-1 uk-margin-small-top">
+						<input class="uk-input" type="password" placeholder="input passwowrd" required="required" name = "password">
+					</div>
+					<div class="uk-width-1-1 uk-margin-small-top">
+						<input class="uk-input" type="password" placeholder="input passwowrd agiain" required="required" name = "password_check">
+					</div>
+					<div class="uk-width-1-1 uk-margin-small-top">
+						<!--<button type="submit" class="btn btn-primary uk-margin-top">JOIN</button>-->
+						<button class="uk-button uk-button-small uk-button-primary uk-width-1-1 join-btn" type="submit" >JOIN</button>
+					</div>
+				</div>
+			</form>
+        </div>
+
+		<hr class="uk-divider-icon">
+
+		<div class=" uk-margin-left uk-margin-bottom" >
+			<a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}"><span uk-icon="icon:facebook"></span>Login with Facebook</a>
+		</div>
+
+	</div>
+</div>
+
+<script class="M-Join-script">
+    $(document).ready(function(){
+		$("#form_join").validate({
+
+            submitHandler: function() {
+                var f = confirm("JOIN CUBEFLOW?");
+                if(f){
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            rules: {
+                username: {
+                    required : true,
+                    minlength : 5,
+                    remote: ""
+                    email : true
+                },
+                nickname: {
+                    required : true,
+                    minlength : 2
+                },
+                password: {
+                    required : true,
+                    minlength : 3
+                },
+                repassword: {
+                    required : true,
+                    minlength : 3,
+                    equalTo : password
+                }
+
+
+            },
+
+            messages : {
+                username: {
+                    required : "required ",
+                    minlength : "more than 1 char",
+                    email : "not email address"
+                    remote : "exist id"
+                },
+                nickname: {
+                    required : "required",
+                    minlength : "more than 1 char"
+                },
+                password: {
+                    required : "required",
+                    minlength : "more than 1 char"
+                },
+                repassword: {
+                    required : "required",
+                    minlength : "more than 1 char",
+                    equalTo : "not correct"
+                }
+
+            }
+        });
+
+
+
+    });
+</script>

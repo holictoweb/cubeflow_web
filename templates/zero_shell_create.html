@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %} Create Shell {% endblock %}
+
+{% if error_message %} <p><strong>{{error_message}}</strong></p>{% endif %}
+
+
+{% block csslink %}
+
+{% endblock %}
+
+{% block scripts %}
+	<script src="{% static "zero/zero.js" %}"></script>
+	<script src="{% static "zero/one.js" %}"></script>		
+	<script src="{% static "zero/jquery.session.js" %}"></script>	
+	
+	<script src="{% static "js/jquery.hashtags.js" %}"></script>
+	<script src="{% static "js/autosize.min.js" %}"></script>
+{% endblock %}
+	
+{% block cssstyle %}
+  #cube_shell_list { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #cube_shell_list li { margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em; height: 1.5em; }
+  html>body #cube_shell_list li { height: 1.5em; line-height: 1.2em; }
+  .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
+{% endblock %}
+
+{% block static%}
+	{% include "M_Shell_create_static.html" %}
+{% endblock %}
+
+{% block docreadyscript %}
+	
+	$(function() {
+	    $( "#cube_shell_list" ).sortable({
+	      placeholder: "ui-state-highlight"
+	    });
+		$( "#cube_shell_list" ).disableSelection();
+	});
+	
+    $("textarea").hashtags();
+    
+{% endblock %}
+
+{% if request.user == "AnonymousUser" %}
+	<p> test for user </p>
+{% endif %}
+
+{% if request.user.id == "None" %}
+	<p> test for user </p>
+{% endif %}
+
+{% block topControl %}
+	
+	{% include "M_TopControl.html " with type="C" %}
+{% endblock %}
+
+{% block conContent %}
+	{% include "M_shell_create.html "%}
+{% endblock %}

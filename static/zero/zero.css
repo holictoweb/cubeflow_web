@@ -1,0 +1,577 @@
+
+/* ========================================================================
+   Component: main tema
+ ========================================================================== */
+
+.cf-main-1 {
+  font-family: 'Fredericka the Great', cursive;
+}
+
+
+/* ========================================================================
+   Component: 
+ ========================================================================== */
+.guide-font{
+    font-size: 14px;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+/* ========================================================================
+   Component: 
+ ========================================================================== */
+.empty_cube{color:#999999;}
+
+
+
+/* ========================================================================
+   Component: read more
+ ========================================================================== */
+/*
+ * read more
+ */
+.morecontent span {
+    display: none;
+}
+.morelink {
+    display: block;
+}
+
+/* ========================================================================
+   Component: sub ul li 
+ ========================================================================== */
+/*
+ * sub ul li 
+ */
+ul.flow-sub-ul{
+	margin-top : 1px;
+	padding-left: 5px;
+}
+
+.sub-hr-1 {
+	margin-top:1px;
+	margin-bottom:1px;
+}
+
+
+/* ========================================================================
+   Component: old component 
+ ========================================================================== */
+/*
+ * shell create form CSS
+ */
+
+
+ul{
+	list-style-type: none;
+	list-style:none;
+ 	padding-left:0px;
+}
+		
+li {
+    display: list-item;
+    list-style:none;
+    list-style-type: none;
+    padding-left:0px;
+
+    text-align: -webkit-match-parent;
+}
+		 
+		 
+li.border_top{
+	border-top: 1px solid #000;
+}
+
+li.border_bottom{
+	border-bottom: 1px solid #000;
+}
+		
+li.shell, ul.full ,li.item {
+    border-top: 1px solid #000;
+    
+    clear: both;
+    width: 100%;
+    background-image: url(//lbstatic.nu/assets/clear-b3f96f160b75b1b49b426754ba188fe8.gif);
+    position: relative;
+    zoom: 1;
+    padding-bottom: 48px;
+}
+
+.shell_connect_link{
+	background:#FFF5FF;
+	text-align:center;
+}
+
+		
+.empty_cube{color:#999999;}
+		
+.row.equalheights {
+	overflow: hidden; 
+}
+		
+.modal .modal-body {
+    max-height: 420px;
+    overflow-y: auto;
+}
+		
+.select {
+	background-color:#E1E8ED;
+}
+
+/* ========================================================================
+   Component: common 
+ ========================================================================== */
+/*
+ * common
+ */
+
+.cf-hr{
+	margin-bottom: 15px;
+  margin-top : 5px;
+	border-color: #dddddd;
+}
+
+/* ========================================================================
+   Component: Cube 
+ ========================================================================== */
+/*
+ * Cube create form CSS
+ */
+.cf-cube-hr{
+	margin-bottom: 5px;
+  margin-top : 5px;
+  margin-left : 5px;
+  margin-right : 5px;
+	border-color: #dddddd;
+}
+
+.cf-cube-hr-selected{
+  margin-bottom: 5px;
+  margin-top : 5px;
+  margin-left : 5px;
+  margin-right : 5px;
+  border-color: #000000;
+}
+
+.cube-selected{
+    border-color:#5D5D5D;
+}
+
+.cube-title{
+    font-family: 'Raleway', sans-serif;
+}
+
+.cube-title-create{
+    font-size: 18px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.cube-title-meta{
+    font-size: 12px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.cube-ul {
+ 	padding-left: 0px;
+}
+
+
+.cube-add-shell {
+  width: 75px;
+}
+
+
+.mc-cube {
+  border-bottom: 1px solid #f8f8f8;
+}
+
+.mc-cube-select  {
+  background: #f8f8f8;
+}
+
+.mc-cube-li-over {
+   background: #f8f8f8;
+}
+
+
+/* ========================================================================
+   Component: Cube meta
+ ========================================================================== */
+
+
+/* ========================================================================
+   Component: user
+ ========================================================================== */
+
+.user-style {
+
+}
+
+
+/* ========================================================================
+   Component: Shell 
+ ========================================================================== */
+/*
+ * shell create form CSS
+ */
+
+.shell-content{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+}
+
+
+.shell-selected {
+   background: #f8f8f8;;
+}
+.shell-over {
+   background: #f8f8f8;
+}
+
+.create-input-shell{
+	width: 200px;
+} 
+
+.M-shell + .uk-grid{
+	margin-top:-35px;
+}
+
+.shell-overlay-border{
+  border: 1px solid #FFFFFF;
+  border-radius: 2px;
+}
+
+.shell-overlay-flow {
+  width: 70px;  
+}
+.shell-overlay-dev{
+  width: 70px;  
+}
+.shell-overlay-nav{
+  width: 70px;  
+}
+
+
+
+
+
+/* ========================================================================
+   Component: Extend
+ ========================================================================== */
+.ex-div {
+    background-color: #ffffff;
+    color: #444444;
+    /* border-style: double;
+    border-width: 1px;
+    border-radius: 0px;
+    border-color:#E5E5E5; */
+}
+
+.ex-ul {
+ 	padding-left: 0px;
+}
+.ex-li {
+  padding-left: 0px;
+}
+
+.hashtag {
+    /* background: -webkit-linear-gradient(#dce6f8, #bdcff1);
+	border-radius: 2px;
+	box-shadow: 0 0 0 1px #a3bcea; */
+	font-size: 14px;
+	white-space: pre-wrap;
+	word-break: break-word;
+	line-height: 20px;
+	color: #1a0dab;
+	font-weight: bolder;
+}
+
+.hashtag-list {
+  /*background: -webkit-linear-gradient(#dce6f8, #bdcff1);
+	 border-radius: 1px; 
+	box-shadow: 0 0 0 1px #a3bcea;*/
+	font-size: 12px;
+	white-space: pre-wrap;
+	word-break: break-word;
+	line-height: 20px;
+  color: #1a0dab;
+  cursor:pointer;
+  font-family: 'Raleway', sans-serif;
+  
+}
+
+.hashdir-list{
+  /*background: -webkit-linear-gradient(#dce6f8, #bdcff1);
+   border-radius: 1px; 
+  box-shadow: 0 0 0 1px #a3bcea;*/
+  font-size: 15px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 20px;
+  cursor:pointer;
+  font-family: 'Didact Gothic', sans-serif;
+}
+
+
+/* ========================================================================
+   Component: navigation
+ ========================================================================== */
+.nav-ul {
+ 	padding-left: 0px;
+}
+.nav-li {
+ 	padding-left: 0px;
+}
+
+
+.my-nav-ul {
+    padding-left: 0px;
+}
+
+/* ========================================================================
+   Component: TopControl and create
+ ========================================================================== */
+.profile-ul {
+ 	padding-left: 0px;
+}
+
+.create_li_content{
+	width:200px;
+}
+
+.cf-cursor-pointer {
+  pointer:cursor;
+}
+
+/* ================================================================================================================================================== */
+/* UK component */
+
+/* ========================================================================
+   Component: Article
+ ========================================================================== */
+/*
+ * Micro clearfix to make articles more robust
+ */
+.cf-article:before,
+.cf-article:after {
+  content: "";
+  display: table;
+}
+.cf-article:after {
+  clear: both;
+}
+/*
+ * Remove margin from the last-child
+ */
+.cf-article > :last-child {
+  margin-bottom: 0;
+}
+/*
+ * Vertical gutter for articles
+ */
+.cf-article + .cf-article {
+  margin-top: 15px;
+}
+/* Sub-object `uk-article-title`
+ ========================================================================== */
+.cf-article-title {
+  font-size: 23px;
+  line-height: 32px;
+  font-weight: normal;
+  text-transform: none;
+  margin-bottom:5px;
+    
+}
+.cf-article-title a {
+  color: #999999;
+  text-decoration: none;
+}
+
+/* Sub-object `uk-article-meta`
+ ========================================================================== */
+.cf-article-meta {
+  font-size: 12px;
+  line-height: 5px;
+  color: #999999;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+/* Sub-object `uk-article-lead`
+ ========================================================================== */
+.cf-article-lead {
+  color: #444444;
+  font-size: 14px;
+  line-height: 0.7;
+  font-weight: normal;
+}
+/* Sub-object `uk-article-divider`
+ ========================================================================== */
+.cf-article-divider {
+  margin-bottom: 15px;
+  margin-top : 5px;
+  border-color: #dddddd;
+}
+* + .cf-article-divider {
+  margin-top: 15px;
+}
+
+.cf-article-divider-top {
+  margin-bottom: 5px;
+  border-color: #dddddd;
+}
+
+.cf-article-divider-bottom {
+  margin-top : 5px;
+  border-color: #dddddd;
+}
+/*==========================================================================
+/*
+ * Sub-modifier: `uk-panel-box-secondary`
+ */
+.cf-panel-box-secondary-selected {
+  background-color: #ffffff;
+  color: #444444;
+  border-style: double;
+  border-width: 1px;
+  border-color:#G7G7G7;
+  border-radius: 3px;
+
+}
+.cf-panel-box-secondary {
+  background-color: #ffffff;
+  color: #444444;
+  border-style: solid;
+  border-width: 1px;
+  border-color:#E5E5E5;
+  border-radius: 1px;
+}
+
+.cf-panel-box-secondary-hover:hover {
+  color: #444444;
+}
+
+.cf-panel-box-secondary .cf-panel-title {
+  color: #444444;
+}
+.cf-panel-box {
+  /*padding: 5px;*/
+  background: #ffffff;
+  color: #444444;
+}
+
+.cf-panel-box-cube {
+  background-color: #ffffff;
+  color: #444444;
+  border-style: solid;
+  border-width: 1px;
+  border-color:#E5E5E5;
+}
+
+
+.cf-panel-box-cube-hover:hover {
+  color: #444444;
+}
+.cf-panel-box-cube .cf-panel-title {
+  color: #444444;
+}
+
+/*==========================================================================
+ * nestable component
+ */
+.cf-nestable-panel {
+  padding: 5px;
+  background: #E5E5E5;
+}
+
+
+/* Scrollable
+ ========================================================================== */
+/*
+ * Enable scrolling for preformatted text
+ */
+.cf-scrollable-text {
+  height: 300px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  resize: both;
+}
+/*
+ * Box with scrolling enabled
+ */
+.cf-scrollable-box {
+  box-sizing: border-box;
+  height: 170px;
+  /*padding: 10px;
+  border: 1px solid #dddddd;*/
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  resize: both;
+}
+.cf-scrollable-box > :last-child {
+  margin-bottom: 0;
+}
+
+/*==========================================================================
+hash tag plugin
+auth : 2016.03.11 lee joon ik
+reference site :
+http://www.jqueryscript.net/text/Facebook-Like-Hashtag-Highlighting-Plugin-with-jQuery-hashtags-js.html
+	========================================================================== */
+.jqueryHashtags .highlighter {
+  white-space: pre-wrap;
+  color: transparent;
+  overflow: hidden;
+  position: absolute;
+  padding-left: 7px;
+  padding-top: 5px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.jqueryHashtags .theSelector {
+  background-color: transparent;
+  position: relative;
+  direction: ltr;
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  resize: none !important;
+  -webkit-transition: height 0.2s;
+
+  min-height: 80px !important;
+  padding: 4px 6px;
+  vertical-align: middle;
+  line-height: 20px;
+}
+
+
+.jqueryHashtags_old .theSelector {
+  background-color: transparent;
+  position: relative;
+  direction: ltr;
+  font-size: 14px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  resize: none !important;
+  -webkit-transition: height 0.2s;
+  border: 1px solid #cccccc;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 4px 6px;
+  vertical-align: middle;
+  min-height: 100px !important;
+  line-height: 20px;
+}
+
+.jqueryHashtags .hashtag {
+  background: -webkit-linear-gradient(#dce6f8, #bdcff1);
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px #a3bcea;
+  font-size: 14px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 20px;
+}
+
+
+/* hash tag plugin
+ ========================================================================== */

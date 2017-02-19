@@ -1,0 +1,53 @@
+<div class="M-login uk-margin uk-align-center" id="M_Login">
+	<div class="uk-width-medium-1-1 uk-panel cf-panel-box-cube uk-container-center ">
+
+		<div class=" uk-margin-left uk-margin-top ">
+			<span class="uk-logo">CUBEFLOW</span>
+		</div>
+
+
+		<div class=" uk-margin-left uk-margin-right uk-margin-bottom " >
+			<form id="form_login"class="" method="post" action="{% url 'intershell:zero_default_auth'%}">
+				{% csrf_token %}
+				<div class="uk-grid">
+					<div class="uk-width-1-1 uk-margin-small-top">
+						<input class="uk-input" type ="" id="username" name="username" required="required" placeholder="input username...">
+					</div>
+
+                    <div class="uk-width-1-1 uk-margin-small-top" >
+						<input class="uk-input" type="password" id="password" name="password"  required="required" placeholder="input password...">
+					</div>
+                    
+                    <div class="uk-width-1-1 uk-margin-small-top" >
+						<button class="uk-button uk-button-small uk-button-primary uk-width-1-1" type="submit" >LOGIN</button>
+                        <!--<input type="submit" value="LOGIN" />-->
+                    </div>
+				</div>
+			</form>
+
+			<!--<li>
+			   	<a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Login with Google</a>
+			</li>
+			<li>
+			   	<a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a>
+			</li>-->
+
+		</div>
+		<hr class="uk-divider-icon">
+
+		<div class=" uk-margin-left uk-margin-bottom" >
+			<a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}"><span uk-icon="icon:facebook"></span>Login with Facebook</a>
+		</div>
+		
+	</div>
+
+</div>
+
+<script class="M-Login-script">
+    $(document).ready(function(){
+        $("#btnjoin").click(function(){
+            $(".join-div").toggle();
+        });
+
+    });
+</script>

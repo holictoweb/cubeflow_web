@@ -1,0 +1,109 @@
+ 
+{% if M_Create_type != "Q" %}
+	{% include "M_modal.html"  %}
+{% endif %}
+
+<div class="row" id="create_form">
+	<div style="display:none">
+		<p id="C_shell_id" value="{{shell_id}}"></p>
+		<p id="C_cube_id" value="{{cube_id}}"></p>
+	</div>
+	{% if M_cube_type != "O" %}
+		{% if M_Cube_retrieve  != "0" %}
+			{% include "M_Cube.html" with M_cube_type="R"  M_shell_type="R"  %}
+		{% else %}
+			<hr>
+			<div class = "row">
+				<div class="col-md-12">		
+					<label class="radio-inline test"><input type="radio" name="cuberadio" value="NC">New Cube</label>
+					<label class="radio-inline test"><input type="radio" name="cuberadio" value="EC">Exist Cube</label>
+				</div>	
+			</div>
+			
+			<div class = "row">
+				<div class="col-md-12" id="newCube" >
+					<label>CUBE : &nbsp;</label> <input type="text" id ="cube" width="300px">
+				</div>
+				<div class="col-md-12" id="exCube" sytle="display:none">
+					
+				</div>	
+			</div>
+			<hr>
+		{% endif %}
+	{% endif %}
+
+	{% if create_type == "Flow" %}
+		<div class="row">	
+			<div class="col-md-12">
+				<label class="radio-inline test1"><input type="radio" name="shellradio" value="NS" >with New shell</label>
+				<label class="radio-inline test1"><input type="radio" name="shellradio" value="JC">just connect</label>	
+			</div>
+		</div>
+	{% endif %}
+	
+	<div class="row" id="selected_cube">
+		
+	</div>
+	<div class="row">		
+		
+		<div class="col-md-12" id="target_radio" value="0">
+			<label class="radio-inline test1"><input type="radio" name="targetradio" value="PREV">PREV</label>
+			<label class="radio-inline test1"><input type="radio" name="targetradio" value="NEXT">NEXT</label>
+		</div>
+	
+		<hr>
+		
+		<div class = "shell_create col-md-12" id="newShell">
+			<label>SHELL : &nbsp; </label><textarea id="shell" cols="30" rows="5" placeholder="Create Shell (#-hashtags %-seperate shell)" style="margin: 0px; width: 688px; height: 271px;"></textarea>
+		</div>
+	</div>
+	<div class="row">
+		{% if M_Shell_retrieve != "0" %}
+			{% include "M_shell.html" with M_shell_type="R" %}
+		{% endif %}
+	</div>
+	<hr>
+
+	<div>
+		<span class="uk-button uk-button-mini" id="create_shell">create</span>
+	</div>
+</div>
+
+
+<!--## clone additional shell -->
+<li id="dupLi" style="display:none">
+	<span id="dupShell"></span>
+</li>
+
+
+
+<!-- ### M_shell_create load script -->
+<script>
+	
+	$(document).ready(function(){
+		
+		//modal scripts
+		$("#modal_cube").on('show.bs.modal', eventModalCubeOpen); 
+		$('#modal_cube').on('hidden.bs.modal', eventModalCubeClose);
+		$('#modal_cube_save_btn').click(doModalCubeSave);
+
+		$('input[type=radio][name=cuberadio]').change(doCubeRadio);
+		$('input[type=radio][name=shellradio]').change(doShellRadio);
+		$('input[type=radio][name=targetradio]').change(doTargetRadio);
+		
+	    $("input:radio[name=cuberadio][value=NC]").attr("checked","checked");
+	    $("input:radio[name=shellradio][value=NS]").attr("checked","checked");
+	    $("input:radio[name=targetradio][value=PREV]").attr("checked","checked");
+		
+		$('#create_shell').click(doTotalCreate);
+		
+		//$("textarea").hashtags();
+		$("#shell").hashtags();
+		
+		$('#shell').keyup(function() {
+		    $('#dupShell').html( $('#shell').val() );
+		});
+	});
+</script>
+
+

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+
+{% block title %} intershell index {% endblock %}
+
+
+
+{% block content %}
+{% if intershell_retrieve %}
+	<ul>
+		{% for shell in intershell_retrieve %}
+			<li><a href="/intershell/{{shell.shell_id}}"> {{shell.shell}} - {{shell.user_id}} - {{shell.create_dt}} </a>     </li>
+		{% endfor %}
+	</ul>
+
+{% else %}
+	<p>no shell exists.</p>
+{% endif %}
+
+
+
+{% if the_url %}
+  <a href="{% url 'intershell:intershell_index' %}">Link to optional stuff</a>
+{% endif %}
+
+{% endblock %}

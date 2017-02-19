@@ -1,0 +1,161 @@
+
+{% if M_modal_type == "S" %}
+<div id="modal_shell"  uk-modal>
+    <div class="uk-modal-dialog">
+
+        <div class="uk-modal-header shell-modal-header">
+        </div>
+
+        <div class="uk-modal-body uk-padding-remove" uk-overflow-auto>
+            <div uk-grid>
+                <div class="uk-width-1-1 modal-shell-flow-div  uk-margin uk-margin-small-left uk-margin-small-right">
+                </div>
+                <!--<div class="modal-shell-tag-div uk-panel cf-panel-box cf-panel-box-secondary uk-margin-small-bottom ">
+                </div>-->
+            </div>
+
+        </div>
+
+        <div class="uk-modal-footer uk-text-right">
+            <button class="uk-button uk-button-default uk-modal-close" type="button">Close</button>
+            <!--<button class="uk-button uk-button-primary" type="button">Save</button>-->
+
+        </div>
+
+    </div>
+</div>
+{% elif M_modal_type == "MC" %}
+
+<div id="modal_MC"  uk-modal>
+    <div class="uk-modal-dialog ">
+        <div class="uk-modal-header">
+
+            <div class="header">
+                <span class="guide-font"> Select Cube </span>
+            </div>
+        </div>
+
+        <div class="cube-list-div" style="max-height: 322px;" value="4"  uk-overflow-auto>
+        </div>
+        <div class="uk-modal-footer uk-text-right">
+            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+            <button class="uk-button uk-button-primary" type="button">Okay</button>
+        </div>
+        <div class="uk-modal-caption">Choose cube.</div>
+    </div>
+</div>
+
+{% elif M_modal_type == "C" %}
+<div id="modal_create" class="uk-modal M-Modal">
+	<div class="uk-modal-dialog">
+		<a class="uk-modal-close uk-close"></a>
+		<div class="uk-modal-header modal-cube-title">
+			<label><span>selected cube :</span><span id="select_cube"></span> </label> 
+		</div>
+        <div class="uk-overflow-container ">
+        	<div class="uk-grid-collapse">
+        		<div class="uk-width-1-1">
+        			<ul class="uk-nestable" data-uk-nestable>	
+        				
+        			</ul>
+        		</div>
+        	</div>
+        </div>
+        </p>
+        <div class="uk-modal-footer uk-text-right">
+        	<button type="button" class="uk-button">Cancel</button>
+        	<button type="button" class="uk-button uk-button-primary" id = "btnQuickCreate">create</button>
+        </div>
+		<div class="uk-modal-caption">QUICK CREATE</div>
+		 
+	</div>
+</div>
+
+
+{% elif M_modal_type == "Q" %}
+<div id="modal_create" class="M-Modal uk-modal">
+	<div class="uk-modal-dialog">
+		<a class="uk-modal-close uk-close"></a>
+		<div class="uk-modal-header modal-cube-title">
+			<label>CUBE : &nbsp;</label> <input type="text" id ="modal_cube" size="50" placeholder="{{request.user.username}}"></label>
+		</div>
+        <div class="uk-overflow-container ">
+        	<div class="uk-grid-collapse">
+        		<div class="uk-width-1-1">
+        			<ul class="uk-nestable" data-uk-nestable>	
+        				
+        			</ul>
+        		</div>
+        	</div>
+        </div>
+        </p>
+        <div class="uk-modal-footer uk-text-right">
+        	<button type="button" class="uk-button">Cancel</button>
+        	<button type="button" class="uk-button uk-button-primary" id = "btnQuickCreate">create</button>
+        </div>
+		<div class="uk-modal-caption">QUICK CREATE</div>
+		 
+	</div>
+</div>
+
+
+{% elif M_modal_type == "F" %}
+<!--### Flow list One Shell-->
+<div id="modal_flow" class="M-Modal uk-modal" value="modal-flow">
+    <div class="uk-modal-dialog">
+        <div class="uk-modal-header  uk-panel cf-panel-box cf-panel-box-secondary">
+        </div>
+
+        <div class="uk-overflow-container flow-list-div" style="max-height: 80px;">
+        </div>
+
+        <div class="uk-modal-footer uk-text-right uk-text-middle">
+            <button type="button" class="uk-button uk-button-small">more</button>
+            <!--<button type="button" class="uk-button uk-button-primary">Close</button>-->
+            <!--<span>showed flow list</span>-->
+            <button type="button" class="uk-modal-close uk-close uk-margin-bottom"></button>
+        </div>
+    </div>
+</div>
+
+<!--### select Exist cube-->
+<!--one cube modal popup!!!-->
+<div class="M-Modal uk-modal modal-cube" value="modal-cube">
+    <div class="uk-modal-dialog">
+        <div class="uk-modal-header  uk-panel cf-panel-box cf-panel-box-secondary">
+        </div>
+
+        <div class="uk-overflow-container modal-cube-div" style="max-height: 80px;">
+        </div>
+
+        <div class="uk-modal-footer uk-text-right uk-text-middle">
+            <!--<button type="button" class="uk-button">Cancel</button>-->
+            <!--<button type="button" class="uk-button uk-button-primary">Close</button>-->
+            <!--<span>showed flow list</span>-->
+            <button type="button" class="uk-modal-close uk-close uk-margin-bottom"></button>
+        </div>
+    </div>
+</div>
+
+
+
+{% elif M_modal_type == "TEST_full_modal" %}
+<!--### select Exist cube-->
+<div id="modal_MC_test" class="M-Modal uk-modal" aria-hidden="true" style="display: none; overflow-y: scroll;">
+    <div class="uk-modal-dialog uk-modal-dialog-blank">
+        <button class="uk-modal-close uk-close" type="button"></button>
+        <div class="uk-grid uk-flex-middle" data-uk-grid-margin="">
+            <div class="uk-width-medium-1-2 uk-height-viewport uk-cover-background uk-row-first" style="background-image: url('images/placeholder_120x255.svg');"></div>
+            <div class="uk-width-medium-1-2 uk-row-first">
+                <h1>Headline</h1>
+                <div class="uk-width-medium-1-3">
+                    <p>test for My CUBE</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+

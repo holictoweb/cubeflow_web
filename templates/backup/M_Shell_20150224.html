@@ -1,0 +1,136 @@
+
+<!--
+M_Shell type_code
+C - CUBE
+S - Shell list
+CN - connected shell list
+	
+-->
+
+{% include "zero_create_modal.html" %}
+
+
+
+<div class="row" id="M_Shell">
+	<div style='display:none'><!--###meta data-->
+		
+	</div>
+	
+	<article class="cf-article">
+		
+		<ul id = "shell_list">
+			<!--<li style = "border-top: 1px solid #000000"></li>-->
+			
+			<li>
+				<article class="uk-article">
+				    <h1 class="uk-article-title cube-title">Artice title</h1>
+				    <p class="uk-article-meta">written by holictoweb 2016/01/04</p>
+				    <p class="uk-article-lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				    
+				    <hr class="uk-article-divider">
+				    ...
+				</article>
+			</li>
+			
+			
+			{% if M_Shell_retrieve %}
+			{% for shell in M_Shell_retrieve %}
+			
+			<li class ="cube-shell">
+				<!--#### content-->
+				<div class = "shell_content" id ="shell_no{{shell.shell_id}}_{{shell.cube_id}}" ><!--shell content-->
+					
+					{% if shell.pre_con_id == 0 %}
+					<!--1. cube-->
+					<div class = "row" >
+						<!--#### shell list type-->
+						{% if M_Shell_type == 'C' or M_Shell_type = 'CN' or M_Shell_type = 'S' %}
+						<div class = "col-md-6 cube_meta" id="cube_data" >
+							<p class="cube-title cf-article-title" value="{{shell.cube_id}}" id="cube_title">{{shell.cube}}</p>
+							<p class="cf-article-meta">create by <a href="{% url 'intershell:zero_user_cube' %}" >{{shell.cube_user}}</a> &nbsp;&nbsp; {{shell.summary}} shell connected</p>
+						</div>
+						{% endif %}
+					</div>
+					<hr class="cf-article-divider">
+					{% endif %}
+					
+					<!--2. shell-->
+					<div class = "row shell-content" >
+						<div class = "col-md-11">
+							<span class = "shell cf-article-lead">{{shell.shell}}</span>
+						</div>
+						<div class = "col-md-1">
+							<div id="shell_action" rowspan="3" style="display:none">
+								<!--<span class="glyphicon glyphicon-align-left" aria-hidden="true" id="shell_act"></span>-->
+								<!-- Trigger the modal with a button -->							
+								<!--<span class="glyphicon glyphicon-plus" id="shell_con_add"></span>-->
+								
+								<div class="row">
+									<div = "col-md-1">
+										{% if M_Shell_type == 'S' and user_id != request.user.id %}
+										<span class = "glyphicon glyphicon-link connect_shell_act" id="connect_shell" value="{{shell.shell_id}}"></span>
+										{% endif %}		
+									</div>
+									<div = "col-md-1">
+										<p id="shell_id" value="{{shell.shell_id}}" style="display:none" >{{shell.shell_id}}</p>
+										<p id="cube_id" value="{{shell.cube_id}}" style="display:none">{{shell.cube_id}}</p>
+									</div>
+								</div>
+									
+							</div>
+						</div>
+					</div>
+					
+					<!--3. additional function-->
+					<div class = "row">
+						<!-- Cube recreate shell data -->
+						<div class = "col-md-6 shell_metadata" id = "metadata" >
+							<p class="cf-article-meta"><a href="{% url 'intershell:zero_user_cube' %}" >@{{shell.shell_user}}</a><!--## move to the profile page-->   /  connection  : precon - {{shell.pre_con_id}} nextcon - {{shell.next_con_id}}</small></p> 
+						</div>
+						
+						<div class = "col-md-3" id="adddata" >
+							<small>{{shell.create_dt}}</small>
+							<!--<a href="#" title="Header" data-toggle="popover" data-trigger="hover" data-content="this will use"><span class="glyphicon glyphicon-plus">connect</a>-->	
+						</div>
+					</div>
+					
+					<!--4. tag data-->
+					<div class="row">
+						<div class = "shell_hash col-md-12" id = "hashdata"  >
+							<strong>{{shell.tag}}</strong>					
+						</div>	
+					</div>
+					
+				</div><!--#### end of content-->
+				
+				<!--#### con shell-->
+				<div class="shell input-group col-md-6" id="connect_{{shell.shell_id}}_{{shell.cube_id}}" style="display:none" >
+				</div><!--#### end of con shell-->
+				
+			</li>
+			
+			
+			
+			{% endfor %}
+			
+			{% else %}
+				<p>no shell exists.</p>
+			{% endif %}	
+			
+			
+			<!--Start of template cube-con-shell -->
+			<!--<li id="shell_connect_dup" style="display:none" class="cube-con-shell">
+				<form action="{% url 'intershell:zero_con_shell_create' %}" method="post" id="shell_con_form">
+				   	{% csrf_token %}     	
+				     <div id="form_data" class="form-group" >
+				 	    <textarea id="con_shell_text" name="shell_connect" class="form-md-control" rows="1" ></textarea>
+				 	    <button type="submit" class="btn-xs btn-primary">CREATE</button>
+				 	    <span name = "type" style="display:none">con</span>
+				     </div>
+			     </form>
+			</li>-->
+			<!--End of template cube-con-shell -->
+			
+		</ul>
+	</article>
+</div>

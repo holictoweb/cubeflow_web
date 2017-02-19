@@ -1,0 +1,35 @@
+<div class="M-Info" id="M_Info" data-uk-sticky >
+    <div class="uk-panel cf-panel-box cf-panel-box-secondary">
+        <div class="uk-grid recommand-cube">
+            <div class="uk-width-1-1">
+                <span>Recommand</span>
+            </div>
+
+            <div class="uk-width-1-1 ">
+                <ul class="Info-ul" >
+                    <li class="info-li "></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<script id="M_nav_script">
+    $(document).ready(function(){
+       // $(".M-Info").on("click", ".uk-close", doRemoveNav);
+
+        $("#M_Nav").on({
+		    mouseenter: function () {
+				$(this).addClass("cf-panel-box-secondary-selected");
+				$(this).removeClass("cf-panel-box-secondary");
+		    },
+		    mouseleave: function () {
+    			$(this).addClass("cf-panel-box-secondary");
+				$(this).removeClass("cf-panel-box-secondary-selected");
+		    }
+		});
+
+    });
+</script>

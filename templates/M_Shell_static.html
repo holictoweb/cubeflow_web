@@ -1,0 +1,163 @@
+
+<style type="text/css" id="M_shell_css">	
+	<!--M_Shell.html static file CSS-->
+	 <!--
+	 
+	 
+	 .shell-list, .modal-cube{
+	    background: #fff;
+	    cursor: pointer;
+	 }
+	 
+	 .addAction{
+	 	font-size:small;
+	 }
+
+    .shell-add-div-meta {
+	 	margin-top:5px;
+	 	height: 10px;
+	 	vertical-align:text-bottom;
+	}
+	 
+	.shell-add-div-action {
+		height: 10px;
+		vertical-align:text-bottom;
+	}
+	 
+	.cube-meta-box {
+		margin-top: 10px;
+	}
+	 
+	.cube-meta-box:after {
+        margin-top: 10px;
+        content:"";
+        display:block;
+        clear:both;
+	}
+	 
+
+
+	//-->
+</style>
+
+
+<script id="M_shell_script">
+	<!--M_Shell.html static file SCRIPT-->
+	$(document).ready(function(){
+
+		//shell Detail Action (flow)
+		$("#conContent").on("click",".shell-detail-area", doMetaShellArea);
+		$("#conContent").on("click",".flow-shell", doRetrieveShellFlow);
+
+		$("#conContent").on("click",".shell-nav", doSelectShell);
+		$("#conContent").on("click", ".shell-modal", function(event){ event.stopPropagation(); });
+
+		$("#conContent").on("click", ".update-shell-edit", doShellEdit);
+		$("#conContent").on("click", ".update-shell-remove", doShellRemove);
+
+		$("#conContent").on("click", ".shell-edit-done",   doShellEditDone );
+		$("#conContent").on("click", ".shell-edit-cancel",   doShellEditCancel );
+
+		$("#conContent").on("click", ".shell-overlay-dev", doShellOverlayDev);
+
+		$("#conContent").on("click", ".shell-overlay-close", doShellOverlayClose);
+		$("#conContent").on("click", ".shell-overlay-next", doShellOverlayNext);
+
+
+		$("#modal_shell").on({
+		    'show.uk.modal': doModalShellShow,
+		    'hide.uk.modal': function(){
+				$(".modal-shell-flow-div").empty();
+				$("#modal_shell").find(".uk-modal-header").empty();
+		    }
+		});
+
+
+        $("#modal_flow").on({
+		    'show.uk.modal': function(){
+				var param = $(this).attr("value").split("_");
+				$.ajax({
+					type:"POST",
+					url:baseUrl + 'intershell/zero/flow/S/'+ param[0]+'/'+ param[2] + '/',
+					data:{"shell_id":$(this).attr("value")},
+					success:function(data){
+						$(".flow-list-div").append(data);
+					},
+					error:function(){
+						alert('## error retreive flow modal data!');
+					},
+				});
+		    },
+		    'hide.uk.modal': function(){
+		    	$("#modal_flow").find(".flow-list-div").empty();
+		    	$("#modal_flow").find(".uk-modal-header").empty();
+		    }
+		});
+
+		$("#conContent").on({
+		    mouseenter: function () {
+				var param  = $(this).attr("value").split("_");
+				$("#modal_flow").attr("value", $(this).attr("value"));
+				$("#modal_shell").attr("value", $(this).attr("value"));
+
+				if( !$(this).hasClass("shell-selected") ){
+					$(this).find("#shell_action").css("visibility","visible");
+        			$(this).addClass("shell-over");
+				}
+		    },
+		    mouseleave: function () {
+				if( !$(this).hasClass("shell-selected") ){
+					$(this).find("#shell_action").css("visibility","hidden");
+        			$(this).removeClass("shell-over");
+				}
+		    }
+		}, ".shell-li");
+
+
+		/*
+		var hoverHTMLUser= '<div id="hover_user"></div>'; 
+		    	
+		//### hovercard
+	    $(".hovercard-user").hovercard({
+	    	detailsHTML: hoverHTMLUser,
+	        width: 400,
+	        onHoverIn:function () {
+	        	
+	        	//alert(hoverHTMLUser);
+	        	
+	        	$("#hover_user").attr("id", "hover_user_clicked");
+	        		
+	        	//alert($(this).html());
+	        	
+	        	var user_id = $(this).find("a").attr("value");
+	        	
+				$.ajax({
+			   		type: "POST",
+			   		url:baseUrl+'intershell/zero/hoveruser/',
+			   		data:{user_id:user_id},
+			   		//dataType: "JSON",
+			   		success:function(data){
+			   			$("#hover_user_clicked").html(data);
+			   			
+			       },
+			        error:function(){ 
+			            alert('error');
+			        }
+			   	});
+	        },
+	        onHoverOut:function () {
+	        	//alert('hover out event');
+	        	//alert($(this).html());
+	        	
+	        	$("#hover_user_clicked").remove();
+	        }
+	    });
+	    */
+
+
+
+	    
+	 });
+</script>
+
+

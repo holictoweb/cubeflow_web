@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %} intershell_create.html {% endblock %}
+
+
+{% if error_message %} <p><strong>{{error_message}}</strong></p>{% endif %}
+
+
+
+{% block docreadyscript%}
+
+	//doCheckLogin();
+	
+	$('#shell_con_add').click(doModalOpen);
+		
+	
+	   
+	
+	
+	//modal event_old
+	$("#modal_shell").on('show.bs.modal', doModalOpenEvent); 
+	$('#modal_shell').on('hidden.bs.modal', doModalCloseEvent);
+	$('#modal_save_btn').click(doModalSave);
+	
+	
+	$( ".draggable" ).draggable();
+	//work## $('body > * ' ).css('color', 'red');
+
+
+	<!--START of cube-shell sytle-->
+	
+	
+
+    $("#shell_con_add").click(doAddcon);
+    
+    
+
+    
+    $("#shell_text").focus(function(event){
+    	
+    	$(this).css("rows","3");
+    	//alert('con_shell clicked!');
+    });
+    
+    $("con_shell_text").focus(function(){
+    	alert('test');
+    });
+
+    $('#createcube').click(function(){
+    	//alert('clicked!');
+    });
+    
+
+    <!--END of cube-shell sytle-->
+    
+    <!--dummy data 
+    	//##work $(event.target).children().css("color", "red");
+	 	//work## $(".cube-shell").css("display", "none");
+	 	//work## this.style.display="none";
+
+    -->
+    
+    
+{% endblock%}
+
+{% block scripts %}
+	<script src="{% static "zero/zero.js" %}"></script>
+	
+	
+{% endblock %}
+
+{% block csslink %}
+	<link rel"stylesheet" href="{% static "zero/zero.css" %}" />
+
+	<style type="text/css">	
+	 <!--
+	 //-->
+	 </style>
+{% endblock %}
+
+{% block static%}
+	{% include "M_Shell_static.html" %}
+    {% include "M_Cube_static.html" %}
+{% endblock %}
+
+<!--check login-->
+{% if user and not user.is_anonymous %}
+    {% block topControl %}
+        {% include "M_TopControl.html" %}
+    {% endblock %}
+{% else %}
+
+{% endif %}
+
+
+{% block mainLoginJoin %}
+    <div class="uk-width-medium-1-2 uk-width-large-1-1 main-login-join"  >
+        <ul uk-tab uk-switcher>
+            <li class="uk-active" aria-expanded="false"><a href="#">LOGIN</a></li>
+            <li aria-expanded="false" class=""><a href="#">JOIN</a></li>
+        </ul>
+
+        <ul id="tab-content" class="uk-switcher">
+            <li class="" aria-hidden="true">{% include "M_Login.html" %}</li>
+            <li aria-hidden="true" class="">{% include "M_Join.html" %}</li>
+        </ul>
+    </div>
+{% endblock %}
+
+
+{% block rsideControl %}
+    {% include "M_Nav.html" %}
+{% endblock %}
+
+
+
+
+
+
+
+

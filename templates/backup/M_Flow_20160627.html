@@ -1,0 +1,88 @@
+<!-- flow type
+	R: retrieve flower
+	F: flowed shell list
+-->
+
+<div id="M_Flow">
+	<div style='display:none'><!--### hidden meta data-->
+		
+	</div>
+	
+	{% if M_flow_type == "F"  %}
+		<ul class="flow-list">
+			{% for flow in M_Flow_retrieve %}
+			<li class="flow-li" >
+				<div class="uk-grid">
+					<div class= "uk-width-8-10 flow-content" value="{{flow.cube_id}}/{{flow.shell_id}}">
+						<div class="uk-grid-collapse">
+							<div class="uk-width-1-1">
+								{{flow.flow_type}} - {{flow.cube_id}}
+							</div>
+						</div>
+						<div class="uk-grid-collapse">
+							<div class="uk-width-1-1">
+								{{flow.cube}} / {{flow.shell_id}}-{{flow.shell}}	
+							</div>
+						</div>	
+						<hr>
+					</div>	
+					<div class= "uk-width-2-10 flow-side">
+						<p style="visibility: hidden"></p>
+					</div>
+				</div>
+			</li>
+			{% endfor %}
+		</ul>
+	{% elif M_flow_type == "O" %}
+		<ul>
+			{% for flow in M_Flow_retrieve %}
+			<li class ="connect-li" value="{{flow.target_id}}">
+				<div class="row-fluid ">
+					<div class = "connect-target" ><!--connect target-->
+						{{flow.con_id }} / {{flow.shell}} 
+					</div>
+				</div>
+			</li>
+			{% endfor%}
+		</ul>
+	
+	{% elif M_flow_type == "U"  %}
+		<p>Flower :
+		{% for flow in M_Flow_retrieve %}
+		<a class="flower-list cf-article-meta" value="{{flow.user_id}}">@{{flow.username}}</a>
+		{% endfor %}
+		</p>
+	{% endif %}	
+</div>
+
+<script>
+	$(document).ready(function(){
+
+		if ( '{{ M_connect_type }}' == 'F' ){
+			var target;
+			$( ".flower-list" ).each(function() {
+				target = $(this);
+				doProfile(target, '{{M_connect_type}}');
+			});
+		}   
+		
+		$(".flow-li").hover(
+		    function(e){
+		    	
+		    },
+		    function(e){
+
+		    }
+	    );
+	   	
+	   	//what the....
+	   	$(".flow-content").click(doRetrieveCube);
+		$(".flow-content").bind("click", function(event){
+			event.stopPropagation();
+			doRetrieveCube();
+		});
+
+	});
+	
+	
+</script>

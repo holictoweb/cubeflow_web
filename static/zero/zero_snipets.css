@@ -1,0 +1,167 @@
+
+.empty_cube{color:#999999;}
+
+
+
+/* ========================================================================
+   Component: old component 
+ ========================================================================== */
+/*
+ * shell create form CSS
+ */
+
+ul{
+	list-style-type: none;
+	list-style:none;
+ 			padding-left:0px;
+}
+		
+li {
+    display: list-item;
+    list-style:none;
+    list-style-type: none;
+    padding-left:0px;
+    text-align: -webkit-match-parent;
+}
+		 
+		 
+li.border_top{
+	border-top: 1px solid #000;
+}
+
+li.border_bottom{
+	border-bottom: 1px solid #000;
+}
+		
+li.shell, ul.full ,li.item {
+    border-top: 1px solid #000;
+    
+    clear: both;
+    width: 100%;
+    background-image: url(//lbstatic.nu/assets/clear-b3f96f160b75b1b49b426754ba188fe8.gif);
+    position: relative;
+    zoom: 1;
+    padding-bottom: 48px;
+}
+		
+.form-md-control{
+	width:200px;
+}
+		
+.cube-title{
+	font-weight: bold;
+}
+		
+	
+.cube-shell, .modal-cube{
+    background: #fff;
+    
+    background-clip: padding-box;
+    cursor: pointer;
+}
+
+.shell_content:hover{
+   background-color:#e1e8ed
+}
+		
+.shell_connect_link
+{
+	background:#FFF5FF;
+	text-align:center;
+}
+		
+.empty_cube{color:#999999;}
+		
+.row.equalheights {
+	overflow: hidden; 
+}
+		
+.modal .modal-body {
+    max-height: 420px;
+    overflow-y: auto;
+}
+		
+.select {
+	background-color:#E1E8ED;
+}
+
+
+/* ========================================================================
+   Component: Shell 
+ ========================================================================== */
+/*
+ * shell create form CSS
+ */
+
+.create-input-shell{
+	width: 200px;
+} 
+
+.shell-guide{
+	background:#E1E8ED;
+}
+
+
+/* ========================================================================
+   Component: Article
+ ========================================================================== */
+/*
+ * Micro clearfix to make articles more robust
+ */
+.cf-article:before,
+.cf-article:after {
+  content: "";
+  display: table;
+}
+.cf-article:after {
+  clear: both;
+}
+/*
+ * Remove margin from the last-child
+ */
+.cf-article > :last-child {
+  margin-bottom: 0;
+}
+/*
+ * Vertical gutter for articles
+ */
+.cf-article + .cf-article {
+  margin-top: 15px;
+}
+/* Sub-object `uk-article-title`
+ ========================================================================== */
+.cf-article-title {
+  font-size: 23px;
+  line-height: 32px;
+  font-weight: normal;
+  text-transform: none;
+}
+.cf-article-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Sub-object `uk-article-meta`
+ ========================================================================== */
+.cf-article-meta {
+  font-size: 12px;
+  line-height: 10px;
+  color: #999999;
+}
+/* Sub-object `uk-article-lead`
+ ========================================================================== */
+.cf-article-lead {
+  color: #444444;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: normal;
+}
+/* Sub-object `uk-article-divider`
+ ========================================================================== */
+.cf-article-divider {
+  margin-bottom: 15px;
+  border-color: #dddddd;
+}
+* + .cf-article-divider {
+  margin-top: 15px;
+}

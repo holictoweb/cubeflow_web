@@ -1,0 +1,134 @@
+
+{% load staticfiles %}
+
+{% include "M_Modal.html" with M_modal_type="Q"  %}
+
+
+<div class="uk-panel cf-panel-box cf-panel-box-secondary uk-margin-small-top " id="M_TopControl" uk-sticky="offset: 51" >
+	<div id="topcontrol_type" value="{% if user.is_authenticated %}C{% else %}Z{%endif%}" style="display:none"></div>
+	<div uk-grid>
+		<div class="uk-width-1-1" style="display:none">
+			<span id="M_topcontrol_type" value="{{M_topcontrol_type}}"></span>
+		</div>
+
+		<div class="uk-width-1-1 uk-margin-remove">
+			<div style="display:none"  class="" value="" id="TC_cube_mode"></div>
+            {% if M_topcontrol_type == "U" %}
+            <!--<div class="uk-width-expand user-data cf-panel-box-secondary uk-margin-small-left uk-margin-right">
+                <span>test</span>
+            </div>-->
+            {% endif %}
+
+			{% if user.is_authenticated %}
+			<button class="uk-width-1-1 uk-button  uk-button-small uk-button-primary uk-margin-small-top cube-not-selected" id="btnCreate" value="Create">Create New Cube</button>
+
+			<div class="cube-selected uk-margin-small-top" style="display:none">
+				<div class="uk-grid-collapse uk-child-width-expand@s " uk-grid>
+					<div>
+						<button class="uk-width-1-1 uk-button  uk-button-small uk-button-primary " id="btnUpdate" disabled>Update</button>
+					</div>
+					<div>
+						<button class="uk-width-1-1 uk-button  uk-button-small uk-button-secondary " id="btnUpdateForm" >Update Cube</button>
+					</div>
+					<div>
+						<button class="uk-width-1-1 uk-button  uk-button-small uk-button-secondary " id="btnAddNewShell" disabled > Add Shell</button>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+
+		</div>
+
+		<div class="uk-width-1-1" id="M_create_div" style="display:none">
+		{% if M_topcontrol_type == "C" %}
+			{% include "M_Create.html" %}
+		{% endif %}
+		</div>	
+		
+		<!--## This is the off-canvas sidebar -->
+		<div id="my-id" class="uk-offcanvas">
+		    <div class="uk-offcanvas-bar">
+		        <p style="color:white"></p>
+		    </div>
+		</div>
+	</div>
+</div>
+
+<script id="M_TopControl_script">
+	$(document).ready(function(){
+		
+		$("#M_TopControl").on({
+		    mouseenter: function () {
+				$(this).addClass("cf-panel-box-secondary-selected");
+				$(this).removeClass("cf-panel-box-secondary");
+		    },
+		    mouseleave: function () {
+    			$(this).addClass("cf-panel-box-secondary");
+				$(this).removeClass("cf-panel-box-secondary-selected");
+		    }
+		});
+
+		$("#M_TopControl").on("change", "input[name=radio_cube_check]", doCubeCheck);
+
+		//hidden create form
+		$("#M_TopControl").on("click","#btnCreate",doCreateForm);
+
+		$("#M_TopControl").on("click","#btnUpdate",doTotalUpdate);
+		$("#M_TopControl").on("click","#btnUpdateForm",doUpdateCubeForm);
+		$("#M_TopControl").on("click","#btnAddNewShell",doAddNewShell);
+
+
+
+		$(".flow-nav").on("click",".uk-close", doRemoveFlowTarget);
+		$("#modal_create").on("click",".uk-close", doRemoveFlowTargetModal );
+
+		$("#M_TopControl").on('active', doActiveTopControlSticky() );
+
+
+		$('#modal_create').on({
+		    'show.uk.modal': function(){
+		    	var quick_text = [];
+				quick_text = $(".quick-create")
+						.map(function(){
+							return $(this).attr("value");
+							})
+						.get().reverse();
+						
+				var quick_value = [];
+				quick_value = $(".quick-create")
+						.map(function(){
+							return this.id;
+							})
+						.get().reverse();
+				
+				var quick_html;
+		    	for (var i=0;i<quick_text.length;i++){
+		    		quick_html = '<li class="uk-nestable-item"><div class="uk-nestable-panel" value="'+ quick_value[i]+ '">'+ quick_text[i] + '</div><a class="uk-close"></a></li>';
+		    		
+		    		$("#modal_create").find("ul.uk-nestable").append( quick_html );
+				}
+		    },
+		    'hide.uk.modal': function(){
+		    	$("#modal_create").find("ul.uk-nestable").empty();
+		    }
+		});
+
+
+		//uikit setting
+		$('.sticky-cube').on({
+		    'active.uk.sticky': function(){
+				$(this).addClass("cf-panel-box-cube");
+				//addtional cube action
+				//alert( $("#M_TopControl").position().top  );
+				//console.log($(this).position().top );
+		    },
+		    'inactive.uk.sticky': function(){
+		    	$(this).removeClass("cf-panel-box-cube");
+		    }
+		});
+
+		
+	});
+
+
+</script>

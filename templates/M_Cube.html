@@ -1,0 +1,210 @@
+{% load staticfiles %}
+
+{% if scroll_seq == 0 %}
+<!--## for single shell detail -->
+{% include "M_Modal.html" with M_modal_type="S"  %}
+<!--## first time load ##-->
+<div class="M-Cube " id="M_Cube" uk-grid>
+	<div style='display:none'>
+        <p id="cube_scroll" value="0"></p>
+		<p id="cube_type" value="{{M_cube_type}}"></p>
+	</div>
+	<!--cube list-->
+
+	<div class="uk-width-1-1" id="sub_single_cube">
+		<ul class ="cube-ul">
+{% endif %}
+
+			{% if M_Cube_retrieve %}
+
+				{% for cube in M_Cube_retrieve %}
+					{% if M_cube_type == "M" %}
+						<li class ="cube-li cube uk-margin-small-bottom" value="{{cube.cube_id}}" scrollseq="{{scroll_seq}}">
+							<!--## CUBE META DATA  ##-->
+							<div class="uk-grid-small" uk-grid>
+								<div class="uk-width-1-1">
+									<span class=" uk-margin-small-right" uk-icon="icon: check" style="visibility:hidden"> </span>
+									<span class="cube-title-meta" value="{{cube.cube_id}}" style='cursor:pointer'>{{cube.cube}}</span>
+									<button class="uk-button uk-button-mini show-shell show-toggle" style="visibility:hidden">show all</button>
+									<p class="cf-article-meta"><span class = "uk-hidden-small">created by</span> <a class="hovercard-user user-link" value="{{cube.user_id}}" >@{{cube.cube_user}} </a>
+										{% if cube.auth_check == 0 %}<button class="uk-button uk-button-default uk-button-mini connect-user"  value="{{cube.user_id}}" >connect</button>{% endif %}
+										&nbsp;&nbsp; <span class = "uk-hidden-small"> </span>{{cube.cube_create_dt}} &nbsp;&nbsp;
+										<!--updated at {{cube.update_dt}}&nbsp;&nbsp;{{cube.viewed}} viewed &nbsp;&nbsp; {{cube.connect_shell_count}} shell connected-->
+									</p>
+								</div>
+								<div class="uk-width-1-1 shell-div " value="{{cube.cube_id}}" style="height:200px">
+									<div class="shell-mode" style="display:none"  value="M"></div>
+									<!--area for Ajax shell list-->
+
+								</div>
+							</div>
+						</li>
+					{% elif M_cube_type == "SS" %}
+						<li class ="cube-li cube uk-margin-small-bottom" value="{{cube.cube_id}}" scrollseq="{{scroll_seq}}">
+							<!--## CUBE META From shell popup DATA ##-->
+							<div class="uk-grid-small" uk-grid>
+								<div class="uk-width-1-1">
+									<!--<input type="radio" class="radio-cube-check " name="radio_cube_check" value="{{cube.cube_id}}">-->
+									<span class="cube-title-meta" value="{{cube.cube_id}}" style='cursor:pointer'>{{cube.cube}}</span>
+									<button class="uk-button uk-button-mini show-shell show-toggle" style="visibility:hidden">show all</button>
+									<p class="cf-article-meta"><span class = "uk-hidden-small">created by</span> <a class="hovercard-user user-link" value="{{cube.user_id}}" >@{{cube.cube_user}} </a>
+										{% if cube.auth_check == 0 %}<button class="uk-button uk-button-default uk-button-mini connect-user"  value="{{cube.user_id}}" >connect</button>{% endif %}
+										&nbsp;&nbsp; <span class = "uk-hidden-small"> </span>{{cube.cube_create_dt}} &nbsp;&nbsp;
+										<!--updated at {{cube.update_dt}}&nbsp;&nbsp;{{cube.viewed}} viewed &nbsp;&nbsp; {{cube.connect_shell_count}} shell connected-->
+									</p>
+								</div>
+								<div class="uk-width-1-1 shell-div " value="{{cube.cube_id}}" >
+									<div class="shell-mode" style="display:none"  value="M"></div>
+									<!--area for Ajax shell list-->
+
+								</div>
+							</div>
+						</li>
+
+
+					{% elif M_cube_type == "MC" %}
+						<li class ="mc-cube-li cube uk-margin-small-bottom uk-margin-mini-left uk-margin-mini-right" value="{{cube.cube_id}}" scrollseq="{{scroll_seq}}">
+							<!--## MY CUBE for selection  STATIC is on M_Create ##-->
+							<div class="mc-cube ">
+								<div class="mc-cube-div" value="{{cube.cube_id}}">
+									<div class="uk-grid-small" uk-grid>
+										<div class="uk-width-1-20">
+											<span class=" uk-margin-small-right mc-cube-check" uk-icon="icon: check" style="display:none"> </span>
+										</div>
+										<div class="uk-width-15-20">
+											<span class="mc-cube-title-meta cf-article-title uk-margin-small-left" value="{{cube.cube_id}}" style="cursor:pointer">{{cube.cube}}</span>
+										</div>
+										<div class="uk-width-4-20">
+											<button class="uk-button uk-button-mini cube-show-all show-toggle" style="visibility:hidden">show all</button>
+										</div>
+									</div>
+									<div class="uk-grid-small uk-margin-remove " uk-grid >
+											<span class="cf-article-meta uk-margin-mini-bottom"><span class = "uk-hidden-small">created by</span> <a class="hovercard-user user-link" value="{{cube.user_id}}" >@{{cube.cube_user}} </a>
+												{% if cube.auth_check == 0 %}<button class="uk-button uk-button-default uk-button-mini connect-user"  value="{{cube.user_id}}" >connect</button>{% endif %}
+												&nbsp;&nbsp; <span class = "uk-hidden-small"> </span>{{cube.cube_create_dt}} &nbsp;&nbsp;
+												<!--updated at {{cube.update_dt}}&nbsp;&nbsp;{{cube.viewed}} viewed &nbsp;&nbsp; {{cube.connect_shell_count}} shell connected-->
+											</span>
+									</div>
+								</div>
+								<div class="">
+									<div class="uk-grid-small" uk-grid>
+										<div class="uk-width-1-1 shell-div " value="{{cube.cube_id}}" >
+											<div class="shell-mode" style="display:none"  value="M"></div>
+											<!--area for Ajax shell list-->
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</li>
+
+
+					{% else %}
+						{% if cube.cube_id != "0" %}
+						<!--### main CUBE ###-->
+						<li class ="cube-li cube uk-margin-small-bottom" value="{{cube.cube_id}}"  scrollseq="{{scroll_seq}}" >
+							<!--##target Shell LIST-->
+							<div class="target-shell-list" style="display:none" value="{{cube.target_shell_list}}"></div>
+							<article class="uk-article uk-panel cf-panel-box cf-panel-box-secondary" id="article_{{cube.cube_id}}" value="{{cube.cube_id}}">
+
+								<!--##1. cube-->
+								<div class ="cube-data uk-margin-small-bottom " id="cube_data" value="{{cube.cube_id}}" >
+									<div class="uk-panel cf-panel-box  sticky-cube" id="sticky_cube" value="{{cube.cube_id}}"   >
+
+										<div class="uk-margin-remove  uk-grid-collapse" uk-grid>
+
+											<div class="uk-width-15-20 uk-visible-toggle" uk-grid >
+												<div class="uk-width-auto">
+													<span class="cube-title cf-article-title uk-margin-small-left uk-text-truncate uk-text-break " value="{{cube.cube_id}}" id="cube_title"  style="cursor:pointer" >{{cube.cube}}</span>
+												</div>
+												<div class="uk-width-2-20">
+													<button class="uk-button uk-button-default uk-button-mini update-cube-edit" type="button" style="display:none" >cube</button>
+												</div>
+
+											</div>
+
+											<div class="uk-width-5-20 uk-align-right" >
+												<div class="uk-align-right cube-action">
+													<button class="uk-button uk-button-default uk-button-mini cube-show-all show-toggle hide-addshell" type="button" >show all</button>
+													<button class="uk-button uk-button-secondary uk-button-mini cube-add-shell hide-addshell" value="{{cube.cube_id}}" con="{{cube.connect_shell_count}}" >{{cube.connect_shell_count}}</button>
+												</div>
+											</div>
+										</div>
+
+										<div class="uk-margin-remove" uk-grid>
+											<div class="uk-width-1-1 uk-padding-remove uk-margin-left" >
+												<span class = "uk-hidden-small cf-article-meta">created by</span>
+												<span class="hovercard-user user-link " value="{{cube.user_id}}" style="cursor:pointer" >@{{cube.cube_user}} </span>
+												{% if cube.auth_check == 0 %}<button class="uk-button uk-button-default uk-button-mini connect-user"  value="{{cube.user_id}}" >connect</button>{% endif %}&nbsp;&nbsp;
+												<span class = "cf-article-meta">  viewed {{cube.viewed}}
+												create {{cube.cube_create_dt}}
+												update {{cube.cube_create_dt}}</span>
+											</div>
+										</div>
+
+									</div>
+
+									<!--cube meta data  with hash tag ex -->
+									<hr class="cf-cube-hr uk-hidden-small">
+									<div class="cube-meta-area uk-width-1-1 uk-margin-mini-bottom" id="meta_cube_{{cube.cube_id}}"  >
+
+										{% if M_cube_type != "M" %}
+										<!--<div class="uk-margin-left">
+											<span class="cf-article-meta">shell {{cube.connect_shell_count}}	viewed {{cube.viewed}}   updated {{cube.update_dt}} </span>
+										</div>-->
+										{% endif %}
+
+										<div class="uk-padding-remove" uk-grid>
+										<!--  cube hashdir list-->
+											<div class="uk-width-1-1 hash-div " value = "{{cube.cube_id}}" >
+											</div>
+										</div>
+
+									</div>
+									<hr class="cf-cube-hr uk-hidden-small">
+									<div  uk-grid>
+										<!--## 3. shell list-->
+										{% if M_cube_type == "C" %}
+											{% include "M_Shell.html" %}
+										{% else %}
+										<div class="uk-width-1-1 shell-div" value="{{cube.cube_id}}">
+											{% if M_cube_type != "O" %} <div class="target-list" style="display:none"  value="{{cube.target_list}}"></div> {% endif %}
+											<div class="shell-mode" style="display:none"  value="{{M_cube_type}}"></div>
+											<!--area for Ajax shell list-->
+										</div>
+										{% endif %}
+									</div>
+
+								</div>
+							</article>
+
+						</li>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+
+			{% else %}
+				{% if M_cube_type == "F" %}
+					<P>
+						### connect some others ###
+					</P>
+				{% else %}
+					<p>
+						### No cube! ###
+					</p>
+				{% endif%}
+			{% endif %}
+
+{% if scroll_seq == 0 %}
+		</ul>
+	</div>
+	{% if M_cube_type == "H" %}
+	
+	{% else %}
+	<div class="uk-width-2-10" id="cube-extra">
+		
+	</div>
+	{% endif %}
+</div>
+{% endif %}
+

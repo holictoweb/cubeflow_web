@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %} CubeFlow {% endblock %}
+
+
+{% if error_message %} <p><strong>{{error_message}}</strong></p>{% endif %}
+
+
+
+{% block docreadyscript%}
+
+	
+{% endblock %}
+
+
+{% block scripts %}
+	<script src="{% static "zero/zero.js" %}"></script>
+	<script src="{% static "zero/one.js" %}"></script>		
+{% endblock %}
+
+{% block csslink %}
+	<link rel"stylesheet" href="{% static "zero/zero.css" %}" />
+
+	<style type="text/css">	
+	 <!--
+
+		
+	 //-->
+	 </style>
+{% endblock %}
+
+{% block static%}
+{% include "M_Cube_static.html" %}
+{% endblock %}
+
+{% block documentreadyscript %}
+	//nav setting
+	$(".uk-active").removeClass("uk-active");
+	$('.nav-li-connect').addClass("uk-active");
+	
+{% endblock %}
+	
+{% block topControl %}
+	{% include "M_TopControl.html " with type="M" %}
+	{% include "M_Search.html" with M_search_type="U" %}
+{% endblock %}
+
+{% block conContent %}
+	{% include "M_connect.html" %}	
+{% endblock %}

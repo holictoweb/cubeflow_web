@@ -1,0 +1,86 @@
+
+<style type="text/css" id="M_flow_css">
+	<!--
+		.flow-ul {
+			padding-left: 0px;
+		 }
+
+		li {
+			display: list-item;
+			list-style:none;
+			list-style-type: none;
+			text-align: -webkit-match-parent;
+		}
+	//-->
+</style>
+
+<script id="M_flow_script">
+	$(document).ready(function(){
+
+		$(".M-Flow").find(".modal-cube-link").click(doModalCube);
+
+
+		if ( '{{ M_connect_type }}' == 'F' ){
+			var target;
+			$( ".flower-list" ).each(function() {
+				target = $(this);
+				doProfile(target, '{{M_connect_type}}');
+			});
+		}   
+		
+		$(".flow-li").hover(
+		    function(e){
+		    },
+		    function(e){
+		    }
+	    );
+		
+	   	//what the....
+		$(".flow-content").on("click", doRetrieveCube);
+		
+		{% if M_flow_type == "F" or M_flow_type == "O" or M_flow_type == "S" %}
+
+			{% if M_flow_type == "F" %}
+			// More module
+		    var showChar = 100;  // How many characters are shown by default
+		    var ellipsestext = "...";
+		    var moretext = "more >";
+		    var lesstext = "< less";
+			    
+		    $('.more').each(function() {
+		        var content = $(this).html();
+		 
+		        if(content.length > showChar) {
+		 
+		            var c = content.substr(0, showChar);
+		            var hidetext = content.substr(showChar, content.length - showChar);
+		 
+		            var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>' + hidetext + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+		 
+		            $(this).html(html);
+		        }
+		 
+		    });
+		 
+		    $(".morelink").click(function(){
+		        if($(this).hasClass("less")) {
+		            $(this).removeClass("less");
+		            $(this).html(moretext);
+		        } else {
+		            $(this).addClass("less");
+		            $(this).html(lesstext);
+		        }
+		        $(this).parent().prev().toggle();
+		        $(this).prev().toggle();
+		        return false;
+		    });
+		    
+		    {% endif %}
+		    
+		{% endif %}
+		
+
+	});
+	
+	
+</script>

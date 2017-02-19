@@ -1,0 +1,87 @@
+
+<div class="M-Profile-update " id = "M_Profile" >
+	{% if M_profile_type == "P" or M_profile_type == "D" %}
+		{% if M_Profile_retrieve %}
+			{% for profile in M_Profile_retrieve %}
+				<div class="cf-panel cf-panel-box cf-panel-box-secondary uk-margin-small-top  uk-margin-small-left uk-margin-small-right">
+					<div class="wrap-flow-target" >
+						<span class="" >@{{profile.username}} - {{profile.last_login}}  / {{profile.email}} /connection :  {{profile.con_count}} / created cube : {{profile.cube_count}}</span>
+					</div>
+				</div>
+			{% endfor %}
+		{% endif %}
+	{% else %}
+	<div class="uk-panel cf-panel-box cf-panel-box-secondary uk-margin-small-top uk-margin-small-bottom ">
+		<ul class="profile-ul">
+		{% if M_profile_type == "L" %}
+			<!-- ### list type profile -->
+			{% if M_Profile_retrieve %}
+				{% for profile in M_Profile_retrieve %}
+				<!-- ##### for Search user -->
+				<li id="profile-li connect_{{profile.user_id}}">
+					<p>
+						<i class="uk-icon-user" value="{{profile.user_id}}"></i> username : {{profile.username}}  / {{profile.email}} /connection :  {{profile.con_count}} / created cube : {{profile.cube_count}}
+					</p>
+				</li>
+
+				{% endfor %}
+			{% endif %}
+		{% else %}
+			<!-- #### type F : full profile -->
+			{% if user and not user.is_anonymous %}
+				<li id="Muser_id" value="{{user.id}}" style="display:none">
+					{{user.id}}
+				</li>
+				<li class="">
+					<a class="hovercard-user user-link"  value="{{user.id}}">{{user.username}} </a>
+
+
+					<button type="uk-button uk-button-small"><a href="{% url 'auth:logout' %}?next=/">log out</a></button>
+				</li>
+
+			{% else %}
+				<!--<li>
+				   <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
+			   </li> -->
+				<li>
+				   <!--<a href="{% url 'intershell:zero_login' %}?next={{ request.path }}&login_type='C'">Login with connshell</a>-->
+					<a href="{% url 'intershell:zero_login' %}">Login cubeflow</a>
+				</li>
+			{% endif %}
+
+			{% if user.is_authenticated %}
+				{% if M_Profile_retrieve %}
+					{% for profile in M_Profile_retrieve %}
+
+					<span class="uk-article-meta">  con :  {{profile.con_count}} / cube : {{profile.cube_count}} / {{profile.last_login}}</span>
+					{% endfor%}
+				{% endif %}
+			{% else %}
+				<p>login or JOIN US</p>
+			{% endif %}
+		{% endif %}<!--finish--->
+
+		</ul>
+	</div>
+	{% endif %}
+</div>
+
+
+<style type="text/css" id="M_Profile_css">
+	<!--
+	.profile-ul {
+		padding-left: 0px;
+	}
+
+
+	//-->
+</style>
+
+<script>
+	//M_Profile.html load script
+	$(document).ready(function(){
+		//alert("M_Profile loaded.....");
+		$(".uk-icon-user").click(doConnectUser);
+		
+	});
+</script>

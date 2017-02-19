@@ -1,0 +1,164 @@
+
+
+<!-- This is the modal -->
+<div id="modal-nav" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title">Headline</h2>
+        <p>do you want to delete your Nav</p>
+        <p class="uk-text-right">
+            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+            <button class="uk-button uk-button-primary" type="button">delete</button>
+        </p>
+    </div>
+</div>
+
+{% if M_nav_type == "retrieveM" %}
+<div class="M-Nav uk-margin-small-top " id="M_Nav" uk-sticky="offset: 51" >
+	<div style="display:none">
+		<span id="nav_seq" value="0"></span>
+	</div>
+	<div class="my-nav uk-panel cf-panel-box cf-panel-box-secondary" style="padding:5px">
+        <div class="my-nav-div" uk-grid>
+            <div class="uk-width-1-1">
+                <span class="guide-font " >My </span><span class="cf-main-1 uk-margin-right">Nav</span><button class="uk-button uk-button-default uk-button-mini mynav-save"  type="button">SAVE</button>
+            </div>
+
+{% endif %}
+
+            <div class="my-nav-ul-div uk-width-1-1 ">
+                <ul class="my-nav-ul  " uk-sortable="cls-custom: uk-box-shadow-small uk-flex uk-flex-middle uk-background">
+					{% if M_nav_retrieve %}
+						{% for nav in M_nav_retrieve %}
+							<li class="my-nav-li" class="" style="cursor:pointer" value="{{nav.nav_id}}">
+								<span class="mynav uk-display-inline guide-font">{{nav.nav}}</span>
+								<span class="mynav-close uk-display-inline uk-margin-mini-left" uk-icon="icon: close; ratio: 0.8" style="display:block"  value="{{nav.nav_id}}"></span>
+								<span uk-icon="icon: check" class="mynav-check " style="display:none"></span>
+								<div class="my-nav-html" style="display:none">
+									{{nav.html}}
+								</div>
+							</li>
+
+						{% endfor %}
+					{% endif %}
+                </ul>
+            </div>
+
+{% if M_nav_type == "retrieveM" %}
+        </div>
+
+    </div>
+    <div class="nav-act uk-panel cf-panel-box cf-panel-box-secondary uk-margin-small-top " style="padding:5px">
+        <div class="nav-target" uk-grid>
+            <div class="uk-width-1-1">
+                <span class="cf-main-1">Nav</span><span class="guide-font" > Act </span>
+            </div>
+			<div class="uk-width-1-1">
+				<input type="text" class="new-nav" id ="new_nav"  class="uk-width-1-1" >
+				<button class="uk-button uk-button-default uk-button-mini nav-save"  type="button">SAVE</button>
+				<button class="uk-button uk-button-default uk-button-mini nav-empty" type="button">CLEAR</button>
+			</div>
+
+            <div class="uk-width-1-1 uk-visible-hover">
+                <ul class="nav-ul uk-link-muted" id="nav_ul"  uk-sortable>
+					<li class="nav-li-dup" style="display:none" >
+						<span class='nav-span uk-margin-small-left' uk-tooltip='pos:bottom' ></span>
+						<div class='' uk-dropdown='mode: click' value=''>clicktest</div>
+					</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+{% endif %}
+
+
+{% if M_nav_type == "retrieveM" %}
+<script id="M_nav_script">
+    $(document).ready(function(){
+		doRetrieveNavSession();
+		doRetrieveNav( event, 'retrieveH' );
+
+		//### after load
+		$(".M-Nav").on("click", ".my-nav-li", doRetriveNavAct);
+		$(".M-Nav").on("click", ".mynav-close", doRemoveMyNav);
+		$(".M-Nav").on("click",".mynav-save", doSaveMyNav );
+
+		$(".M-Nav").on("click", ".nav-empty", doEmptyNavAct);
+		$(".nav-save").on("click", doSaveNav);
+
+		$(".M-Nav").on("click", ".nav-li", doAddFlowNav);
+		$(".M-Nav").on("click", ".uk-icon-close", doRemoveNav);
+
+		$(".my-nav").on({
+			mouseenter: function () {
+				$(this).find(".mynav-close").css("display:block");
+
+		    },
+		    mouseleave: function () {
+    			$(this).find(".mynav-close").css("display:none");
+		    }
+		}, ".my-nav-li");
+
+        $(".my-nav").on({
+		    mouseenter: function () {
+				$(this).addClass("cf-panel-box-secondary-selected");
+				$(this).removeClass("cf-panel-box-secondary");
+		    },
+		    mouseleave: function () {
+    			$(this).addClass("cf-panel-box-secondary");
+				$(this).removeClass("cf-panel-box-secondary-selected");
+		    }
+		});
+
+		$(".nav-act").on({
+		    mouseenter: function () {
+
+				$(this).addClass("cf-panel-box-secondary-selected");
+				$(this).removeClass("cf-panel-box-secondary");
+		    },
+		    mouseleave: function () {
+    			$(this).addClass("cf-panel-box-secondary");
+				$(this).removeClass("cf-panel-box-secondary-selected");
+		    }
+		});
+
+		$(".nav-act").on({
+		    mouseenter: function () {
+
+				$(this).addClass("cf-panel-box-secondary-selected");
+
+		    },
+		    mouseleave: function () {
+
+				$(this).removeClass("cf-panel-box-secondary-selected");
+		    }
+		}, '.nav-li');
+
+        $(".modal-cube").on({
+		    'show.uk.modal': function(){
+		        var param = $(this).attr("value").split("_");
+
+                $.ajax({
+					type:"POST",
+					url:baseUrl + 'intershell/zero/cube/H/'+ param[0]+'/',
+					success:function(data){
+					    //alert ( data );
+						$(".modal-cube-div").append(data);
+					},
+					error:function(){
+						alert('## error retreive flow modal data!');
+					},
+				});
+
+		    },
+		    'hide.uk.modal': function(){
+		    	$(".modal-cube").find(".modal-cube-div").empty();
+
+		    }
+		});
+
+    });
+</script>
+{% endif %}

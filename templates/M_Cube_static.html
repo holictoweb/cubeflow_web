@@ -1,0 +1,82 @@
+<!--M_Cube.html static file CSS-->
+<style type="text/css" id="M_cube_css">	
+	<!--
+
+	 .shell-add-div-meta {
+	 	margin-top:5px;
+	 	height: 10px;
+	 	vertical-align:text-bottom;
+	 }
+	 
+	 .shell-add-div-action {
+	 	height: 10px;
+	 	vertical-align:text-bottom;
+	 }
+	 
+	 .cube-meta-box {
+	 	margin-top: 10px;
+	 }
+	 
+	 .cube-meta-box:after {
+	 	margin-top: 10px;
+	 	content:"";
+	 	display:block;
+	 	clear:both;
+	 }
+	 
+	 .cube-meta-box-tag {
+	 	float : left;
+	 }
+	 
+	 .cube-meta-box-flower {
+	 	float : left;
+	 }
+
+	//-->
+</style>
+
+
+<!-- M_Cube.html static file SCRIPT -->
+<script id="M_cube_script">
+	
+	//M_cube.html load script
+	$(document).ready(function(){
+
+		//### common init
+		doCubeMode( "{{M_cube_type}}" );  //first call to display shellList
+		doExtendMode("H"); //hashtag init call
+        doStaticReload("M_Extend");
+		//### end init
+
+		$("#conContent").on("click", ".connect-user", doConnectUser);
+
+		$("#conContent").on("click", ".cube-add-shell", doAddShell);
+		$("#conContent").on("click", ".cube-show-all", doCubeShowAll);
+
+		$("#conContent").on("click", ".uk-article", doClickCube );
+		$("#conContent").on("click", ".update-cube-edit", doCubeEdit );
+
+		$("#conContent").on({
+		    mouseenter: function () {
+		   		$(this).html("add shell");
+		    },
+		    mouseleave: function () {
+				$(this).html( $(this).attr("con") );
+		    }
+		}, ".cube-add-shell");
+
+		//UIKIT Sticky
+		$("#conContent").on('active', ".sticky-cube", doActiveCubeSticky);
+		$("#conContent").on('inactive',".sticky-cube",  doInactiveCubeSticky);
+
+		doInitCubeSticky("T"); //timeline
+
+		//infinite scroll CUBE
+		$(window).scroll(doInfiniteScrollCube );
+
+
+	 });
+	 
+	 
+</script>
+

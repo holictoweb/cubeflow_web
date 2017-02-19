@@ -1,0 +1,60 @@
+
+
+
+<div id="M_cube">
+	<div style='display:none'>
+		<p id="shell_selected" value="0"></p>
+		<p id="cube_selected" value="0"></p>
+	</div>
+	<!--cubed list-->
+	<div id="sub_single_cube_2">
+		<ul class ="cube-list">
+			{% if M_Cube_retrive %}
+				{% for cube in M_Cube_retrive %}
+				<li class ="cube-list">
+					<!--1. cube-->
+					<div class = "row" >
+						
+						<!--#### shell list type-->
+						{% if M_Shell_type == 'C' or M_Shell_type = 'CN' or M_Shell_type = 'S' %}
+						<div class = "col-md-6 cube_meta" id="cube_data" >
+							<p class="cube-title cf-article-title" value="{{cube.cube_id}}" id="cube_title">{{cube.cube}}</p>
+							<p class="cf-article-meta">create by <a href="{% url 'intershell:zero_user_cube' %}" >{{shell.cube_user}} </a> &nbsp;&nbsp; {{cube.summary}} shell connected</p>
+						</div>
+						{% endif %}
+						
+					</div>
+					<hr class="cf-article-divider-top">
+				</li>
+				
+				<li class= "cube-list">
+					
+					<div class="cube-meta-box" id="cube_meta_div">
+						<div class="cube-meta-box-tag">
+							
+							<p>Tag : {{ hashtags }}</p>	
+						</div>
+						<div class="cube-meta-box-flower">
+							<p>Flower : @cube @holic</p>
+						</div>
+					</div>
+					
+					<div>
+						<hr class="cf-article-divider-bottom">
+	 				</div>
+					
+				</li>
+				{% endfor %}
+			{% endif %}
+		</ul>
+	</div>
+	
+
+	<div style="display:none">
+		<li id="target_shell_clone" class="shell-guide" >
+			<small><p>target location for new shell.</p></small>
+		</li>	
+	</div>
+	
+	
+</div>

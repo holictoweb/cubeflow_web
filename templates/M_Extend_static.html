@@ -1,0 +1,12 @@
+
+<script>
+	$(document).ready(function(){
+		
+		$(".ex-list").click(doSearch);
+		$(".ex-list").bind("click", function(event){
+			event.stopPropagation();
+			doSearch();
+		});
+		
+	});
+</script>

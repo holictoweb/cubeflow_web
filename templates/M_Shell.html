@@ -1,0 +1,139 @@
+
+<div class="M-Shell" id="M_Shell">
+	<div style='display:none'><!--### hidden meta data-->
+		
+	</div>
+
+
+	{% if M_shell_type == "CN" %}
+	<ul class = "CN-shell-ul uk-padding-remove uk-margin-mini" >
+		{% for shell in M_Shell_retrieve %}
+		<li class="CN-shell-li uk-margin-mini-bottom" value="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}"  id="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}">
+			<div uk-grid>
+				<div class="uk-width-1-1 cf-article-lead  uk-light" id ="{{shell.con_id}}_{{shell.shell_id}}" >
+					<span class = "shell uk-text-break shell-content"  style="white-space:pre-wrap" >{{shell.shell}}</span>
+				</div>
+				<div class="uk-width-1-1 uk-article-meta uk-light uk-margin-small-top">
+					<span  class="hovercard-user user-link user-style" value="{{shell.user_id}}" style="cursor:pointer">{{shell.shell_user}} </span>
+					{% if shell.auth_check == 0 %}<button class="uk-button uk-button-default uk-button-mini connect-user"  value="{{cube.user_id}}" >connect</button>{% endif %}&nbsp;&nbsp;
+					<span class="uk-margin-mini-left">{{shell.con_create_dt}}</span>
+					<a class = "shell-nav " uk-icon="icon:bookmark;ratio:0.7" value="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}"></a>
+				</div>
+			</div>
+
+		</li>
+		{% endfor %}
+	</ul>
+	{% elif M_shell_type == "E" %}
+	<ul class = "shell-ul" >
+		{% for shell in M_Shell_retrieve %}
+		<li class ="shell-li" value="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}">
+			<div class="">
+				{{shell.shell}}
+			</div>
+		</li>		
+		{% endfor %}
+	</ul>
+	{% else %}
+    
+	<ul class = "shell-ul uk-margin-remove uk-padding-remove " id = "shell_list"  >
+
+		{% if M_Shell_retrieve %}	
+			{% for shell in M_Shell_retrieve %}
+				<li class ="shell-li uk-margin-mini-bottom " id="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}" value="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}" >
+
+					<div class="uk-inline uk-width-1-1">
+						<!--#### content-->
+						<div class = "shell-content-div uk-margin-mini-bottom uk-margin-mini-top uk-margin-mini-right uk-margin-mini-left uk-visible-toggle" value="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}" id ="{{shell.con_id}}_{{shell.shell_id}}" ><!--shell content-->
+							<!-- SEHLL -->
+							<div class = "shell-content-shell  uk-margin-small-left uk-padding-remove"  uk-grid>
+								<div class = "uk-width-1-1  shell-dup  uk-padding-remove uk-margin-mini-left uk-margin-mini-right uk-margin-mini-top uk-margin-mini-bottom">
+									<span class = "shell uk-text-break shell-content"  style="white-space:pre-wrap" >{{shell.shell}}</span>
+									<!--<span class = "shell-meta shell-text" style="display:none"  >{{shell.shell}}</span>-->
+
+									<div class="uk-width-auto uk-padding-remove shell-add-div uk-article-meta"  id="metadata">
+										<div class="shell-data  cf-article-meta" >
+											<span  class="hovercard-user user-link user-style " value="{{shell.user_id}}" style="cursor:pointer">{{shell.shell_user}} </span>
+											{% if shell.auth_check == 0 %}<button class="uk-button uk-button-default uk-button-mini connect-user"  value="{{cube.user_id}}" >connect</button>{% endif %}&nbsp;&nbsp;
+											<span class="uk-margin-mini-left">{{shell.create_dt}}</span>
+
+										</div>
+									</div>
+
+									{%  if M_shell_type != "M" %}
+									<div class = "uk-width-auto">
+										<div class=" uk-margin-remove  uk-link-muted shell-action" id="shell_action" style="visibility:hidden" uk-grid>
+											<div class="uk-width-auto ">
+												<a class = "shell-nav uk-margin-mini-bottom" uk-icon="icon:bookmark" value="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}"></a>
+											</div>
+											{% if shell.flow_count != "0" %}
+											<div class="uk-width-auto ">
+												<a class="uk-margin-mini-bottom" uk-toggle href="#modal_shell" class = "shell-modal" uk-icon="icon:file" value="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}"></a>
+											</div>
+											{% endif %}
+										</div>
+									</div>
+									{% endif %}
+
+
+									<div class="uk-width-1-1 uk-padding-remove uk-link-muted shell-on-update"  style="display:none" >
+										<button class="uk-button uk-button-secondary uk-button-mini update-shell-edit" type="button" value="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}" >edit</button>
+										<button class="uk-button uk-button-default uk-button-mini update-shell-remove" type="button" value="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}">delete</button>
+									</div>
+
+									<div class="uk-width-1-1 uk-padding-remove shell-edit"  style="display:none">
+										<button class="uk-button uk-button-secondary uk-button-mini shell-edit-done" type="button" >Done</button>
+										<button class="uk-button uk-button-default uk-button-mini shell-edit-cancel" type="button" >cancel</button>
+									</div>
+
+									<div class="uk-width-1-1 uk-padding-remove">
+										{% if shell.flow_count != "0" %}
+											<button class="uk-button uk-button-meta uk-button-mini uk-padding-remove shell-overlay-flow" type="button" value="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}">F {{shell.flow_count}}</button>
+										{% endif %}
+										{% if shell.dev_count != "0" %}
+										<button class="uk-button uk-button-meta uk-button-mini uk-padding-remove shell-overlay-dev " type="button" value="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}">D {{shell.dev_count}}</button>
+										{% endif %}
+										{% if shell.nav_count != "0" %}
+										<button class="uk-button uk-button-meta uk-button-mini uk-padding-remove shell-overlay-nav" type="button" value="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}">N {{shell.nav_count}}</button>
+										{% endif %}
+									</div>
+
+								</div><!--end of SHELL-->
+							</div><!--#### end of shell-content-->
+
+						<div class="uk-overlay uk-overlay-primary uk-position-top uk-animation-fade uk-padding-remove shell-overlay-div" style="display:none" >
+							<!--### overlay shell list-->
+							<div class="uk-margin-mini-top uk-margin-mini-bottom uk-margin-mini-left uk-margin-mini-right shell-overlay-border uk-padding-remove" uk-grid>
+
+								<div class="uk-width-17-20 shell-overlay-shell-div uk-padding-remove">
+								</div>
+
+								<div class="uk-width-3-20   uk-padding-remove">
+									<div class="uk-width-1-1 ">
+										<button class=" uk-button uk-button-default uk-button-mini shell-overlay-close uk-align-right uk-margin-mini-bottom uk-margin-mini-top uk-margin-mini-right"  >close</button>
+									</div>
+									<div class="uk-width-1-1 ">
+										<button class=" uk-button uk-button-default uk-button-mini shell-overlay-next  uk-align-right uk-margin-mini-bottom uk-margin-mini-right"  value="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}" >next</button>
+									</div>
+								</div>
+
+							 </div>
+						</div>
+
+					</div>
+				</li>
+
+			{% endfor %}
+
+		{% else %}
+			<p>no shell exists.</p> 
+		{% endif %}
+		
+	</ul>
+	{% endif %}
+
+
+</div>
+
+
+

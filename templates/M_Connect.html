@@ -1,0 +1,87 @@
+<!-- connect type
+	connect_type
+	F : follow
+
+-->
+
+<div class="row" id="M_Connect">
+	<div style='display:none'><!--### hidden meta data-->
+		
+	</div>
+	{% if M_Connect_retrieve %}
+		<ul class = "connect-ul" id = "connect_list">
+		{% for connect in M_Connect_retrieve %}
+			{% if connect.connect_type == "C" %}
+				<li class ="connect-li" value="{{connect.target_id}}">
+					<div class="row-fluid">
+						<div class = "connect-target" ><!--connect target-->
+							<i class ="uk-icon-chevron-left"></i><i class ="uk-icon-chevron-right"></i>&nbsp;&nbsp; <a class="user-link" value="{{connect.target_id}}"> {{connect.username}}</a> / {{connect.email}} / {{connect.last_login}}
+						</div>
+					</div>
+				</li>
+			{% elif connect.connect_type == "FW" %}
+			<li class ="connect-li" value="{{connect.target_id}}">
+				<div class="row-fluid">
+					<div class = "connect-source" ><!--connect target-->
+						<i class ="uk-icon-chevron-right"></i>&nbsp;&nbsp; <a class="user-link" value="{{connect.target_id}}">{{connect.username}}</a> / {{connect.email}} /{{connect.last_login}}
+					</div>
+				</div>
+			</li>
+			{% elif connect.connect_type == "FR" %}
+			<li class ="connect-li" value="{{connect.target_id}}">
+				<div class="row-fluid">
+					<div class = "connect-source" ><!--connect target-->
+						<button class="uk-button uk-button-mini" value="{{connect.source_id}}" >connect</button><i class ="uk-icon-chevron-left"></i>&nbsp;&nbsp; <a class="user-link" value="{{connect.target_id}}">{{connect.username}}</a> / {{connect.email}} /{{connect.last_login}}
+					</div>
+				</div>
+			</li>
+			{% elif connect.connect_type == "R" %}
+				<li class ="connect-li" value="{{connect.target_id}}">
+					<div class="row-fluid">
+						<div class = "connect-recommend" ><!--connect target-->
+							 <button class="uk-button uk-button-mini" value="{{connect.source_id}}" >connect</button>&nbsp;&nbsp; <a class="user-link" value="{{connect.source_id}}">{{connect.username}}</a> / {{connect.email}} /{{connect.last_login}}
+						</div>
+					</div>
+				</li> 
+			{% endif %}
+			<hr>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<p>## no connection exists. Search and connect! ##</p>
+	{% endif %}	
+</div>
+
+<script>
+	$(document).ready(function(){
+		//do connection additional retrieve
+		var M_shell_type = '{{ M_shell_type }}';
+		
+		if ( '{{ M_connect_type }}' == 'F' ){
+			doShellMode('F');
+			var target;
+			$( ".shell-div" ).each(function( index ) {
+				target = $(this);
+				doProfile(target, '{{M_connect_type}}');
+			});
+		}
+		
+		
+		$(".uk-button").each(function(event){
+	    	$(this).click(doConnectUser);
+	    });
+		
+		$(".connect-source").hover(
+		    function(e){
+		    	//$(this).find("#shell_action").css("display","block");
+		    	//$(this).find(".uk-button").css("visibility","visible");
+		    },
+		    function(e){
+		    	//$(this).find("#shell_action").css("display","none");
+		    	//$(this).find(".uk-button").css("visibility","hidden");
+		    }
+	    );
+	    
+
+	});
+</script>

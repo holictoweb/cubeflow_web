@@ -1,0 +1,117 @@
+
+{% include "M_Modal.html" with M_modal_type="C" %}
+
+<div class="uk-grid-collapse M-Create" id="M_Create">
+	<span style="display;none" id="M_create_type" value=""></span>
+	<hr>
+	<div class="uk-width-1-1">
+		<div class="uk-grid cube-create-div" >
+			<div class="uk-width-1-6 addshell-hide">
+				<div class="uk-button-group cube-radio" data-uk-button-radio>
+				    <button class="uk-button uk-button-small" id="NC" >new cube</button>
+				    <button class="uk-button uk-button-small" id="EC" >my cube</button>
+				</div>
+			</div>
+			<div class="uk-width-5-6" id="newCube" >
+				<label>CUBE : &nbsp;</label> <input class="addshell-hide" type="text" id ="new_cube" size="50">
+			</div>
+		</div>
+	</div>
+	<div class="uk-width-1-1">	
+		<div class="uk-grid shell-create-div" >
+			<div class="uk-width-1-1">
+				<div class="uk-button-group shell-radio" data-uk-button-radio>
+				    <button class="uk-button uk-button-small" id="NS">new shell</button>
+				    <button class="uk-button uk-button-small" id="JC">only flow</button>
+				</div>
+			</div>
+			<div class = "shell_create uk-width-1-1" id="newShell">
+				<div class="uk-grid">
+					<div class="uk-width-1-1">
+						<label >SHELL : </label> &nbsp;<button class="uk-button-mini" id="btnTotalCreate">CREATE</button>&nbsp;<button class="uk-button-mini" id="btnMoreShell">MORE</button>
+					</div>
+				</div>
+			</div>
+			<div class="uk-width-1-1"> 
+				<div class="uk-grid">
+					<div class="uk-width-1-1">
+						<textarea id="new_shell"  placeholder="Create Shell (#-hashtags %-seperate shell)" style="margin: 0px; width: 688px; height: 100px;"></textarea>		
+					</div>
+				</div>	
+				
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="create-target-dup-group" style="display:none">
+		<div class="create-target-dup" >
+		<!--area for cube data -->
+			<div>
+				<ul class="create-target-ul uk-nestable" data-uk-nestable>
+					<li class="uk-nestable-item create-shell-list" value="0" >
+						<div class="uk-nestable-panel" style="background-color:#D5D5D5">
+							<span id = "new_Shell_dup"></span>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+		
+		<!--#### total create -->
+		<div class = "M-create-form-dup" >
+			<article class="cf-article">
+				<div class = "cube_meta" id="cube_data_dup" >
+					<span class="cube-title cf-article-title addshell-hide" value="" id="create_cube_dup">create cube</span>
+				</div>
+				<hr class="cf-article-divider-top">
+				<div>
+					<ul class="uk-nestable create-target-shell-ul"  data-uk-nestable >
+						<li class="uk-nestable-item create-target-shell" value="0_0_0">
+							<div class="uk-grid uk-nestable-panel new-shell-li" >
+								<div class="uk-width-1-1">
+									<span class="cf-article-lead create-shell create-shell-dup"></span>	
+								</div>
+							</div>
+						</li>
+						<!--add list : doAddFlowTarget()-->
+					</ul>	
+					
+				</div>
+			</article>
+		</div>
+		
+	</div>
+</div>
+
+
+<script id="M_Create_script">
+	$(document).ready(function(){
+		
+		//$("#shell_list").append(<li class ="shell-li ")
+		$("#new_shell").hashtags();
+		$('#new_shell').keyup(function() {
+		    $('#new_Shell_dup').html( $('#new_shell').val() );
+		    $('.M-create-form').find('.create-shell-dup').html( $('#new_shell').val() );
+		});
+		
+		$('#new_cube').keyup(function() {
+		    $('.M-create-form').find("#create_cube_dup").html( $('#new_cube').val() );
+		});
+		
+		$(".M-create-form").on("click",".flow-shell-select", doAddFlowTarget );
+		
+		$("#btnTotalCreate").on("click", doTotalCreate);
+		$("#btnMoreShell").on("click", doMoreShell);
+		
+		$('.cube-radio').on("click", "#NC" ,doCubeRadio);
+		$('.cube-radio').on("click", "#EC" ,doCubeRadio);
+		$('.shell-radio').on("click", doShellRadio);
+		
+	    $("input:radio[name=cuberadio][value=NC]").attr("checked","checked");
+	    $("input:radio[name=shellradio][value=NS]").attr("checked","checked");
+	    $("input:radio[name=targetradio][value=PREV]").attr("checked","checked");
+			
+	});
+	
+</script>

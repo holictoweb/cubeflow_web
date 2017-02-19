@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %} CubeFlow {% endblock %}
+
+
+{% if error_message %} <p><strong>{{error_message}}</strong></p>{% endif %}
+
+
+
+{% block docreadyscript%}
+{% endblock %}
+
+
+{% block scripts %}
+	
+{% endblock %}
+
+{% block csslink %}
+
+	<style type="text/css">	
+	 <!--
+
+		li {
+		    display: list-item;
+		    list-style:none;
+		    list-style-type: none;
+		    text-align: -webkit-match-parent;
+		}
+		 
+		li.shell, ul.full li.item {
+		    border-top: 1px solid #000;
+		    clear: both;
+		    width: 100%;
+		    background-image: url(//lbstatic.nu/assets/clear-b3f96f160b75b1b49b426754ba188fe8.gif);
+		    position: relative;
+		    zoom: 1;
+		    padding-bottom: 48px;
+		}
+		
+		
+	 //-->
+	 </style>
+{% endblock %}
+
+{% block static%}
+	{% include "M_Cube_static.html" %}
+	{% include "M_Shell_static.html" %}
+	{% include "M_Flow_static.html" %}
+
+	{% include "M_Hash_static.html" %}
+
+{% endblock %}
+
+
+{% block documentreadyscript %}
+	//navigation setting
+	$(".active").removeClass("uk-active");
+	$('.nav-li-cube').addClass("uk-active");
+
+
+
+	if ("{{M_cube_type}}"  == "T"  ){
+		$('#li_cube').addClass("uk-active");
+	}
+
+{% endblock %}
+
+
+{% block topControl %}
+	{% if M_cube_type == "U" %}
+		{% include "M_TopControl.html" with M_topcontrol_type="U" %}
+	{% else %}
+		{% include "M_TopControl.html" with M_topcontrol_type="C" %}
+	{% endif %}
+{% endblock %}
+
+
+{% block conContent %}
+	{% if M_cube_type == "U" %}
+		{% include "M_Profile.html" with M_profile_type="U" %}
+	{% endif %}
+	{% include "M_Cube.html" %}
+{% endblock %}
+
+
+{% block rsideControl %}
+	{% include "M_Nav.html" with M_nav_type="retrieveM" %}
+{% endblock %}
+

@@ -1,0 +1,88 @@
+{% load staticfiles %}
+
+{% include "M_Modal.html" with M_modal_type="S" %}
+
+<div class="M-Search " id="M_Search">
+{% if M_search_type == "N" %}
+	<!--N NavBar-->
+	<div class = "uk-grid" >
+		<div class="uk-width-3-5 ">
+			<input type="text" class="" id="search_keyword" placeholder="Search for hashtags..." style="display:inline-block"></input>
+			<button class="uk-button uk-button-small" type="button" id="search_btn" style="display:inline-block" >Go</button>
+			<span class="uk-icon-hover uk-icon-chevron-down search-hidden"></span>
+			<a href="" class="uk-icon-justify uk-icon-github"></a>
+
+	  	</div>
+		<div class="uk-width-2-5 uk-panel cf-panel-box cf-panel-box-secondary target-shell-div" style="display:none" value="">
+
+		</div>
+		<div class="uk-width-2-5 additional-tag " style="display:none">
+			<span class="hashtag"></span>
+		</div>
+	  	<div class="uk-width-1-1 search-history-div uk-margin-small-top " style="display:none">
+	  		<span class="search-history">TAG history : </span>
+	  	</div>
+	</div>
+
+{% elif M_search_type == "C" or M_search_type == "U" %}
+	<div class="uk-panel cf-panel-box cf-panel-box-secondary  uk-margin-small-top  uk-margin-small-bottom">
+		<div class = "uk-grid" >
+			<div class="uk-width-3-5 ">
+				<input type="text" class="" id="search_keyword" placeholder="Search for hashtags..." style="display:inline-block"></input>
+				<button class="uk-button" id="search_btn" style="display:inline-block" >Go</button>
+				<span class="uk-icon-hover uk-icon-chevron-down search-hidden"></span>
+			</div>
+			<div class="uk-width-2-5 uk-panel cf-panel-box cf-panel-box-secondary target-shell-div" style="display:none" value="">
+
+			</div>
+			<div class="uk-width-2-5 additional-tag " style="display:none">
+				<span class="hashtag"></span>
+			</div>
+			<div class="uk-width-1-1 search-history-div uk-margin-small-top " style="display:none">
+				<span class="search-history">TAG history : </span>
+			</div>
+		</div>
+	</div>
+
+{% elif M_search_type == "D" %}
+	<div class="uk-grid ">
+		<div class="uk-width-1-1 search-history-div" style="display:none">
+	  		<span class="search-history"> </span>
+	  	</div>
+	</div>
+{% endif %}
+</div>
+
+<script id="M_Search_script">
+	$(document).ready(function(){
+
+		$("#M_Search").on({
+		    mouseenter: function () {
+				$(this).addClass("cf-panel-box-secondary-selected");
+				$(this).removeClass("cf-panel-box-secondary");
+		    },
+		    mouseleave: function () {
+		    	if(  $(this).find(".search-hidden").hasClass("uk-icon-chevron-down")  ){
+					$(this).addClass("cf-panel-box-secondary");
+					$(this).removeClass("cf-panel-box-secondary-selected");
+		    	}
+		    }
+		});
+
+		//$("#auto_test").keyup(doAutoTest);
+
+		if( "{{M_search_type}}" == "C" ){
+			$("#search_btn").on("click", function(){
+				doSearch();
+			});
+		}
+		else if ( "{{M_search_type}}" == "U" ){
+			$("#search_btn").on("click", doSearchUser );
+		}
+
+		$(".search-hidden").click(doSearchMode);
+
+	});
+</script>
+
+<script src="{% static "js/components/autocomplete.js" %}"></script>

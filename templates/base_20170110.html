@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    	<meta name="viewport" content="width=device-width, initial-scale=1">
+    	
+    	<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+    	
+
+		<link rel="stylesheet" type="text/css" href="{% static "zero/zero.css" %}">
+		<link rel="stylesheet" type="text/css" href="{% static "css/uikit.min.css" %}" />
+		<link rel="stylesheet" type="text/css" href="{% static "css/uikit-core.min.css" %}" />
+
+		<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+		<!--##guide -->
+		<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
+
+		{% block csslink%}
+		{% endblock %}
+
+		<title>{% block title %} Cube Flow {% endblock %}</title>
+		
+        <script src="{% static "zero/zero.js" %}"></script>
+	    <script src="{% static "zero/one.js" %}"></script>	
+		
+        <script src="{% static "js/jquery-1.12.3.min.js" %}"></script>
+		<script src="{% static "js/jquery.js" %}"></script>
+		<script src="{% static "js/jquery-ui.min.js" %}"></script>
+		<script src="{% static "js/jquery.session.js" %}"></script>
+
+
+		<script src="{% static "js/uikit.min.js" %}"></script>
+		<script src="{% static "js/uikit-core.min.js" %}"></script>
+		
+		<script src="{% static "js/components/tooltip.min.js" %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static "css/components/tooltip.min.css" %}" />
+		
+		<script src="{% static "js/components/sticky.min.js" %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static "css/components/sticky.min.css" %}" />
+		
+		<script src="{% static "js/components/nestable.min.js" %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static "css/components/nestable.min.css" %}" />
+
+		<script src="{% static "js/components/sortable.min.js" %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static "css/components/sortable.min.css" %}" />
+		
+		<script src="{% static "js/components/notify.min.js" %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static "css/components/notify.min.css" %}" />
+
+		<script src="{% static "js/components/slider.min.js" %}"></script>
+		<link rel="stylesheet" type="text/css" href="{% static "css/components/slider.min.css" %}" />
+		<link rel="stylesheet" type="text/css" href="{% static "css/components/slidenav.min.css" %}" />
+
+		<script src="{% static "js/jquery.hashtags.js" %}"></script>
+		<script src="{% static "js/autosize.min.js" %}"></script>
+		
+		{% block scripts %}
+		{% endblock %}
+		
+		{% block static %}
+		{% endblock %}
+		
+		<style>
+			<!--
+		{% block cssstyle %}
+		{% endblock %}
+			//-->
+		</style>
+		
+		
+		<script>
+			$(document).ready(function(){
+				$("body").on("click", ".hashtag", doSearchTag );
+				$("body").on("click", ".modal-cube-link", doModalCube);
+				$("body").on("click", ".user-link", doRetrieveCubeUser); // not work--
+
+				$("#conContent").on("click", ".user-link", doRetrieveCubeUser);
+
+				$("#conContent").on("click", ".cube-title-meta", doCubeDetail); //one cube
+				$("#conContent").on("click", ".cube-title", doCubeDetail);
+
+				//alert ('base.html loaded.... ');
+				{% block documentreadyscript %}
+				{% endblock %}
+
+			});
+
+
+		</script>
+
+	</head>
+	
+	<body>
+		<!-- nav bar start  -->
+		<header>
+
+			<nav class="uk-navbar-container" uk-navbar id="top_nav">
+				<div class="uk-navbar-left">
+
+					<!--<a href="{% url 'intershell:zero_index' %}" class="uk-navbar-brand uk-hidden-small">CUBEFLOW</a>-->
+					<a class="uk-navbar-item uk-logo" href ="{% url 'intershell:zero_index' %}" >CUBEFLOW</a>
+
+					<ul class="uk-navbar-nav">
+						<li id="li_cube" ><a href="{% url 'intershell:zero_cube' 'T' 0 %}" >Cube</a></li>
+						<li id="li_flow"><a href="{% url 'intershell:zero_flow' 'UF' 0 0 %}" >Flow</a></li>
+						<li id="li_connect"><a href="{% url 'intershell:zero_connect' 'R' %}" >Connect</a></li>
+						<!--<li id="li_join"><a href="{% url 'intershell:zero_join' %}">JOIN</a></li>-->
+					</ul>
+					<!--<div class="nav-navbar-flip uk-visible-small">
+						<a href="#" class="uk-navbar-toggle"></a>
+					</div>-->
+				</div>
+
+				<div class="uk-navbar-left">
+					<div class="uk-navbar-item"> 
+				        <div class="uk-margin">
+						    <form class="uk-search uk-search-default">
+						    	<span class="uk-hidden" > test</span>
+						        <a href="" class="uk-search-icon-flip" uk-search-icon></a>
+						        <input class="uk-search-input" type="search" placeholder="Search...">
+						    </form>
+						</div>
+				    </div>
+				</div>
+				
+
+			</nav>
+		</header>
+
+        <!--#### Meta data -->
+		<div class="overlay-div-dup uk-panel cf-panel-box cf-panel-box-secondary-selected uk-slidenav-position" id="" style=" display:none" data-uk-slider="{infinite: false}">
+			<div class="uk-slider-container">
+				<ul class="slider-ul uk-slider uk-grid-width-1-1">
+				</ul>
+			</div>
+			<a href="" class="uk-slidenav uk-slidenav-previous" data-uk-slider-item="previous"></a>
+			<a href="" class="uk-slidenav uk-slidenav-next" data-uk-slider-item="next"></a>
+		</div>
+        
+		<div class="uk-container uk-container-center uk-margin-left-small cf-container uk-padding-remove">
+            <div class="uk-grid uk-grid-small">
+                <div class="uk-width-large-7-10 " >
+                    <div class="uk-grid">
+                        <!--<div class="uk-width-1-1" id="topControl" style="display:{% if user and not user.is_anonymous %} block {%else%} none {% endif %}">-->
+                        <div class="uk-width-1-1" id="topControl">
+							{% block topControl%}
+                            {% endblock%}
+                        </div>
+                        <div class="uk-width-1-1" id="mainLoginJoin">
+                            {% block mainLoginJoin %}
+                            {% endblock %}
+                        </div>
+                        <div class="uk-width-1-1 " id="mainSearch">
+                            {% block mainSearch%}
+                            {% endblock%}
+                        </div>
+                        <div class="uk-width-1-1" id="conContent" >
+                            {% block conContent%}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+
+                <!--sidebar-->
+                <div class="uk-width-large-3-10 uk-hidden-small">
+					<div class="uk-grid">
+						<div class="uk-width-1-1" id="rsideControl" >
+							{% block rsideControl %}
+							{% endblock %}
+						</div>
+					</div>
+
+                </div>
+            </div>
+		</div>
+
+        
+
+		<footer>
+			<div class="uk-footer ">
+				<div class="uk-container uk-container-center uk-text-center">
+
+					<!--<ul class="uk-subnav uk-subnav-line uk-flex-center">
+						<li><a href="http://github.com/uikit/uikit">facebook</a></li>
+					</ul>-->
+
+					<div class="uk-panel">
+						<p>Made by <a href="http://www.cubeflow.net">holictoweb</a> with coffee, beer and ramin.
+						<!--<a href="../index.html"><img src="images/logo_cubeflow.svg" width="90" height="30" title="cubeflow" alt="cubeflow"></a>-->
+					</div>
+
+				</div>
+			</div>
+		</footer>
+
+	</body>
+	
+</html>

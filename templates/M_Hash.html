@@ -1,0 +1,80 @@
+<!-- HASH
+	R : retrieve (by cube)
+	L : list of hashtag
+-->
+
+{% if M_hash_type == "CD" %}
+	<div class="uk-width-1-1 hashdir-div uk-margin-small-bottoom">
+
+		{% if M_Hashdir_retrieve %}
+		<ul class="hashdir-ul uk-grid uk-grid-small uk-grid-width-1-10 uk-grid-width-small-1-4 uk-margin-remove" uk-sortable>
+				<li class="hashdir-li uk-padding-remove uk-margin-mini-left" style="display:none">
+					<div class="uk-panel cf-panel-box cf-panel-box-secondary">
+						<span class="hashdir-list uk-margin-mini-left uk-margin-mini-right" value=""></span>
+					</div>
+				</li>
+				{% for hashdir in M_Hashdir_retrieve %}
+				<li class="hashdir-li uk-padding-remove uk-margin-mini-left">
+					<div class="uk-panel cf-panel-box cf-panel-box-secondary">
+						<span class="hashdir-list uk-margin-mini-left uk-margin-mini-right" value="{{hashdir.hashcon_id}}">#{{hashdir.hash}}</span><button type="button" class="hashdir-remove uk-margin-mini-right"  uk-close></button>
+					</div>
+				</li>
+				{% endfor %}
+		</ul>
+		{% else %}
+		<ul class="hashdir-ul uk-grid uk-grid-small uk-grid-width-1-10 uk-grid-width-small-1-4 uk-margin-remove" style="display:none" uk-sortable></ul>
+		{% endif %}
+	</div>
+
+{% elif  M_hash_type == "H" %}
+	<div class="" uk-grid>
+		<div class="uk-width-1-1 hashdir-div uk-margin-small-bottoom">
+
+			{% if M_Hashdir_retrieve %}
+			<!-- if user is owner -->
+			<ul class="hashdir-ul uk-grid uk-grid-small uk-grid-width-1-10 uk-grid-width-small-1-4 uk-margin-remove" uk-sortable>
+					<li class="hashdir-li uk-padding-remove uk-margin-mini-left" style="display:none">
+						<div class="uk-panel cf-panel-box cf-panel-box-secondary">
+							<span class="hashdir-list uk-margin-mini-left uk-margin-mini-right" value=""></span>
+						</div>
+					</li>
+					{% for hashdir in M_Hashdir_retrieve %}
+					<li class="hashdir-li uk-padding-remove uk-margin-mini-left uk-margin-mini-bottom">
+						<div class="uk-panel cf-panel-box cf-panel-box-secondary">
+							<span class="hashdir-list uk-margin-mini-left uk-margin-mini-right" value="{{hashdir.hashcon_id}}">#{{hashdir.hash}}</span><button type="button" class="hashdir-remove uk-margin-mini-right"  uk-close></button>
+						</div>
+					</li>
+					{% endfor %}
+			</ul>
+			{% else %}
+			<ul class="hashdir-ul uk-grid uk-grid-small uk-grid-width-1-10 uk-grid-width-small-1-4 uk-margin-remove" style="display:none" uk-sortable>
+			</ul>
+			{% endif %}
+		</div>
+
+		{% if M_Hashtag_retrieve %}
+		<div class="uk-width-1-1 hashtag-div" >
+			<!--### for HashTag Cloud-->
+
+			<ul class="hashtag-ul uk-grid uk-grid-small uk-grid-width-1-10 uk-grid-width-small-1-4  uk-margin-remove ">
+				{% for hash in M_Hashtag_retrieve %}
+				<li class="hashtag-li uk-padding-remove uk-margin-mini-left">
+					<div class="">
+						<span class="hashtag-list uk-margin-mini-left uk-margin-mini-right" value="{{hash.hash_id}}">#{{hash.hash}}</span>
+						<div class="hashtag-dropdown" uk-dropdown="mode: click" value="">
+							<button class="uk-button uk-button-default uk-button-mini add-hashdir " type="button" value="{{hash.cube_id}}_{{hash.con_id}}_{{hash.hashcon_id}}" >HashDir</button>
+							<button class="uk-button uk-button-default uk-button-mini uk-martion-mini-left hashtag-search" type="button" value="{{hash.cube_id}}_{{hash.con_id}}_{{hash.hashcon_id}}_{{hash.hash}}" >Search</button>
+						</div>
+
+					</div>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+
+	</div>
+{% endif %}
+
+
+
