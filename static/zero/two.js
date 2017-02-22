@@ -248,34 +248,35 @@ var doProfileUpdate = function(event){
 
 
 var doSearch = function(event){
-	var M_search_type = "T";
+	var M_search_type = "S";
 	var search_keyword = $("#search_keyword").val();
 
 	$("#conContent").empty();
 	
-    if( !search_keyword ){//hash tag click
-		search_keyword = $(this).attr("value");
-	}
-
+    if( $("#search_hashtag").attr("value") !== undefined  ){
+    	M_search_type="T";
+    	var hash_total_id = $("#search_hashtag").attr("value").split("_");
+    	search_keyword = hash_total_id[2];
+    }else {
+    	alert ("no search_hashtag ");
+    }
 
 	if ( search_keyword ){
 		var promise = $.ajax({
 			type: "POST",
 		   	url:baseUrl+'intershell/zero/search/',
-		   	data:{"search_type":"T", "search_keyword":search_keyword},
+		   	data:{"search_type":M_search_type , "search_keyword":search_keyword},
 		   	success:function(data){
 		   		$(".uk-active").removeClass("uk-active");
 				$("nav").find('.nav-li-cube').addClass("uk-active");
-				
+					
+				//need searched keyword return data 
+
 		       	$("#conContent").append(data);
                 
                 doShellMode("S");
                 doExtendMode("H");
-                
-                search_keyword = "<span class='hashtag uk-margin-right' style='cursor:pointer'>#" + search_keyword + "</span>";
-                $(".search-history").append(search_keyword);
 
-                
 		    },
 		    error:function(){
 		    	alert('doSearch error!');
@@ -291,24 +292,49 @@ var doSearch = function(event){
 var doSearchTag = function(event){
     event.stopPropagation();
     
-    if( $(this).hasClass("hashtag") ){
+    var target_hashtag = $(".nav-ul").find(".nav-li-hash").first().clone();
+	target_hashtag.find("svg").remove();
+		
+	target_hashtag.removeClass("nav-li-hash");
+	target_hashtag.addClass("nav-li");
+	target_hashtag.css("display", "block");
+	target_hashtag.attr("target_type", 'H' );
+
+    if( $(this).hasClass("hashtag") ){ // text hashtag in shell 
+    	var hashtag_text = $(this).html();
+
+    	$(this).parents(".cube-li").find(".hashtag-li").each(function(){
+    		if( $(this).find(".hashtag-list").html() == hashtag_text ){
+    			target_hashtag.attr("id", $(this).attr("value") );
+    		}
+    	});
+
     	$("#search_keyword").attr("value", $(this).html().replace("#", "") );	
-    	var target_html =  "<li class='nav-li' id='' value = 'H'  ><span class='shell-tooltip uk-margin-small-left' uk-tooltip='pos:bottom' title='" + $(this).html() +
-		"'  value='"+ $(this).html() +	"' >" + $(this).html() + "</span></li>";
+		$("#search_hashtag").attr("value", target_hashtag.attr("id"));
 
-    }else if ( $(this).hasClass( "hashtag-search" ) ){
-    	$("#search_keyword").attr("value", $(this).parents(".hashtag-li").find(".hashtag-list").html().replace("#", "")    );
-    	$("#search_hashtag").attr("value", $(this).attr("value"));
+		target_hashtag.find(".nav-hash").html( $(this).html() );
 
-    	var total_hash = $(this).attr("value").split("_");
-  
-        var target_html =  "<li class='nav-li' id="+ total_hash +" value = 'H'  ><span class='shell-tooltip uk-margin-small-left' uk-tooltip='pos:bottom' title='" + total_hash[3] +
-		"'  value='"+ total_hash[3] +	"' >#" + total_hash[3] + "</span></li>";
-	
+    }else if ( $(this).hasClass( "hashtag-search" ) ){ // retrieved hashtag with id 
+		target_hashtag.attr("id", $(this).parents(".hashtag-li").attr("value") );
+		target_hashtag.find(".nav-hash").html( "#" + $(this).attr("hashtext") );
+
+		$("#search_keyword").attr("value", $(this).attr("hashtext")    );
+    	$("#search_hashtag").attr("value", target_hashtag.attr("id") );
+    }else if ( $(this).hasClass("nav-hash") ){
+    	$("#search_keyword").attr("value", $(this).html().replace("#", "")    );
+    	$("#search_hashtag").attr("value", $(this).parents(".nav-li").attr("id") );
     }
 
-	$(".nav-ul").append(target_html);    
-    $.session.set('nav_act_html', $("#nav_ul").html() );
+    var target_nav = "#" + target_hashtag.attr("id"); 
+
+    if( $(".nav-ul").find( target_nav ).length > 0 ){	
+    	//alert ( $(".nav-ul").find( target_nav ).html() );
+    	//noadd to nav 
+    } else {
+    	$(".nav-ul").append( target_hashtag ); 
+    }
+	
+    $.session.set('nav_act_html', $("#nav_ul").html() );	
 
     doSearch();
 };

@@ -723,7 +723,7 @@ def zero_search (request):
     T : hashtags <-cube_id -> shell_id 
     '''
     print "##### zero_Search ............................."
-    #print request
+
 
 
     if "search_type" in request.POST:
@@ -737,24 +737,17 @@ def zero_search (request):
         search_keyword = ''
 
 
-    if "search_hashtag" in request.POST:
-        search_hashtag = request.POST["search_hashtag"]
-    else:
-        search_hashtag =''
-
-
-
     request_user_id = request.user.id
 
     cursor = connection.cursor()
     try:
         if search_type == "T":
             print search_type,search_keyword, request_user_id
+
             cursor.execute("exec dbo.PSearch @search_type = %s, @search_keyword = %s, @request_user_id = %s" , [search_type, search_keyword, request_user_id] ) 
             M_Cube_retrieve = dictfetchall(cursor)
 
 
-            print M_Cube_retrieve
 
         elif search_type == "S": #Search Shell and return Cube and shell_id list
             if "shell_id" in request.POST:
@@ -966,12 +959,12 @@ def zero_CRUD (request):
         con_shell_list = json_data['con_shell_list']
         con_shell_list = json.dumps(con_shell_list)
 
-        #print con_shell_list["hashtags"]
+
         #print con_shell_list
         
         shell_list_sql = "exec dbo.PShell_create @user_id=%s, @cube_id=%s, @con_shell_list=%s"
         
-        #print user_id, cube_id, con_shell_list
+        print user_id, cube_id, con_shell_list
 
         try:
             cursor.execute( shell_list_sql, [user_id, cube_id, con_shell_list])
@@ -981,20 +974,15 @@ def zero_CRUD (request):
             print '%s (%s)' % (e.message, type(e))
             cursor.close() 
             return toJSON({'status':'zero_crud - shell create failed'})
-        
 
         #print result_shell_list
-
         #con_list = toJSON(result_shell_list)
-
         #print con_list
 
     cursor.close()       
     
     print '.....................Zero CRUD successed'
-    
     result_set = toJSON({'status':'create successed!!!', 'cube_id':cube_id})
-    
     return result_set
 
 

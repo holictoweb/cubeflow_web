@@ -839,7 +839,7 @@ var doAddHashdir = function(event){
 	event.stopPropagation();
 
 	var target_cube_li = $(this).parents(".cube-li");
-	var total_id = $(this).attr("value").split("_");  // cube_id / con_id / hashcon_id 
+	var total_id = $(this).parents('.hashtag-li').attr("value").split("_");  // cube_id / con_id / hashcon_id 
 	//alert (total_id)
 	$.ajax({
    		type: "POST",
@@ -1118,6 +1118,7 @@ var doSaveNav = function(event){
 
     $(".nav-li").each(function(){
         //type shell 
+
         target_id = $(this).attr("id").split("_"); 
         
         item = {};
@@ -1161,7 +1162,7 @@ var doSaveNav = function(event){
 var doRetrieveNavSession = function(event){
 
     if( $.session.get('nav_act_html') ){
-		$("#nav_ul").find(".nav-li").each(function(){ $(this).remove(); } ) ;
+		$("#nav_ul").find("li").each(function(){ $(this).remove(); } ) ;
 		$("#nav_ul").append($.session.get('nav_act_html'));
         //doRetrieveSelectShell();
 	}

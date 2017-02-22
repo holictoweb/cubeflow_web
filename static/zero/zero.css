@@ -289,14 +289,14 @@ li.shell, ul.full ,li.item {
   /*background: -webkit-linear-gradient(#dce6f8, #bdcff1);
 	 border-radius: 1px; 
 	box-shadow: 0 0 0 1px #a3bcea;*/
-	font-size: 12px;
+	font-size: 14px;
 	white-space: pre-wrap;
 	word-break: break-word;
 	line-height: 20px;
   color: #1a0dab;
   cursor:pointer;
   font-family: 'Raleway', sans-serif;
-  
+  font-weight: bolder;
 }
 
 .hashdir-list{
@@ -309,6 +309,7 @@ li.shell, ul.full ,li.item {
   line-height: 20px;
   cursor:pointer;
   font-family: 'Didact Gothic', sans-serif;
+  font-weight: bolder;
 }
 
 
@@ -322,9 +323,18 @@ li.shell, ul.full ,li.item {
  	padding-left: 0px;
 }
 
-
 .my-nav-ul {
-    padding-left: 0px;
+  padding-left: 0px;
+}
+
+.nav-hash {
+  font-size: 15px;
+  font-family: 'Raleway', sans-serif;
+}
+
+.nav-span {
+  font-size: 15px;
+  font-family: 'Open Sans', sans-serif;
 }
 
 /* ========================================================================

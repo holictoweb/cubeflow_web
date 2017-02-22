@@ -31,9 +31,9 @@
 					{% if M_nav_retrieve %}
 						{% for nav in M_nav_retrieve %}
 							<li class="my-nav-li" class="uk-visible-toggle" style="cursor:pointer" value="{{nav.nav_id}}">
-								<span class="mynav uk-display-inline guide-font">{{nav.nav}}</span>
+								<span class="mynav  guide-font">{{nav.nav}}</span>
 								<span uk-icon="icon: check" class="mynav-check " style="display:none"></span>
-								<span class="mynav-close uk-display-inline uk-margin-mini-left uk-invisible-hover" uk-icon="icon: close; ratio: 0.7" style="display:block"  value="{{nav.nav_id}}"></span>
+								<span class="mynav-close  uk-margin-mini-left uk-invisible-hover" uk-icon="icon: close; ratio: 0.7"  value="{{nav.nav_id}}"></span>
 								<div class="my-nav-html" style="display:none">
 									{{nav.html}}
 								</div>
@@ -51,7 +51,7 @@
     <div class="nav-act uk-panel cf-panel-box cf-panel-box-secondary uk-margin-small-top uk-visible-toggle" style="padding:5px">
         <div class="nav-target" uk-grid>
             <div class="uk-width-1-1">
-                <span class="cf-main-1">Nav</span><span class="guide-font" > Act </span>
+                <span class="cf-main-1">Nav</span><span class="guide-font" > Act</span>
             </div>
 			<div class="uk-width-1-1 ">
 				<input type="text" class="new-nav" id ="new_nav"  class="uk-width-1-1" >
@@ -66,6 +66,10 @@
 						<div class='' uk-dropdown='mode: click' value=''>
 							<button class="uk-button uk-button-default uk-button-mini cube-detail" type="button">move cube</button>
 						</div>
+						<a class="uk-invisible-hover nav-close" uk-icon="icon: close;ratio: 0.7"></a>
+					</li>
+					<li class="nav-li-hash uk-visible-toggle" style="display:none">
+						<button class="nav-hash uk-button uk-button-hashtag uk-button-text uk-margin-small-left"></button>
 						<a class="uk-invisible-hover nav-close" uk-icon="icon: close;ratio: 0.7"></a>
 					</li>
                 </ul>
@@ -96,6 +100,8 @@
 		$(".M-Nav").on("click", ".nav-close", doRemoveNav);
 
 		$(".M-Nav").on("click", ".cube-detail", doCubeDetail);
+		$(".M-Nav").on("click", ".nav-hash", doSearchTag );
+
 
 		$(".my-nav").on({
 			mouseenter: function () {

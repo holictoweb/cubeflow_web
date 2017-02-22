@@ -58,12 +58,12 @@
 
 			<ul class="hashtag-ul uk-grid uk-grid-small uk-grid-width-1-10 uk-grid-width-small-1-4  uk-margin-remove ">
 				{% for hash in M_Hashtag_retrieve %}
-				<li class="hashtag-li uk-padding-remove uk-margin-mini-left">
+				<li class="hashtag-li uk-padding-remove uk-margin-mini-left" value="{{hash.cube_id}}_{{hash.con_id}}_{{hash.hashcon_id}}">
 					<div class="">
 						<span class="hashtag-list uk-margin-mini-left uk-margin-mini-right" value="{{hash.hash_id}}">#{{hash.hash}}</span>
 						<div class="hashtag-dropdown" uk-dropdown="mode: click" value="">
-							<button class="uk-button uk-button-default uk-button-mini add-hashdir " type="button" value="{{hash.cube_id}}_{{hash.con_id}}_{{hash.hashcon_id}}" >HashDir</button>
-							<button class="uk-button uk-button-default uk-button-mini uk-martion-mini-left hashtag-search" type="button" value="{{hash.cube_id}}_{{hash.con_id}}_{{hash.hashcon_id}}_{{hash.hash}}" >Search</button>
+							<button class="uk-button uk-button-default uk-button-mini add-hashdir " type="button" >HashDir</button>
+							<button class="uk-button uk-button-default uk-button-mini uk-martion-mini-left hashtag-search" type="button"  hashtext = "{{hash.hash}}">Search</button>
 						</div>
 
 					</div>

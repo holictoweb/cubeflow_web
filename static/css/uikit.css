@@ -1755,7 +1755,12 @@ select.uk-form-width-xsmall {
   line-height: 20px;
   font-size: 0.775rem;
 }
-
+.uk-button-hashtag {
+  padding: 0 10px;
+  line-height: 20px;
+  font-size: 0.875rem;
+}
+/* holic */
 
 .uk-button-small {
   padding: 0 15px;
