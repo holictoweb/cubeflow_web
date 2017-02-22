@@ -95,13 +95,13 @@ var doLikeLoadShellStatic = function(){
 				$("#modal_flow").attr("value", $(this).attr("value"));
 
 				if( !$(this).hasClass("shell-selected") ){
-					$(this).find("#shell_action").css("visibility","visible");
+					//$(this).find("#shell_action").css("visibility","visible");
         			$(this).css("background-color","#e1e8ef");
 				}
 		    },
 		    mouseleave: function () {
 				if( !$(this).hasClass("shell-selected") ){
-					$(this).find("#shell_action").css("visibility","hidden");
+					//$(this).find("#shell_action").css("visibility","hidden");
         			$(this).css("background-color","");
 				}
 		    }
@@ -451,7 +451,7 @@ var doRetrieveCubeOneH = function (tcube_id, cube_type, target_div ){
 	    },
 	    error:function(){
 	        alert('retrieve created cube ERROR!!');
-	        return;
+	        retun;
 	    }
 	});
 };
@@ -557,34 +557,39 @@ var doSelectShell = function(event){
 
 		if( selected_shell.hasClass("shell-selected") ){
 	        selected_shell.removeClass("shell-selected");
-	        selected_shell.find("#shell_action").css("visibility","hidden");
+	        //selected_shell.find("#shell_action").css("visibility","hidden");
 	        
 	    }else{
 	    	selected_shell.addClass("shell-selected");        
-	        selected_shell.find("#shell_action").css("visibility","visible");
+	        //selected_shell.find("#shell_action").css("visibility","visible");
 	    }  		
 
    	}else{
    		selected_shell = selected_CN_shell;
    	}
 
-
-    if( $(".M-Nav").find(selected_total_id).length != 0  ){
+    if( $(".M-Nav").find(selected_total_id).length != 0  ){	
         doRemoveNav(event);
     }else{
         doAddNav(selected_shell);
     }
     
-    
-    
 };
-
-
 
 var doClickCube = function(event){
 	event.stopPropagation();
+	if ( $("#TC_cube_mode").hasClass("cube-on-update") ){
+		return false;
+	}
 
-	var target_article = $(event.currentTarget);
+	var target_article;
+
+	if ( $(event.currentTarget).hasClass("uk-article") ) {
+		target_article = $(event.currentTarget);
+	}else {
+		target_article = '#article_' +  $(event.currentTarget).attr("value");
+		target_article = $(target_article);
+	}
 
 	if( target_article.hasClass("cube-on-update") ){
 		return false;
@@ -666,7 +671,7 @@ var doRetrieveSelectShell = function(event){
 
     $("#M_Cube").find(".shell-li").each(function(){
         $(this).removeClass("shell-selected")
-        $(this).find("#shell_action").css("visibility","hidden");
+        //$(this).find("#shell_action").css("visibility","hidden");
     });
     
     var nav_shell_list = [];
@@ -684,7 +689,7 @@ var doRetrieveSelectShell = function(event){
         target_shell_div = $("#conContent").find(target_shell_id);
         
         target_shell_div.addClass("shell-selected");
-        target_shell_div.find("#shell_action").css("visibility","visible");
+        //target_shell_div.find("#shell_action").css("visibility","visible");
         
         //target_shell_div.parents(".uk-article").addClass("cube-selected");
         //target_shell_div.parents(".uk-article").removeClass("cf-panel-box-secondary");
@@ -696,6 +701,9 @@ var doRetrieveSelectShell = function(event){
 
 var doMetaShellArea = function(event){
     event.stopPropagation();
+
+
+    alert ("remove target 20170221 ###### doMetaShellArea");
     
     doCloseMetaShellArea();    
     
@@ -925,8 +933,14 @@ var doRetrieveHashtagList = function(target, cube_id){
    		data:{"cube_id":cube_id},
    		success:function(data){
             target.append(data);
+			
+            if (target.find(".hashtag-ul").length > 0 ) {
+            	target.parents(".cube-li").find(".hash-divider").css("display","block");
+            }
+
         },
         error:function(){
+        	return false;
             //alert('error retrive extend!');
         },
    	});
@@ -940,20 +954,20 @@ var doRetrieveHashtagList = function(target, cube_id){
 
 var doAddNav = function(target_shell){ 
     var target_id = target_shell.attr("id");
-    var target_text = target_shell.find(".shell").html();
+    var target_text = target_shell.find(".shell-text").html();
+    var target_html = target_shell.find(".shell").html();
 	var target_scroll = target_shell.attr("id");
 	var show_text ="";
 	var showChar = 40;
     var target_type = "" ;
     
-
     if ( target_shell.hasClass("shell-li") ){
         target_type = "C";
     }else if( target_shell.hasClass("CN-shell-li") ) {
         target_type = "C";
-    }else if( $(event.currentTarget).hasClass("hashtag") ) {
+    }/*else if( $(event.currentTarget).hasClass("hashtag") ) { HASH TAG -> doSearchTag
         target_type = "H";
-    }
+    }*/
     
 	if(target_text.length > showChar) {
         show_text = target_text.substr(0, showChar);
@@ -962,54 +976,93 @@ var doAddNav = function(target_shell){
         show_text = target_text;
     }
     
-    //### flow nav check
-	/*var target_html =  "<li class='nav-li' id="+ target_id +" value = '" + target_type  +"'  ><span class='cf-M-nav-close' uk-icon='icon: more; ratio:0.8'></span><span class='shell-tooltip uk-margin-small-left' uk-tooltip='pos:bottom' title='" + target_text +
-		"'  value='"+ target_text +	"' ><a href='#"+ target_scroll + "'  value='" + target_id + "' >" + show_text + "</a></span></li>";*/
-    //cf-M-nav-close close connect
-    
+	var target_nav = $(".nav-ul").find(".nav-li-dup").first().clone();
+	target_nav.find("svg").remove();
 
-	var target_nav_html = $(".nav-ul").find(".nav-li-dup").clone();
+	target_nav.attr("id", target_id );
+	target_nav.attr("target_type", target_type );
+	target_nav.removeClass("nav-li-dup");
+	target_nav.addClass("nav-li");
+	target_nav.css("display", "block");
 
-	//alert( $(".nav-ul").append(target_nav_html);
+	target_nav.find(".nav-span").html( show_text );
+	target_nav.find(".nav-span").attr("value", target_html );
+	target_nav.find(".nav-span").attr("title", target_html );
+	$(".nav-ul").append(target_nav);
 
-	$(".nav-ul").find('.nav-li-dup').last().addClass("nav-li").attr("id", target_id );
-
-	target_id = '#' + target_id;
-	var target_nav_li = $(".nav-ul").find(target_id);
-
-	target_nav_li.removeClass("nav-li-dup");
-	target_nav_li.css("display", "block");
-
-	target_nav_li.find(".nav-span").html( show_text );
-	target_nav_li.find(".nav-span").attr("value", target_text );
-	target_nav_li.find(".nav-span").attr("title", target_text );
-
-	//$(".nav-ul").append(target_nav_html).css("display", "block");
-
-	target_id	 = '#' + target_id ;
+	//target_nav.parents(".nav-li").find(".add-cube").on("click",doAddFlowNav);
 
     $.session.set('nav_act_html', $("#nav_ul").html() );
 };
+
+
+var doAddFlowNav = function(event){
+	event.stopPropagation();
+	//NAV to Create Form
+	//M-create-form Flow
+
+    if ( $("#TC_cube_mode").hasClass("cube-on-update") ){ // UPDATE FORM 
+    	var target_article = '#article_' + $("#TC_cube_mode").attr("value");
+		target_article = $("#conContent").find(target_article);
+
+		var NewShell = target_article.find(".shell-content-div").first().clone();
+		
+		NewShell.find(".shell-add-div").remove();
+		NewShell.find("textarea").remove();
+
+		NewShell.find(".shell").html( $(this).find(".nav-span").html() );
+		NewShell.find(".shell-text").html( $(this).find(".nav-span").attr("value") );
+		//NewShell.find(".shell").after( '<textarea class="uk-textarea shell-update" rows="5"  placeholder="" ></textarea>').css("display", "none");
+
+		NewShell.appendTo( target_article.find(".shell-ul") ).wrap("<li class='flow-target-shell-li' value='" + $(this).attr("id") + "'></li>");
+    }else if( $(this).attr("target_type") == "C" ) {// CREATE FORM 
+    	var total_id_list = $(this).attr("id");
+
+        var shell_text = $(this).find(".nav-span").html(); // creatte form
+        var flow_target_shell = $(".create-target-shell-li-temp").first().clone();
+        
+        flow_target_shell.removeClass("create-target-shell-li-temp");
+        flow_target_shell.find(".cf-article-lead").removeClass("create-shell");
+        flow_target_shell.css("display","block");
+        
+        flow_target_shell.addClass("flow-target-shell-li");    
+        flow_target_shell.attr("value", total_id_list);
+        flow_target_shell.find(".cf-article-lead").html( shell_text );
+        
+        flow_target_shell.find(".uk-panel").removeClass("cf-panel-box-secondary-selected");
+	    flow_target_shell.find(".uk-panel").addClass("cf-panel-box-secondary");
+        
+        flow_target_shell.find(".uk-close").on("click", doRemoveFlowLi );
+        
+        flow_target_shell.find(".new-shell").prepend('<i class="uk-icon-circle   uk-margin-small-right"></i>');
+        
+        $(".M-create-form").find(".M-create-shell-ul").append( flow_target_shell );
+        
+    }else if ($(this).attr("value") == "T"){
+        //tag의 경우 검색에서 바로 연결
+    }
+    
+};
+
 
 var doRemoveNav = function(event){
     event.stopPropagation();
     
 	var target_id;
-	var target_div;
+	var target_shell_li;
     
-	if( $(event.currentTarget).hasClass('cf-M-nav-close')  ){
+	if( $(event.currentTarget).hasClass('nav-close')  ){
+
 		target_id = $(event.currentTarget).parents("li").attr("id");
 		$(event.currentTarget).parents("li").remove();
-		
-        target_div = $("#M_Cube").find("#" + target_id + "");
-        
-        if ( target_div.find(".uk-icon-check-square") ){
-            target_div.removeClass("shell-selected");
-            $(this).find("#shell_action").css("visibility","hidden");
-            target_div.css("background-color","");
-        }
-	}else{
-		target_id = $(event.currentTarget).attr("value");
+			
+        target_shell_li = $("#M_Cube").find("#" + target_id + "");
+
+        target_shell_li.removeClass("shell-selected");
+        target_shell_li.css("background-color","#FFFFFF");
+
+	}else{// bookmark icon click
+		target_id = $(event.currentTarget).attr("value"); 
 		$("#M_Nav").find("#"+target_id+"").remove();
 	}
 
@@ -1017,15 +1070,15 @@ var doRemoveNav = function(event){
 };
 
 var doChangeNav = function(event){
-	// develpe 필요
-	var dataSet = {"dataset":"update_hashdir"};
+	// develop like hashtag
+	var dataSet = {"dataset":"update_mynav"};
 	var hashcon_id_list = []; 
 	var hashcon_id_list_json = [];
 	var hashcon_seq=0;
 
-	$(this).find('.hashdir-list').each(function(){ // changed ul each li 
+	$(this).find('.hashdir-list').each(function(){ // nav list change
 		item = {};
-	    item ["hashcon_id"] = $(this).attr("value");
+	    item ["mynav_id"] = $(this).attr("value");
 	    item ["hashcon_seq"] = '' +hashcon_seq;
 
 	    hashcon_id_list_json.push(item);
@@ -1055,25 +1108,24 @@ var doSaveNav = function(event){
     
     var dataSet = {};
     
-    var nav_list;
+    var target_id ;
 	var nav_list_JSON = [];
-    
     
     if ( $(".new-nav").val() == '' ) {
         alert("nav name is empty" );
-        return 
+        return false;
     }
 
     $(".nav-li").each(function(){
         //type shell 
-        nav_list = $(this).attr("id").split("_"); 
+        target_id = $(this).attr("id").split("_"); 
         
-        $(this).find("svg").remove();
-
         item = {};
-        item["target_type "] = $(this).attr("value");
-	    item["target_id "] = nav_list[1] ; //con_id target is shell 
-        item["html"] = $(this).clone().wrapAll("<div/>").parent().html();
+        item["target_type "] = $(this).attr("target_type");
+	    item["target_id "] = target_id[1] ; //target is con_id 
+	    var target_html = $(this).clone();
+	    target_html.find("svg").remove();
+        item["html"] = target_html.wrapAll("<div/>").parent().html();
         
         nav_list_JSON.push(item);
     });
@@ -1082,7 +1134,6 @@ var doSaveNav = function(event){
         alert("nothing to save!!");
         return;
     }
-    
     
     $.extend(dataSet, {"nav_id" : $(".mynav-selected").attr("value") }) ;
     $.extend(dataSet, {"nav" : $(".new-nav").val() }) ;
@@ -1124,20 +1175,20 @@ var doRetrieveNav = function(event, M_Nav_type){
    		url:baseUrl+'intershell/zero/nav/' + M_Nav_type +'/',
    		data:{"user_id":target_user_id},
    		success:function(data){
+   			$("#nav_ul").find("svg").remove();
+
            	if(M_Nav_type == "retrieveH"){
                 $(".my-nav-ul-div").remove();
                 $(".my-nav-div").append(data);
             }else if (M_Nav_type =="retrieveM"){
                 $("#rsideControl").append(data);
             }
-            
             doRetrieveSelectShell();
         },  
         error:function(){
             alert('doRetrieveNav - ajax error');
         }
    	});	
-    
 };
 
 
@@ -1160,7 +1211,7 @@ var doRetriveNavAct = function(event){
     $(this).find(".mynav-check").css("display", "block")
     $(this).find(".mynav-check").addClass("uk-display-inline")
     
-    $(".uk-text-bold").removeClass("uk-text-bold");
+    $(".mynav").removeClass("uk-text-bold");
     $(this).find(".mynav").addClass("uk-text-bold")
 
     $(".mynav-selected").removeClass("mynav-selected");
@@ -1186,7 +1237,7 @@ var doEmptyNavAct = function(){
     var target_id;
 	$(".mynav-selected").find(".mynav-check").removeClass("uk-display-inline")
     $(".mynav-selected").find(".mynav-check").css("display", "none");
-    $(".uk-text-bold").removeClass("uk-text-bold");
+    $(".M-Nav").find(".uk-text-bold").removeClass("uk-text-bold");
     $(".mynav-selected").removeClass("mynav-selected");
 
 	$("#new_nav").val("");
@@ -1200,7 +1251,9 @@ var doEmptyNavAct = function(){
         target_div.css("background-color","");
     });
     
-    $.session.set('nav_act_html', $("#nav_ul").html() );
+    var tarte_nav = $("#nav_ul").clone();
+    tarte_nav.find("svg").remove();
+    $.session.set('nav_act_html', tarte_nav.html() );
 };
 
 
@@ -1224,7 +1277,6 @@ var doRemoveMyNav= function(event){
 	});
 
 }
-
 
 
 //####################################################################################################

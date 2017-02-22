@@ -113,20 +113,18 @@
 
 										<div class="uk-margin-remove  uk-grid-collapse" uk-grid>
 
-											<div class="uk-width-15-20 uk-visible-toggle" uk-grid >
-												<div class="uk-width-auto">
+											<div class="uk-width-15-20 uk-flex uk-flex-inline uk-flex-left uk-visible-toggle" >
+												<div class="">
 													<span class="cube-title cf-article-title uk-margin-small-left uk-text-truncate uk-text-break " value="{{cube.cube_id}}" id="cube_title"  style="cursor:pointer" >{{cube.cube}}</span>
 												</div>
-												<div class="uk-width-2-20">
-													<button class="uk-button uk-button-default uk-button-mini update-cube-edit" type="button" style="display:none" >cube</button>
+												<div class="">
+													<button class="uk-button uk-button-default uk-button-mini update-cube-edit" type="button" style="display:none" >edit</button>
 												</div>
-
 											</div>
-
-											<div class="uk-width-5-20 uk-align-right" >
+											<div class="uk-width-5-20 uk-flex uk-flex-inline uk-flex-right" >
 												<div class="uk-align-right cube-action">
 													<button class="uk-button uk-button-default uk-button-mini cube-show-all show-toggle hide-addshell" type="button" >show all</button>
-													<button class="uk-button uk-button-secondary uk-button-mini cube-add-shell hide-addshell" value="{{cube.cube_id}}" con="{{cube.connect_shell_count}}" >{{cube.connect_shell_count}}</button>
+													<button class="uk-button uk-button-secondary uk-button-mini cube-add-shell" value="{{cube.cube_id}}" con="{{cube.connect_shell_count}}" >{{cube.connect_shell_count}}</button>
 												</div>
 											</div>
 										</div>
@@ -143,9 +141,10 @@
 										</div>
 
 									</div>
+									<hr class="cf-cube-hr uk-hidden-small">
 
 									<!--cube meta data  with hash tag ex -->
-									<hr class="cf-cube-hr uk-hidden-small">
+
 									<div class="cube-meta-area uk-width-1-1 uk-margin-mini-bottom" id="meta_cube_{{cube.cube_id}}"  >
 
 										{% if M_cube_type != "M" %}
@@ -158,10 +157,13 @@
 										<!--  cube hashdir list-->
 											<div class="uk-width-1-1 hash-div " value = "{{cube.cube_id}}" >
 											</div>
-										</div>
 
+										</div>
 									</div>
-									<hr class="cf-cube-hr uk-hidden-small">
+									<hr class="cf-cube-hr hash-divider uk-hidden-small" style = "display:none">
+
+
+
 									<div  uk-grid>
 										<!--## 3. shell list-->
 										{% if M_cube_type == "C" %}
@@ -189,9 +191,7 @@
 						### connect some others ###
 					</P>
 				{% else %}
-					<p>
-						### No cube! ###
-					</p>
+
 				{% endif%}
 			{% endif %}
 

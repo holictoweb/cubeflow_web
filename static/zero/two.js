@@ -452,34 +452,46 @@ var doUpdateCubeForm = function(event){
 	event.stopPropagation();
 
 	// backup sorce DATA
-	var target_article = '#article_' + $(this).attr("value");
-	target_article = $("#conContent").find(target_article);
+	var target_article_id = '#article_' +  $(event.currentTarget).attr("value");
 
-	if ( $(this).hasClass("cube-on-update") ){
-		$(this).removeClass("cube-on-update");
-		$(this).html("Update Cube");
+	var target_article = $("#conContent").find(target_article_id);
+
+	var update_mode = $("#btnUpdateForm");
+
+	$(".cube-not-selected").css("display","none");
+	$(".cube-selected").css("display","block");
+
+	if ( update_mode.hasClass("cube-on-update") ){
+		$("#TC_cube_mode").removeClass("cube-on-update");
+
+		update_mode.removeClass("cube-on-update");
+		update_mode.html("Update Cube");
 
 		$("#btnAddNewShell").attr("disabled","");
 		$("#btnUpdate").attr("disabled","");
 		
-
 		target_article.removeClass("cube-on-update");
 		target_article.find(".shell-on-update").css("display", "none");
 		target_article.find(".shell-action").css("display", "block");
 
 		target_article.find(".cube-on-update").css("display", "none");
 		target_article.find(".cube-on-update").css("visibility", "hidden");
-		target_article.find(".cube-action").css("display", "block");
+		//target_article.find(".cube-action").css("display", "block");
 
 		target_article.find(".shell-content-shell").removeClass("uk-card uk-card-default uk-card-hover uk-card-body");
+		target_article.find(".create-target-shell-li").remove();
+		target_article.find(".flow-target-shell-li").remove();
+
 	}
 	else{
-		$(this).html("Cancel Update Cube");
-		$(this).addClass("cube-on-update");
+		$("#TC_cube_mode").addClass("cube-on-update");
 
-		$(this).remove
+		update_mode.html("Cancel Update Cube");
+		update_mode.addClass("cube-on-update");
+
+		//$(this).remove
 		$("#btnAddNewShell").removeAttr("disabled");
-		$("#btnUpdate").removeAttr("disabled");
+		$("#btnUpdate").removeAttr("disabled"); 
 		
 
 		target_article.find(".shell-li").each(function(){
@@ -495,7 +507,7 @@ var doUpdateCubeForm = function(event){
 
 		target_article.find(".cube-on-update").css("display", "block");
 		target_article.find(".cube-on-update").css("visibility", "visible");
-		target_article.find(".cube-action").css("display", "none");
+		//target_article.find(".cube-action").css("display", "none");
 
 		target_article.find(".shell-content-shell").addClass("uk-card uk-card-default uk-card-hover uk-card-body");
 		UIkit.sortable( target_article.find('.shell-ul') , {group: 'update-cube' });	
@@ -506,7 +518,23 @@ var doUpdateCubeForm = function(event){
 var doAddNewShell = function(event){
 	event.stopPropagation();
 
-	//update Mode
+	//on the update Mode
+	var target_article = '#article_' + $(event.currentTarget).attr("value");
+	target_article = $("#conContent").find(target_article);
+
+	var NewShell = target_article.find(".shell-content-div").first().clone();
+	
+	NewShell.find(".shell-add-div").remove();
+	NewShell.find("textarea").remove();
+	NewShell.find(".shell").after( '<textarea class="uk-textarea shell-update" rows="5"  placeholder="" ></textarea>').css("display", "none");
+
+	NewShell.appendTo( target_article.find(".shell-ul") ).wrap("<li class='create-target-shell-li' value='0_0_0'></li>");
+};
+
+var doAddNewShell_old_20170220 = function(event){
+	event.stopPropagation();
+
+	//on the update Mode
 	var NewShell = $(".M-Create").find(".shell-content-div-dup").clone();
 	NewShell.removeClass("shell-content-div-dup");
 	NewShell.addClass("shell-content-div");
@@ -514,12 +542,37 @@ var doAddNewShell = function(event){
 	var target_article = '#article_' + $(this).attr("value");
 	target_article = $("#conContent").find(target_article);
 
+	target_article.find(".shell-edit").css("display", "none");
+	target_article.find(".shell-on-update").css("display", "block");
+
 	NewShell.appendTo( target_article.find(".shell-ul") ).wrap("<li class='create-target-shell-li' value='0_0_0'></li>").find(".M-create-shell-div").addClass("uk-card uk-card-default uk-card-hover uk-card-body");
 };
 
 
-var doAddShell = function(event){ // #Shell to Nav
+var doAddShell = function(event){ // create form with add shell 
 	event.stopPropagation();
+	//change to update form
+	if(  $(event.currentTaret).hasClass("cube-on-update") ){
+		
+
+	}else if ( $("#TC_cube_mode").hasClass("cube-on-update") ){
+		return false;
+	}else {
+		$(event.currentTaret).addClass("cube-on-update");
+		doClickCube(event);
+		doUpdateCubeForm(event);
+		doAddNewShell(event);
+	}
+	
+	
+};
+
+
+var doAddShell_old_20170222 = function(event){ // create form with add shell 
+	event.stopPropagation();
+
+	//create form을 호출하는 방식 
+	// update form을 호출 및 shell 추가 액션으로 변경 
 
  	//alert("doAddShell");
 	$("#M_create_type").attr("value", "C");
@@ -557,7 +610,6 @@ var doAddShell = function(event){ // #Shell to Nav
 
 	$("#topControl").find(".uk-sticky-placeholder").css("height", $("#M_TopControl").outerHeight(true) );
 
-    
 };
 
 var doChangeAddShellMode  = function(target_cube){
@@ -725,42 +777,6 @@ var doMoreShell = function(event){
     $(".M-create-form").on("click",".new-shell", doActiveCreateShell ); //more shell li active
 };
 
-var doAddFlowNav = function(event){
-	//NAV to Create Form
-	//M-create-form Flow
-
-    event.stopPropagation();
-
-    if( $(this).attr("value") == "S" ) {
-    	var total_id_list = $(this).attr("id");
-
-        var shell_text = $(this).find(".shell-tooltip").attr("value");
-		//var target_html = "<li class='flow-target-shell-li uk-nestable-item' value='" + total_id_list + "' ><span class='shell'>" + shell_text + "</span><a class='uk-icon-hover uk-icon-close'></a></li>" 
-        var flow_target_shell = $(".create-target-shell-li-temp").clone();
-        
-        flow_target_shell.removeClass("create-target-shell-li-temp");
-        flow_target_shell.find(".cf-article-lead").removeClass("create-shell");
-        flow_target_shell.css("display","block");
-        
-        flow_target_shell.addClass("flow-target-shell-li");    
-        flow_target_shell.attr("value", total_id_list);
-        flow_target_shell.find(".cf-article-lead").html( shell_text );
-        
-        flow_target_shell.find(".uk-panel").removeClass("cf-panel-box-secondary-selected");
-	    flow_target_shell.find(".uk-panel").addClass("cf-panel-box-secondary");
-        
-        flow_target_shell.find(".uk-close").on("click", doRemoveFlowLi );
-        
-        flow_target_shell.find(".new-shell").prepend('<i class="uk-icon-circle   uk-margin-small-right"></i>');
-        
-        
-        $(".M-create-form").find(".M-create-shell-ul").append( flow_target_shell );
-        
-    }else if ($(this).attr("value") == "T"){
-        //tag의 경우 검색으로 바로 연결
-    }
-    
-};
 
 var doRemoveFlowLi = function(event){
     //alert ("doRemoveFlowLi");
@@ -841,7 +857,7 @@ var doShellEditCancel = function(event){
 	target_shell_li.removeClass("create-target-shell-li");
 	target_shell_li.find(".shell-edit").css("display", "none");
 	target_shell_li.find(".shell-on-update").css("display", "block");
-	
+		
 	target_shell_li.find(".shell").css("display", "block");
 	target_shell_li.find(".shell-update").remove();
 };
@@ -889,7 +905,6 @@ var doTotalUpdate = function(event){ // update in cube mode
         con_shell_list = $(this).attr("value").split("_"); 
 		
 		item = {};
-	    
 		
 		if( $(this).hasClass('flow-target-shell-li') ){//type FLOW LI
 			item["create_type"] = "F" ;
@@ -957,7 +972,7 @@ var doTotalUpdate = function(event){ // update in cube mode
 	$.extend(dataSet, {"con_shell_list" : con_shell_list_JSON }) ;
 
 	//alert ( JSON.stringify( con_shell_list_JSON ) ) ;
-	//alert ( JSON.stringify( dataSet ) );
+	alert ( JSON.stringify( dataSet ) );
 
 	
 	$.ajax({
@@ -967,7 +982,7 @@ var doTotalUpdate = function(event){ // update in cube mode
    		dataType: "JSON",
    		success:function(data){
 
-   			alert(data.cube_id);
+   			//alert(data.cube_id);
 
    			doRetrieveCubeOneH(data.cube_id, 'update', target_cube_li);
 

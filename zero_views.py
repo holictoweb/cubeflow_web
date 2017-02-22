@@ -828,7 +828,7 @@ def zero_nav (request, M_nav_type):
             else:
                 nav_id = 0
 
-            print nav_id
+            print nav_list_JSON
 
             cursor.execute("exec dbo.PNav_create @nav_id = %s, @nav = %s, @nav_list_JSON = %s, @user_id = %s", [nav_id, nav, nav_list_JSON, request_user_id] )
             #M_nav_retrieve = dictfetchall(cursor) # if data is not exist cursor is closed
