@@ -45,7 +45,6 @@
 		//### common init
 		doCubeMode( "{{M_cube_type}}" );  //first call to display shellList
 		doExtendMode("H"); //hashtag init call
-        doStaticReload("M_Extend");
 		//### end init
 
 		$("#conContent").on("click", ".connect-user", doConnectUser);
@@ -69,7 +68,7 @@
 		$("#conContent").on('active', ".sticky-cube", doActiveCubeSticky);
 		$("#conContent").on('inactive',".sticky-cube",  doInactiveCubeSticky);
 
-		doInitCubeSticky("T"); //timeline
+		//doInitCubeSticky("T"); //timeline
 
 		//infinite scroll CUBE
 		$(window).scroll(doInfiniteScrollCube );

@@ -550,6 +550,11 @@ var doAddNewShell = function(event){
 
 	var NewShell = target_article.find(".shell-content-div").first().clone();
 	
+	//btn check 
+	NewShell.find(".shell-edit").css("display","none");
+	NewShell.find(".shell-on-update").css("display","none");
+	NewShell.find(".add-shell-edit").css("display","block");
+
 	NewShell.find(".shell-add-div").remove();
 	NewShell.find("textarea").remove();
 	NewShell.find(".shell").after( '<textarea class="uk-textarea shell-update" rows="5"  placeholder="" ></textarea>').css("display", "none");
@@ -557,30 +562,18 @@ var doAddNewShell = function(event){
 	NewShell.appendTo( target_article.find(".shell-ul") ).wrap("<li class='create-target-shell-li' value='0_0_0'></li>");
 };
 
-var doAddNewShell_old_20170220 = function(event){
-	event.stopPropagation();
 
-	//on the update Mode
-	var NewShell = $(".M-Create").find(".shell-content-div-dup").clone();
-	NewShell.removeClass("shell-content-div-dup");
-	NewShell.addClass("shell-content-div");
-
-	var target_article = '#article_' + $(this).attr("value");
-	target_article = $("#conContent").find(target_article);
-
-	target_article.find(".shell-edit").css("display", "none");
-	target_article.find(".shell-on-update").css("display", "block");
-
-	NewShell.appendTo( target_article.find(".shell-ul") ).wrap("<li class='create-target-shell-li' value='0_0_0'></li>").find(".M-create-shell-div").addClass("uk-card uk-card-default uk-card-hover uk-card-body");
+var doAddNewShellCancel = function(event){
+	alert("doAddNewShellCancel");
+	$(this).parents("create-target-shell-li").remove();
 };
 
 
 var doAddShell = function(event){ // create form with add shell 
 	event.stopPropagation();
 	//change to update form
-	if(  $(event.currentTaret).hasClass("cube-on-update") ){
+	if(  $(event.currentTaret).hasClass("cube-on-update") ){// update status do nothing
 		
-
 	}else if ( $("#TC_cube_mode").hasClass("cube-on-update") ){
 		return false;
 	}else {
@@ -592,6 +585,9 @@ var doAddShell = function(event){ // create form with add shell
 	
 	
 };
+
+
+
 
 
 var doAddShell_old_20170222 = function(event){ // create form with add shell 
@@ -888,6 +884,8 @@ var doShellEditCancel = function(event){
 	target_shell_li.find(".shell-update").remove();
 };
 
+
+
 var doShellEditDone = function(event){
 	var target_shell_li = $(this).parents(".shell-li");
 	var tmp_text = target_shell_li.find(".shell-update").html().replace(/<br\s*\/?>/mg,"\n");
@@ -998,8 +996,7 @@ var doTotalUpdate = function(event){ // update in cube mode
 	$.extend(dataSet, {"con_shell_list" : con_shell_list_JSON }) ;
 
 	//alert ( JSON.stringify( con_shell_list_JSON ) ) ;
-	alert ( JSON.stringify( dataSet ) );
-
+	//alert ( JSON.stringify( dataSet ) );
 	
 	$.ajax({
    		type: "POST",

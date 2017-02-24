@@ -14,14 +14,11 @@
 
 
 {% block scripts %}
-	<script src="{% static "zero/zero.js" %}"></script>
-	<script src="{% static "zero/one.js" %}"></script>
-	<script src="{% static "js/jquery.hashtags.js" %}"></script>
-	<script src="{% static "js/autosize.min.js" %}"></script>
+
 {% endblock %}
 
 {% block csslink %}
-	<link rel"stylesheet" href="{% static "zero/zero.css" %}" />
+
 
 	<style type="text/css">	
 	 <!--
@@ -60,6 +57,9 @@
 	{% include "M_Cube_static.html" %}
 	{% include "M_Shell_static.html" %}
 	{% include "M_Flow_static.html" %}
+
+	{% include "M_Hash_static.html" %}
+
 {% endblock %}
 
 

@@ -431,7 +431,7 @@ def zero_cube(request, M_cube_type, target_id):
         cursor.close()
     context = {'M_Cube_retrieve':M_Cube_retrieve, 'M_cube_type': M_cube_type, 'request_user_id': request_user_id, 'scroll_seq':scroll_seq}
 
-    if M_cube_type == 'H'  or  M_cube_type == 'TH' or  M_cube_type == 'OH' or scroll_seq > 0:
+    if M_cube_type == 'H' or M_cube_type == 'TH' or M_cube_type == 'OH' or scroll_seq > 0:
         # print M_Cube_retrieve
         template = loader.get_template("M_cube.html")
         # add template
@@ -876,7 +876,10 @@ def zero_user_cube(request):
     context = {'zero_cube':zero_cube, 'zero_user':zero_user, 'user_id':user_id }
     return render(request, 'zero_user_cube.html', context)
 
+#user link
+def zero_user(request):
 
+    return
 
 ##############################################################################################3
 #shell create Page load

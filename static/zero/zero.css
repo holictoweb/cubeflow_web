@@ -4,7 +4,7 @@
  ========================================================================== */
 
 .cf-main-1 {
-  font-family: 'Fredericka the Great', cursive;
+  font-family: 'Raleway', sans-serif;
 }
 
 
@@ -329,6 +329,7 @@ li.shell, ul.full ,li.item {
 
 .nav-hash {
   font-size: 15px;
+  color: #1a0dab;
   font-family: 'Raleway', sans-serif;
 }
 

@@ -3568,8 +3568,7 @@ ul.uk-nav-sub {
 /* Container
  ========================================================================== */
 .uk-navbar-container:not(.uk-navbar-transparent) {
-  background: #ffffff; /* holic #f8f8f8 */
-  border-bottom: 1px solid #000000; /*holic addition*/
+  background: #FFFFFF; /* holic #f8f8f8 */
 }
 /*
  * Remove pseudo elements created by micro clearfix as precaution (if Container component is used)
@@ -4452,17 +4451,31 @@ ul.uk-nav-sub {
 /* Item
  ========================================================================== */
 .uk-accordion > :nth-child(n+2) {
-  margin-top: 20px;
+  margin-top: 0x; /*holic 20px*/
 }
 /* Title
  ========================================================================== */
 .uk-accordion-title {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: 14px; /*holic font-size: 1.25rem;*/
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.4;
   cursor: pointer;
   overflow: hidden;
 }
+.uk-accordion-title::after {
+  content: "";
+  width: 1.4em;
+  height: 1.4em;
+  float: right;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+}
+.uk-open > .uk-accordion-title::after {
+  
+}
+
+/* holic
 .uk-accordion-title::after {
   content: "";
   width: 1.4em;
@@ -4474,11 +4487,11 @@ ul.uk-nav-sub {
 }
 .uk-open > .uk-accordion-title::after {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
-}
+}*/
 /* Content
  ========================================================================== */
 .uk-accordion-content {
-  margin-top: 20px;
+  margin-top: 0px; /*holic 20px*/
 }
 /*
  * Micro clearfix
@@ -4558,7 +4571,7 @@ ul.uk-nav-sub {
   box-sizing: border-box;
   min-width: 200px;
   /* 4 */
-  padding: 25px;
+  padding: 10px;
   background: #fff;
   color: #666;
   box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
@@ -7561,8 +7574,7 @@ td.uk-text-break {
  */
 .uk-logo {
   font-size: 1.8rem;
-  /*font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; holic*/
-  font-family: 'Fredericka the Great', cursive;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;  
 
   color: #666;
   /* 1 */

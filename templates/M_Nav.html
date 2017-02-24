@@ -27,13 +27,13 @@
 {% endif %}
 
             <div class="my-nav-ul-div uk-width-1-1 ">
-                <ul class="my-nav-ul  " uk-sortable="cls-custom: uk-box-shadow-small uk-flex uk-flex-middle uk-background">
+                <ul class="my-nav-ul uk-link-muted " uk-sortable="cls-custom: uk-box-shadow-small uk-flex uk-flex-middle uk-background">
 					{% if M_nav_retrieve %}
 						{% for nav in M_nav_retrieve %}
 							<li class="my-nav-li" class="uk-visible-toggle" style="cursor:pointer" value="{{nav.nav_id}}">
 								<span class="mynav  guide-font">{{nav.nav}}</span>
 								<span uk-icon="icon: check" class="mynav-check " style="display:none"></span>
-								<span class="mynav-close  uk-margin-mini-left uk-invisible-hover" uk-icon="icon: close; ratio: 0.7"  value="{{nav.nav_id}}"></span>
+								<span class="mynav-close  uk-margin-mini-left uk-invisible-hover" uk-icon="icon: close; ratio: 0.7"  value="{{nav.nav_id}}" ></span>
 								<div class="my-nav-html" style="display:none">
 									{{nav.html}}
 								</div>
@@ -59,19 +59,26 @@
 				<button class="uk-button uk-button-default uk-button-mini nav-empty uk-invisible-hover"  type="button">clear</button>
 			</div>
 
-            <div class="uk-width-1-1">
-                <ul class="nav-ul uk-link-muted" id="nav_ul"  uk-sortable>
+            <div class="uk-width-1-1" style="display:none">
+                <ul class="nav-ul-dup"  >
 					<li class="nav-li-dup uk-visible-toggle" style="display:none" >
-						<span class='nav-span uk-margin-small-left' uk-tooltip='pos:bottom' style="cursor:pointer"></span>
-						<div class='' uk-dropdown='mode: click' value=''>
-							<button class="uk-button uk-button-default uk-button-mini cube-detail" type="button">move cube</button>
+						<span class='nav-span uk-margin-small-left uk-accordion-title' uk-tooltip='pos: top-left' style="cursor:pointer" ></span>
+						<div class="uk-accordion-content">
+							<button class="uk-button uk-button-default uk-button-mini cube-modal" type="button" uk-toggle="target: #modal_cube">popup cube</button>
+							<button class="uk-button uk-button-default uk-button-mini cube-detail" type="button" >move cube</button>
+							<button class="uk-button uk-button-default uk-button-mini nav-close" type="button" >delete</button>
 						</div>
-						<a class="uk-invisible-hover nav-close" uk-icon="icon: close;ratio: 0.7"></a>
 					</li>
 					<li class="nav-li-hash uk-visible-toggle" style="display:none">
 						<button class="nav-hash uk-button uk-button-hashtag uk-button-text uk-margin-small-left"></button>
 						<a class="uk-invisible-hover nav-close" uk-icon="icon: close;ratio: 0.7"></a>
 					</li>
+                </ul>
+            </div>
+			
+			<div class="uk-width-1-1">
+                <ul class="nav-ul uk-link-muted" id="nav_ul"  uk-sortable >
+
                 </ul>
             </div>
 
@@ -99,8 +106,15 @@
 		$(".M-Nav").on("click", ".nav-li", doAddFlowNav);
 		$(".M-Nav").on("click", ".nav-close", doRemoveNav);
 
-		$(".M-Nav").on("click", ".cube-detail", doCubeDetail);
 		$(".M-Nav").on("click", ".nav-hash", doSearchTag );
+
+		$(".M-Nav").on("click", ".cube-modal", doCubeModalSet );
+		$("#modal_cube").on({
+		   'show.uk.modal': doCubeModalShow,
+		    'hide.uk.modal': function(){
+		    	$("#modal_cube").find(".cube-modal-div").empty();
+		    }
+		});
 
 
 		$(".my-nav").on({
@@ -137,28 +151,7 @@
 		});
 
 
-        $(".modal-cube").on({
-		    'show.uk.modal': function(){
-		        var param = $(this).attr("value").split("_");
 
-                $.ajax({
-					type:"POST",
-					url:baseUrl + 'intershell/zero/cube/H/'+ param[0]+'/',
-					success:function(data){
-					    //alert ( data );
-						$(".modal-cube-div").append(data);
-					},
-					error:function(){
-						alert('## error retreive flow modal data!');
-					},
-				});
-
-		    },
-		    'hide.uk.modal': function(){
-		    	$(".modal-cube").find(".modal-cube-div").empty();
-
-		    }
-		});
 
     });
 </script>

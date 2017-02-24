@@ -53,7 +53,7 @@
 									<span class = "shell uk-text-break shell-content"  style="white-space:pre-wrap" >{{shell.shell}}</span >
 									<span class = "shell-meta shell-text" style="display:none"  >{{shell.shell}}</span>
 
-									<div class="uk-width-1-1 uk-flex uk-flex-inline uk-flex-middle uk-padding-remove shell-add-div uk-article-meta "  id="metadata" >
+									<div class="uk-width-1-1 uk-flex uk-flex-inline uk-flex-middle uk-padding-remove uk-article-meta shell-add-div"  id="metadata" >
 										<div class="uk-padding-remove uk-margin-small-right">
 
 											{% if shell.flow_count != "0" %}
@@ -78,7 +78,6 @@
 												<a class = "shell-nav uk-margin-mini-bottom" uk-icon="icon:bookmark" value="{{shell.cube_id}}_{{shell.con_id}}_{{shell.shell_id}}"></a>
 											</div>
 										</div>
-
 									</div>
 
 									<div class="uk-width-1-1 uk-padding-remove uk-link-muted shell-on-update"  style="display:none" >
@@ -87,8 +86,12 @@
 									</div>
 
 									<div class="uk-width-1-1 uk-padding-remove shell-edit"  style="display:none">
-										<button class="uk-button uk-button-secondary uk-button-mini shell-edit-done" type="button" >Done</button>
+										<!--<button class="uk-button uk-button-secondary uk-button-mini shell-edit-done" type="button" >Done</button>-->
 										<button class="uk-button uk-button-default uk-button-mini shell-edit-cancel" type="button" >cancel</button>
+									</div>
+
+									<div class="uk-width-1-1 uk-padding-remove add-shell-edit"  style="display:none">
+										<button class="uk-button uk-button-default uk-button-mini new-shell-cancel" type="button" >cancel add</button>
 									</div>
 
 

@@ -219,7 +219,6 @@ var doRetrieveShell = function (event, M_shell_type){
 var doRetrieveShellList = function (target, M_shell_type){
     // ##### DEFAULT Shell retrieve logic
     
-
 	var cube_id = target.attr("value");
 	
     var target_list = target.find(".target-list").attr("value");
@@ -284,9 +283,9 @@ var doRetrieveShellList = function (target, M_shell_type){
             var target_cube_li = target.parents(".cube-li");
 
             if(exist_hidden_shell == 1){
-                //target_cube_li.find(".cube-show-all").css("display", "block");
+                target_cube_li.find(".cube-show-all").css("display", "block");
             }else{
-                target_cube_li.find(".cube-show-all").remove();
+                target_cube_li.find(".cube-show-all").css("display", "none");
             }
             
 	    },
@@ -398,6 +397,7 @@ var doRetrieveCube = function (){
 
 var doRetrieveCubeUser = function(){
 	//user profile page 
+	alert("doRetrieveCubeUser - user link");
 	window.location.href = baseUrl + 'intershell/zero/cube/U/'+ $(this).attr("value");
 };
 
@@ -424,6 +424,7 @@ var doRetrieveCubeList = function (target_user_id, target_div){
 };
 
 
+
 var doRetrieveCubeOneH = function (tcube_id, cube_type, target_div ){
     
 	$.ajax({
@@ -439,15 +440,14 @@ var doRetrieveCubeOneH = function (tcube_id, cube_type, target_div ){
 	            doExtendMode("H");
 	            
 	            doDisplayCube(target_div.find(".cube-li"), "O");//cone cube	
-	      	}else if  ( cube_type == 'update'){
-	      		
+	      	}else if  ( cube_type == 'update' || cube_type == 'modal'){
+
 	      		target_div.empty();
 	      		target_div.append(data);
-	      		doShellMode("F"); 
-	            doExtendMode("H");
+
+	      		doRetrieveShellList( target_div.find(".shell-div"), 'F');
+            	doRetrieveHashtagList( target_div.find(".hash-div") , "H");
 	      	}
-	      	
-             
 	    },
 	    error:function(){
 	        alert('retrieve created cube ERROR!!');
@@ -486,7 +486,7 @@ var doInfiniteScrollCube = function() {
                         //active sticky
                         var height_top =  $("#M_TopControl").outerHeight(true);
                         //UIkit.sticky( $(this).find(".sticky-cube"), {top:height_top}  );
-                        doInitCubeSticky('C');
+                        //doInitCubeSticky('C');
                     }
                 });
 
@@ -927,6 +927,8 @@ var doExtendMode = function(ex_type){
 
 var doRetrieveHashtagList = function(target, cube_id){
 
+	var cube_id = target.attr("value");
+
 	$.ajax({
    		type: "POST", 
    		url:baseUrl+'intershell/zero/hash/H/',
@@ -953,6 +955,8 @@ var doRetrieveHashtagList = function(target, cube_id){
 //####################################################################################################
 
 var doAddNav = function(target_shell){ 
+	// shell -> nav
+	// hashtag -> nav is searchTag 
     var target_id = target_shell.attr("id");
     var target_text = target_shell.find(".shell-text").html();
     var target_html = target_shell.find(".shell").html();
@@ -988,6 +992,10 @@ var doAddNav = function(target_shell){
 	target_nav.find(".nav-span").html( show_text );
 	target_nav.find(".nav-span").attr("value", target_html );
 	target_nav.find(".nav-span").attr("title", target_html );
+
+	//attribute
+	target_nav.find(".cube-modal").attr("value", target_id.split("_")[0] );
+
 	$(".nav-ul").append(target_nav);
 
 	//target_nav.parents(".nav-li").find(".add-cube").on("click",doAddFlowNav);
@@ -1185,6 +1193,7 @@ var doRetrieveNav = function(event, M_Nav_type){
                 $("#rsideControl").append(data);
             }
             doRetrieveSelectShell();
+            UIkit.accordion('.nav-ul', { collapsible: false } );
         },  
         error:function(){
             alert('doRetrieveNav - ajax error');
@@ -1231,6 +1240,7 @@ var doRetriveNavAct = function(event){
     });
 
     doRetrieveSelectShell();
+    UIkit.accordion('.nav-ul', { collapsible: false } );
 };
 
 var doEmptyNavAct = function(){
@@ -1402,6 +1412,8 @@ var doCubeDetail = function(event){
 };
 
 var doModalCube = function(event){
+	
+
     var cube_id = $(this).attr("value");
     $(".modal-cube").attr("value", cube_id);
     
@@ -1411,6 +1423,7 @@ var doModalCube = function(event){
 
 
 var doCubeDetailModal = function(target){
+
 	var Modal_cube_id = target.attr("value");
 	doModalOpen( Modal_cube_id );	
 };
@@ -1431,4 +1444,20 @@ var doRetrieveFlower = function(target, cube_id){
         },
    	});
 };
+
+var doCubeModalSet = function(event){
+	event.stopPropagation();
+	$("#modal_cube").attr("value", $(this).attr("value"));
+};
+
+var doCubeModalShow = function(event){ 
+	//call by nav-li to modal popup
+	event.stopPropagation();
+
+    var cube_id  = $(this).attr("value");
+
+    doRetrieveCubeOneH ( cube_id, 'modal', $(".cube-modal-div") );
+
+};
+
 

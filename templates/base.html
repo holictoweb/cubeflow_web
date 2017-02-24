@@ -17,10 +17,12 @@
 		<!---cubeflow main -->
 		<link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great" rel="stylesheet">
 
-
+		<!---->
 		<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+		<!-- nav li-->
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+
 		<!--##guide -->
 		<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
 
@@ -105,74 +107,84 @@
 
 	</head>
 
-
-
-	
 	<body>
 		<!-- nav bar start  -->
-		<header>
+		<header class="" style="border-bottom: 1px solid #000;" uk-sticky>
+			<div class="uk-container uk-container-medium" >
+				<nav class="uk-navbar-container  uk-margin-remove "  id="top_nav" uk-navbar="mode: click; dropbar: true; dropbar-mode: push"  uk-sticky>
+					<div class="uk-navbar-left">
+						<a class="uk-navbar-item uk-logo uk-visible@m cf-main-1" href ="{% url 'intershell:zero_index' %}" >CubeFlow</a>
 
-			<nav class="uk-navbar-container uk-margin-remove"  id="top_nav" uk-navbar="mode: click"  uk-sticky>
-				<div class="uk-navbar-left">
+						<ul class="uk-navbar-nav uk-visible@m">
+							<li class="nav-li-cube" ><a href="{% url 'intershell:zero_cube' 'T' 0 %}" >Cube</a></li>
+							<li class="nav-li-flow" ><a href="{% url 'intershell:zero_flow' 'UF' 0 0 %}" >Flow</a></li>
+							<li class="nav-li-connect" ><a href="{% url 'intershell:zero_connect' 'R' %}" >Connect</a></li>
+							<li>
+								<a href="#">TEST</a>
+								<div class="uk-navbar-dropdown">
+									<div class="mycube-dropdown">
+										<div class="uk-grid-divider uk-child-width-expand@s" uk-grid>
+											<div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+											<div>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</div>
+											<div>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</div>
+										</div>
+									</div>
+								</div>
+							</li>
 
-					<a class="uk-navbar-item uk-logo uk-visible@m cf-main-1" href ="{% url 'intershell:zero_index' %}" >CUBEFLOW</a>
+						</ul>
 
-					<ul class="uk-navbar-nav uk-visible@m">
-						<li class="nav-li-cube" ><a href="{% url 'intershell:zero_cube' 'T' 0 %}" >Cube</a></li>
-						<li class="nav-li-flow" ><a href="{% url 'intershell:zero_flow' 'UF' 0 0 %}" >Flow</a></li>
-						<li class="nav-li-connect" ><a href="{% url 'intershell:zero_connect' 'R' %}" >Connect</a></li>
-					</ul>
+						<ul class="uk-navbar-nav uk-hidden@s">
+							<li>
+								<a href="#" uk-icon="icon: menu"></a>
+								<div class="uk-navbar-dropdown">
+									<ul class="uk-nav uk-navbar-dropdown-nav">
+										<li class="nav-li-cube"><a href="{% url 'intershell:zero_cube' 'T' 0 %}" >Cube</a></li>
+										<li class="nav-li-flow"><a href="{% url 'intershell:zero_flow' 'UF' 0 0 %}" >Flow</a></li>
+										<li class="nav-li-connect"><a href="{% url 'intershell:zero_connect' 'R' %}" >Connect</a></li>
+										<li class="uk-nav-divider"></li>
+										<li><a href="{% url 'auth:logout' %}?next=/">logout</a></li>
+									</ul>
+								</div>
+							</li>
+						</ul>
 
-					<ul class="uk-navbar-nav uk-hidden@s">
-						<li>
-							<a href="#" uk-icon="icon: menu"></a>
-							<div class="uk-navbar-dropdown">
-								<ul class="uk-nav uk-navbar-dropdown-nav">
-									<li class="nav-li-cube"><a href="{% url 'intershell:zero_cube' 'T' 0 %}" >Cube</a></li>
-									<li class="nav-li-flow"><a href="{% url 'intershell:zero_flow' 'UF' 0 0 %}" >Flow</a></li>
-									<li class="nav-li-connect"><a href="{% url 'intershell:zero_connect' 'R' %}" >Connect</a></li>
-									<li class="uk-nav-divider"></li>
-									<li><a href="{% url 'auth:logout' %}?next=/">logout</a></li>
-								</ul>
+						<div class="uk-navbar-item">
+							<div class="uk-search uk-search-default ">
+								<a class="uk-search-icon-flip search_action" uk-search-icon></a>
+								<input class="uk-search-input" id="search_keyword" type="search" placeholder="Search..." style="background-color:#FFFFFF">
+								<span style="display:none" value="" class="search-hashtag" id="search_hashtag"></span>
 							</div>
-						</li>
-					</ul>
-
-					<div class="uk-navbar-item">
-						<div class="uk-search uk-search-default ">
-							<a class="uk-search-icon-flip search_action" uk-search-icon></a>
-        					<input class="uk-search-input" id="search_keyword" type="search" placeholder="Search...">
-							<span style="display:none" value="" class="search-hashtag" id="search_hashtag"></span>
 						</div>
+
+					</div>
+					<div class="uk-navbar-right uk-link-muted">
+						{% if user and not user.is_anonymous %}
+						<div class="uk-navbar-item uk-link-muted after-login">
+
+							<button class="uk-button uk-button-text uk-button-small user-link" value="{{user.id}}"><span uk-icon="icon: user"></span><a class="uk-margin-small-left hovercard-user uk-visible@m" >{{user.username}} </a></button>
+						</div>
+						<div class="uk-navbar-item after-login">
+							<button class="uk-button uk-button-text uk-button-small"><a href="{% url 'auth:logout' %}?next=/">logout</a></button>
+						</div>
+						{% else %}
+						<div class="uk-navbar-item before-login">
+							<button class="uk-button uk-button-text uk-button-small cf-login">login</button>
+						</div>
+						<div class="uk-navbar-item before-login">
+							<button class="uk-button uk-button-text uk-button-small cf-join">JOIN</button>
+						</div>
+						{% endif %}
+
 					</div>
 
-				</div>
-				<div class="uk-navbar-right uk-link-muted">
-					{% if user and not user.is_anonymous %}
-					<div class="uk-navbar-item uk-link-muted after-login">
 
-						<button class="uk-button uk-button-text uk-button-small user-link" value="{{user.id}}"><span uk-icon="icon: user"></span><a class="uk-margin-small-left hovercard-user uk-visible@m" >{{user.username}} </a></button>
-					</div>
-					<div class="uk-navbar-item after-login">
-						<button class="uk-button uk-button-text uk-button-small"><a href="{% url 'auth:logout' %}?next=/">logout</a></button>
-					</div>
-					{% else %}
-					<div class="uk-navbar-item before-login">
-						<button class="uk-button uk-button-text uk-button-small cf-login">login</button>
-					</div>
-					<div class="uk-navbar-item before-login">
-						<button class="uk-button uk-button-text uk-button-small cf-join">JOIN</button>
-					</div>
-					{% endif %}
-
-				</div>
-			</nav>
+				</nav>
+			</div>
 		</header>
 
-
-
-		<div class="uk-section uk-section-xsmall uk-section-default uk-padding-remove-top">
-			<div class="uk-container uk-container-medium uk-margin-left-small cf-container uk-padding-remove">
+		<div class="  uk-padding-remove-top">
+			<div class="uk-container uk-container-medium uk-margin-left-small uk-padding-remove">
 
 				<div class="uk-grid-small" uk-grid>
 					<div class="uk-width-14-20" >

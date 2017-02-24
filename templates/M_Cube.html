@@ -1,8 +1,10 @@
 {% load staticfiles %}
 
-{% if scroll_seq == 0 %}
+{% if scroll_seq == 0 and M_cube_type != "OH" and M_cube_type != "H" %}
+
 <!--## for single shell detail -->
 {% include "M_Modal.html" with M_modal_type="S"  %}
+
 <!--## first time load ##-->
 <div class="M-Cube " id="M_Cube" uk-grid>
 	<div style='display:none'>
@@ -101,7 +103,7 @@
 
 					{% else %}
 						{% if cube.cube_id != "0" %}
-						<!--### main CUBE ###-->
+						<!--### main CUBE ### type H -->
 						<li class ="cube-li cube uk-margin-small-bottom" value="{{cube.cube_id}}"  scrollseq="{{scroll_seq}}" >
 							<!--##target Shell LIST-->
 							<div class="target-shell-list" style="display:none" value="{{cube.target_shell_list}}"></div>
@@ -118,13 +120,13 @@
 													<span class="cube-title cf-article-title uk-margin-small-left uk-text-truncate uk-text-break " value="{{cube.cube_id}}" id="cube_title"  style="cursor:pointer" >{{cube.cube}}</span>
 												</div>
 												<div class="">
-													<button class="uk-button uk-button-default uk-button-mini update-cube-edit" type="button" style="display:none" >edit</button>
+													<button class="uk-button uk-button-default uk-button-mini uk-invisible-hover update-cube-edit " type="button" style="display:none" >edit</button>
 												</div>
 											</div>
-											<div class="uk-width-5-20 uk-flex uk-flex-inline uk-flex-right" >
-												<div class="uk-align-right cube-action">
-													<button class="uk-button uk-button-default uk-button-mini cube-show-all show-toggle hide-addshell" type="button" >show all</button>
-													<button class="uk-button uk-button-secondary uk-button-mini cube-add-shell" value="{{cube.cube_id}}" con="{{cube.connect_shell_count}}" >{{cube.connect_shell_count}}</button>
+											<div class="uk-width-5-20 " >
+												<div class="uk-align-right cube-action uk-flex uk-flex-inline uk-flex-right">
+													<button class="uk-button uk-button-default uk-button-mini cube-show-all show-toggle hide-addshell" type="button" style="display:none">show all</button>
+													<button class="uk-button uk-button-secondary uk-button-mini uk-margin-mini-left  cube-add-shell" value="{{cube.cube_id}}" con="{{cube.connect_shell_count}}" >{{cube.connect_shell_count}}</button>
 												</div>
 											</div>
 										</div>
